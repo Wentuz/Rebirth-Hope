@@ -1,0 +1,4 @@
+name: race2Szop
+version: '${project.version}'
+main: me.wentuziak.race2Szop.Race2Szop
+api-version: '1.21'
