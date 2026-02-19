@@ -8,6 +8,9 @@ public final class Race2Szop extends JavaPlugin {
     public void onEnable() {
 
         getLogger().info("@ Hope and Rebirth enabled");
+
+        getServer().getPluginManager().registerEvents(new EntityListener(), this);
+
         // Plugin startup logic
 
     }
