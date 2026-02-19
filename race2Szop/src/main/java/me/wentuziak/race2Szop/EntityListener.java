@@ -1,5 +1,7 @@
 package me.wentuziak.race2Szop;
 
+import me.wentuziak.race2Szop.Logic.Cooldowns;
+import me.wentuziak.race2Szop.attribute.AttributeManager;
 import org.bukkit.entity.Cow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +19,10 @@ public class EntityListener implements Listener {
         String str = "";
 
         if (event.getRightClicked() instanceof Cow){
-            AttributeManager.attributeManager(player,  "RACE_DWARF");
+
+            Cooldowns.startCooldownCountdown(player, 10);
+
+            AttributeManager.attributeManager(player,  "RACE_GATITO");
             str = "Cow";
         }else{
             AttributeManager.attributeManager(player);

@@ -1,4 +1,4 @@
-package me.wentuziak.race2Szop;
+package me.wentuziak.race2Szop.attribute;
 
 public class AttributeList {
     public enum Attribute {

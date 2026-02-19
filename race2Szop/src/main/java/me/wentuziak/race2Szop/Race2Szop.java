@@ -21,4 +21,8 @@ public final class Race2Szop extends JavaPlugin {
         getLogger().info("@ Hope and Rebirth disabled");
         // Plugin shutdown logic
     }
+
+    public static Race2Szop getInstance() {
+        return Race2Szop.getPlugin(Race2Szop.class);
+    }
 }
