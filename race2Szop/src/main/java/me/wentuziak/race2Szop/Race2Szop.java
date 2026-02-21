@@ -11,6 +11,8 @@ public final class Race2Szop extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
 
+        getCommand("rah").setExecutor(new CommandManager());
+
         // Plugin startup logic
 
     }

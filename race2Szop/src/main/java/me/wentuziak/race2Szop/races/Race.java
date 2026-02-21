@@ -11,5 +11,10 @@ public interface Race {
     // read skill input
     // lvl up
 
-
+    private int LevelUp(){
+        return 0;
+    }
+    private int LevelDown(){
+        return 0;
+    }
 }
