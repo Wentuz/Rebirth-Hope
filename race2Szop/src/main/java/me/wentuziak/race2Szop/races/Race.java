@@ -7,5 +7,9 @@ public interface Race {
     public Integer RaceLvl = null;
     public Double cooldownModifier = 1.0;
 
+    // TODO :
+    // read skill input
+    // lvl up
+
 
 }
