@@ -18,14 +18,12 @@ public class EntityListener implements Listener {
 
         String str = "";
 
-        if (event.getRightClicked() instanceof Cow){
+        if (event.getRightClicked() instanceof Cow && player.getPersistentDataContainer().has(RaceKeys.GATITO_RACE)){
 
             Cooldowns.startCooldownCountdown(player, 10);
 
-            AttributeManager.attributeManager(player,  "RACE_GATITO");
             str = "Cow";
         }else{
-            AttributeManager.attributeManager(player);
             str = "not Cow";
         }
         player.sendMessage(str);

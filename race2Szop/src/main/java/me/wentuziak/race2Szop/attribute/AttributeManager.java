@@ -102,7 +102,7 @@ public class AttributeManager {
 
         //multiply values "RACE_NAME"
         switch (raceName) {
-            case "RACE_GATITO" -> handleGatito();
+            case "GATITO_RACE" -> handleGatito();
 
             default -> handleUnknownRace(player);
         }
@@ -136,7 +136,7 @@ public class AttributeManager {
         playerKnockback = playerKnockback * 0.8; // to check if it should be inverted
         playerSafeFallRange = playerSafeFallRange * 1.25;
 
-        System.out.println("Handling Dwarf race...");
+        System.out.println("Handling Gatito ...");
     }
 
     static void handleUnknownRace(Player player) {

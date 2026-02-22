@@ -11,6 +11,7 @@ import org.jspecify.annotations.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static me.wentuziak.race2Szop.RaceKeys.getRaceList;
 import static me.wentuziak.race2Szop.commands.RaceChangeCommand.swapPlayerRace;
 
 public class CommandManager implements TabExecutor {
@@ -32,36 +33,33 @@ public class CommandManager implements TabExecutor {
         String usedCommand = args[0].toLowerCase();
 
         if (usedCommand.equals(changeRace)){
-
+            Player targetPlayer;
             switch (args.length) {
                 case 1:
                     sender.sendMessage("Too little arguments, provide Race");
                     return false;
                 case 2:
                     sender.sendMessage("case 2");
-
-                    return swapPlayerRace((Player) sender, args[1]);
-
+                    targetPlayer = (Player) sender;
+                    break;
                 case 3:
-                    Player targetPlayer = Bukkit.getPlayer(args[2]);
+                    targetPlayer = Bukkit.getPlayer(args[2]);
                     sender.sendMessage("case 3 " + args[2]);
 
                     if (targetPlayer == null || !(sender instanceof Player)) {
                         sender.sendMessage(ChatColor.RED + "Player not found: " + args[2]);
                         return false;
-                    }else {
-                        return swapPlayerRace(targetPlayer, args[1]);
                     }
+                    break;
 
                 default:
                     sender.sendMessage("Default error");
                     return false;
             }
 
-
-
-
-        }else{
+            return swapPlayerRace(targetPlayer, args[1]);
+        }
+        else{
             sender.sendMessage("get info " + usedCommand + " " + args.length);
 
         }
@@ -82,6 +80,9 @@ public class CommandManager implements TabExecutor {
             return java.util.Arrays.asList(
                     "swap", "info"
             );
+        }
+        if(args.length == 2){
+            return getRaceList();
         }
         if (args.length == 3) {
             List<String> playerNames = new ArrayList<>();
