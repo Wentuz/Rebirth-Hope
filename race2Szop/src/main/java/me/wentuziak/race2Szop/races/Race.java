@@ -1,5 +1,7 @@
 package me.wentuziak.race2Szop.races;
 
+import org.bukkit.entity.Player;
+
 public interface Race {
 
     public String name = "";
@@ -11,10 +13,18 @@ public interface Race {
     // read skill input
     // lvl up
 
-    private int LevelUp(){
+    private int levelUp(){
         return 0;
     }
-    private int LevelDown(){
+    private int levelDown(){
         return 0;
+    }
+
+    private boolean skillUse(){
+        return true;
+    }
+
+    public default boolean sendRaceInfo(Player player, int Id){
+        return true;
     }
 }

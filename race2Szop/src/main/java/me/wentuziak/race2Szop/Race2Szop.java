@@ -1,5 +1,6 @@
 package me.wentuziak.race2Szop;
 
+import me.wentuziak.race2Szop.commands.CommandManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Race2Szop extends JavaPlugin {
@@ -11,7 +12,7 @@ public final class Race2Szop extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
 
-        getCommand("rah").setExecutor(new CommandManager());
+        getCommand("szopRace").setExecutor(new CommandManager());
 
         // Plugin startup logic
 
