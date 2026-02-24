@@ -11,6 +11,7 @@ public final class Race2Szop extends JavaPlugin {
         getLogger().info("@ Hope and Rebirth enabled");
 
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerOnLogin(), this);
 
         getCommand("szopRace").setExecutor(new CommandManager());
 

@@ -13,14 +13,14 @@ public interface Race {
     // read skill input
     // lvl up
 
-    private int levelUp(){
+    public default int levelUp(){
         return 0;
     }
-    private int levelDown(){
+    public default int levelDown(){
         return 0;
     }
 
-    private boolean skillUse(){
+    public default boolean skillUse(){
         return true;
     }
 
