@@ -39,13 +39,10 @@ public class CommandManager implements TabExecutor {
                     sender.sendMessage("Too little arguments, provide Race");
                     return false;
                 case 2:
-                    sender.sendMessage("case 2");
                     targetPlayer = (Player) sender;
                     break;
                 case 3:
                     targetPlayer = Bukkit.getPlayer(args[2]);
-                    sender.sendMessage("case 3 " + args[2]);
-
                     if (targetPlayer == null || !(sender instanceof Player)) {
                         sender.sendMessage(ChatColor.RED + "Player not found: " + args[2]);
                         return false;
