@@ -102,7 +102,13 @@ public class AttributeManager {
 
         //multiply values "RACE_NAME"
         switch (raceName) {
+            case "GOAT_RACE" -> handleGoat();
             case "GATITO_RACE" -> handleGatito();
+            case "ENDERIAN_RACE" -> handleEnderian();
+            case "PARROT_RACE" -> handleParrot();
+            case "SKELETON_RACE" -> handleSkeleton();
+            case "MERFOLK_RACE" -> handleMerfolk();
+            case "NETHER_RACE" -> handleNetherRace();
 
             default -> handleUnknownRace(player);
         }
@@ -128,15 +134,51 @@ public class AttributeManager {
 
     // Attributes of all races
     static void handleGatito() {
-        playerMovementSpeed = playerMovementSpeed * 0.85;
-        playerHP = playerHP * 1.25;
-        playerScale = playerScale * 0.8;
-        playerMiningSpeed = playerMiningSpeed * 1.3;
-        playerFireTime = playerFireTime * 0.5;
-        playerKnockback = playerKnockback * 0.8; // to check if it should be inverted
-        playerSafeFallRange = playerSafeFallRange * 1.25;
+        playerMovementSpeed = playerMovementSpeed * 1.15;
+        playerHP = playerHP * 0.80;
+        playerScale = playerScale * 0.80;
+        playerGravity = playerGravity * 0.75;
+        playerKnockback = playerKnockback * 1.2; // to check if it should be inverted
 
         System.out.println("Handling Gatito ...");
+    }
+
+    static void handleGoat(){
+        playerSafeFallRange = playerSafeFallRange * 1.5;
+        playerMiningSpeed = playerMiningSpeed * 1.25;
+
+    }
+
+    static void handleEnderian(){
+        playerScale = playerScale * 1.5;
+        playerBlockReach = playerBlockReach * 1.25;
+        playerEntityReach = playerEntityReach * 1.25;
+        playerHP = playerHP * 1.5;
+    }
+
+    static void handleParrot(){
+        playerScale = playerScale * 0.7;
+        playerHP = playerHP * 0.75;
+        playerGravity = playerGravity * 0.5;
+        playerKnockback = playerKnockback * 0.5;
+        playerAttackSpeed = playerAttackSpeed * 1.10;
+    }
+
+    static void handleSkeleton(){
+        playerAttackDamage = playerAttackDamage * 3;
+        playerFireTime = playerFireTime * 2;
+        playerMovementSpeed = playerMovementSpeed * 1.1;
+        playerOxygenBonus = playerOxygenBonus * 3;
+    }
+    static void handleMerfolk(){
+        playerFireTime = playerFireTime * 5;
+        playerWaterSpeed = playerWaterSpeed * 2;
+        playerScale = playerScale * 0.9;
+    }
+    static void handleNetherRace(){
+        playerScale = playerScale * 1.1;
+        playerFireTime = playerFireTime * 0;
+        playerAttackSpeed = playerAttackSpeed * 1.25;
     }
 
     static void handleUnknownRace(Player player) {

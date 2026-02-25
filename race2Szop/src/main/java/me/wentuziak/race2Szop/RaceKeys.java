@@ -15,6 +15,12 @@ public class RaceKeys {
     public static final NamespacedKey MERFOLK_RACE = new NamespacedKey(Race2Szop.getInstance(), "MerfolkRace");
     public static final NamespacedKey NETHER_RACE = new NamespacedKey(Race2Szop.getInstance(), "NetherRace");
 
+    // race levels, remove when swapping race
+    // add when advancing
+    public static final NamespacedKey BASE_UPGRADE = new NamespacedKey(Race2Szop.getInstance(), "BaseUpgrade");
+    public static final NamespacedKey ADVANCED_UPGRADE = new NamespacedKey(Race2Szop.getInstance(), "AdvancedUpgrade");
+
+
     public static NamespacedKey[] getRaceKeys(){
         return new NamespacedKey[] {
                 BASIC_RACE,
