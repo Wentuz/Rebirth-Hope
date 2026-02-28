@@ -13,6 +13,7 @@ import java.util.List;
 
 import static me.wentuziak.race2Szop.RaceKeys.getRaceList;
 import static me.wentuziak.race2Szop.commands.RaceChangeCommand.swapPlayerRace;
+import static me.wentuziak.race2Szop.commands.RaceChangeCommand.unLoadRace;
 
 public class CommandManager implements TabExecutor {
 
@@ -24,6 +25,7 @@ public class CommandManager implements TabExecutor {
 
         String changeRace = "swap";
         String getInfo = "info";
+        String unloadRace = "unload";
 
         if (args.length < 1) {
             sender.sendMessage("Usage: /szoprace [command] [race] [player]");
@@ -56,10 +58,33 @@ public class CommandManager implements TabExecutor {
 
             return swapPlayerRace(targetPlayer, args[1]);
         }
-        else{
+        else if (usedCommand.equals(getInfo)){
             sender.sendMessage("get info " + usedCommand + " " + args.length);
+        }else{
+            Player targetPlayer;
+            switch (args.length) {
+                case 1:
+                    sender.sendMessage("Too little arguments, provide Race");
+                    return false;
+                case 2:
+                    targetPlayer = (Player) sender;
+                    break;
+                case 3:
+                    targetPlayer = Bukkit.getPlayer(args[2]);
+                    if (targetPlayer == null || !(sender instanceof Player)) {
+                        sender.sendMessage(ChatColor.RED + "Player not found: " + args[2]);
+                        return false;
+                    }
+                    break;
 
+                default:
+                    sender.sendMessage("Default error");
+                    return false;
+            }
+            unLoadRace(targetPlayer);
+            return true;
         }
+
 
         if (!sender.isOp()) {
             sender.sendMessage("Need op to use this command");

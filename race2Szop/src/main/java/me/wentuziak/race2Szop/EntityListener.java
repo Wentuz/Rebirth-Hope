@@ -2,6 +2,7 @@ package me.wentuziak.race2Szop;
 
 import me.wentuziak.race2Szop.Logic.Cooldowns;
 import me.wentuziak.race2Szop.attribute.AttributeManager;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Cow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,11 +11,16 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.event.player.PlayerToggleSprintEvent;
+import org.bukkit.persistence.PersistentDataContainer;
 
+import static me.wentuziak.race2Szop.RaceKeys.getPlayerRaceKey;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStop;
 
 public class EntityListener implements Listener {
+
+    PersistentDataContainer dataContainer;
+    NamespacedKey raceKey;
 
     @EventHandler
     public void onEntityRightClick(PlayerInteractEntityEvent event){
@@ -55,7 +61,19 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onPlayerSprint(PlayerToggleSprintEvent event){
+        Player player = event.getPlayer();
+        raceKey = getPlayerRaceKey(player);
+
+        if (raceKey == null) {
+            player.sendMessage("no key");
+
+            return;
+        }else {
+            player.sendMessage("has key : " + raceKey);
+        }
+
 
     }
+
 
 }
