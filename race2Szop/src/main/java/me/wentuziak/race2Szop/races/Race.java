@@ -1,12 +1,13 @@
 package me.wentuziak.race2Szop.races;
 
+import me.wentuziak.race2Szop.Logic.Cooldowns;
+import me.wentuziak.race2Szop.Logic.TaskManager;
+import me.wentuziak.race2Szop.RaceKeys;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 public interface Race {
 
-    public String name = "";
-    public NamespacedKey raceKey = null;
     public Integer id = null;
     public Double cooldownModifier = 1.0;
     public String levelMessage = "";
@@ -15,19 +16,31 @@ public interface Race {
     // read skill input
     // lvl up
 
-    public default int checkCurrentLevel(Player player){
+    public static int checkCurrentLevel(Player player){
 
-
+        if (player.getPersistentDataContainer().has(RaceKeys.BASIC_RACE)){
+            return 1;
+        } else if (player.getPersistentDataContainer().has(RaceKeys.ADVANCED_UPGRADE)) {
+            return 2;
+        }
 
         return 0;
+    }
+
+    public static NamespacedKey currentRaceKey(String keyString){
+        return RaceKeys.getKeyByName(keyString);
     }
 
     public default void sendLevelUpInfo(Player player, String levelMessage){
         player.sendMessage(levelMessage);
     }
 
-    public default boolean skillUse(){
-        return true;
+    public static void giveRaceCooldown(Player player, double cooldownModifier){
+        if (!Cooldowns.checkPlayerCooldown(player)){
+            Cooldowns.startCooldownCountdown(player, (int) (60 * cooldownModifier));
+        }
+
+        return;
     }
 
     public default boolean sendRaceInfo(Player player, int Id){

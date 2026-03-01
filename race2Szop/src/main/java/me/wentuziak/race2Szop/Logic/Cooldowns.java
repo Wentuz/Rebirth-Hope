@@ -4,6 +4,7 @@ import me.wentuziak.race2Szop.Race2Szop;
 import me.wentuziak.race2Szop.races.Race;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -16,8 +17,10 @@ public class Cooldowns {
     static BukkitTask cooldownTask;
 
     public static void startCooldownCountdown(Player player, int seconds) {
-        if (!TaskManager.isTaskRunning(player, "raceCooldown")) {
+        if (!checkPlayerCooldown(player)) {
             final Player finalPlayer = player;
+
+            finalPlayer.setCooldown(Material.WOLF_SPAWN_EGG, 20 * seconds);
 
             // Create and configure the boss bar
             BossBar bossBar = Bukkit.createBossBar(ChatColor.RED + "" + seconds + "s", BarColor.RED, BarStyle.SOLID);
@@ -43,7 +46,6 @@ public class Cooldowns {
                         cancel();
                         return;
                     }
-
                     // Update progress and title
                     double progress = (double) timeLeft / seconds;
                     bossBar.setProgress(progress);
@@ -53,6 +55,11 @@ public class Cooldowns {
             };
             cooldownTask.runTaskTimer(Race2Szop.getInstance(), 0, 20L); // 20 ticks = 1 second
         }
+    }
+
+
+    public static boolean checkPlayerCooldown(Player player){
+        return player.hasCooldown(Material.WOLF_SPAWN_EGG);
     }
 
 }

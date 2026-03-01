@@ -2,18 +2,18 @@ package me.wentuziak.race2Szop;
 
 import me.wentuziak.race2Szop.Logic.Cooldowns;
 import me.wentuziak.race2Szop.attribute.AttributeManager;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Cow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
-import org.bukkit.event.player.PlayerToggleSprintEvent;
+import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 
 import static me.wentuziak.race2Szop.RaceKeys.getPlayerRaceKey;
+import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStop;
 
@@ -71,6 +71,20 @@ public class EntityListener implements Listener {
         }else {
             player.sendMessage("has key : " + raceKey);
         }
+    }
+
+    @EventHandler
+    public void onPlayerSwapHand(PlayerSwapHandItemsEvent event){
+        Player player = event.getPlayer();
+        ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
+        ItemStack itemInOffHand = player.getInventory().getItemInOffHand();
+        raceKey = getPlayerRaceKey(player);
+
+        if (itemInMainHand.getType() == Material.AIR && itemInOffHand.getType() == Material.AIR
+                && raceKey != null) {
+            detectClapRace(player, raceKey);
+        }
+        return;
 
 
     }
