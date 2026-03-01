@@ -1,0 +1,11 @@
+name: race2Szop
+version: '${project.version}'
+main: me.wentuziak.race2Szop.Race2Szop
+api-version: '1.21'
+commands:
+  szopRace:
+    description: "Change players race"
+    usage: "/szoprace [command] [race] [player]"
+    aliases: [ race2szop ]
+    permissions: race2szop.command.szopRace
+    permission-message: "You do not have the permissions for race commands"
