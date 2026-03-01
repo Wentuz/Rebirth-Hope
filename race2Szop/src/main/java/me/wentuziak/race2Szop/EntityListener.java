@@ -14,6 +14,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 
 import static me.wentuziak.race2Szop.RaceKeys.getPlayerRaceKey;
 import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
+import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.playerMoved;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStop;
 
@@ -26,6 +27,8 @@ public class EntityListener implements Listener {
     public void onEntityRightClick(PlayerInteractEntityEvent event){
 
         Player player = event.getPlayer();
+        raceKey = getPlayerRaceKey(player);
+
         player.sendMessage("Clicked an entity :");
 
         String str = "";
@@ -44,18 +47,29 @@ public class EntityListener implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event){
         Player player = event.getPlayer();
+        raceKey = getPlayerRaceKey(player);
 
+        if (raceKey == null){
+            return;
+        }else{
+            playerMoved(player, raceKey);
+        }
 
     }
 
     @EventHandler
     public void onPlayerSneak(PlayerToggleSneakEvent event){
         Player player = event.getPlayer();
+        raceKey = getPlayerRaceKey(player);
+
+        if (raceKey == null){
+            return;
+        }
 
         if (!player.isSneaking()){
-            onSneakStart(player);
+            onSneakStart(player, raceKey);
         }else{
-            onSneakStop(player);
+            onSneakStop(player, raceKey);
         }
     }
 
@@ -85,9 +99,5 @@ public class EntityListener implements Listener {
             detectClapRace(player, raceKey);
         }
         return;
-
-
     }
-
-
 }
