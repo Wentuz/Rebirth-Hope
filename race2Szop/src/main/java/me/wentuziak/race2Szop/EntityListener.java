@@ -12,11 +12,13 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 
-import static me.wentuziak.race2Szop.RaceKeys.getPlayerRaceKey;
+import static me.wentuziak.race2Szop.RaceKeys.*;
 import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
 import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.playerMoved;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStop;
+import static me.wentuziak.race2Szop.races.Gatito.onGatitoEnterBed;
+import static me.wentuziak.race2Szop.races.Parrot.parrotSleep;
 
 public class EntityListener implements Listener {
 
@@ -99,5 +101,21 @@ public class EntityListener implements Listener {
             detectClapRace(player, raceKey);
         }
         return;
+    }
+
+    @EventHandler
+    public void onPlayerEnterBed(PlayerBedEnterEvent event){
+        Player player = event.getPlayer();
+        raceKey = getPlayerRaceKey(player);
+
+        if (raceKey == null){
+            return;
+        }
+
+        if (raceKey.equals(PARROT_RACE)){
+            parrotSleep(player);
+        }else if (raceKey.equals(GATITO_RACE)){
+            onGatitoEnterBed(player);
+        }
     }
 }
