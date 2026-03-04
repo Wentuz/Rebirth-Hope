@@ -4,8 +4,7 @@ import me.wentuziak.race2Szop.Logic.Cooldowns;
 import me.wentuziak.race2Szop.attribute.AttributeManager;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Cow;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
@@ -13,7 +12,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 
 import static me.wentuziak.race2Szop.RaceKeys.*;
+import static me.wentuziak.race2Szop.lootTables.LuckCalculator.getLuckLevel;
 import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
+import static me.wentuziak.race2Szop.playerEvents.PlayerFishingManager.onPlayerCatchFish;
 import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.playerMoved;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStop;
@@ -44,6 +45,28 @@ public class EntityListener implements Listener {
             str = "not Cow";
         }
         player.sendMessage(str);
+    }
+
+    @EventHandler
+    public void onPlayerFish(PlayerFishEvent event){
+
+        Player player = event.getPlayer();
+        raceKey = getPlayerRaceKey(player);
+
+        Projectile fishingBobber = event.getHook();
+
+
+
+        if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH){
+
+            Entity caught = event.getCaught();
+            if(caught instanceof Item){
+                ItemStack caughtFish = ((Item) caught).getItemStack();
+
+                caughtFish = onPlayerCatchFish(player, raceKey, caughtFish);
+                caughtFish.setAmount(10);
+            }
+        }
     }
 
     @EventHandler

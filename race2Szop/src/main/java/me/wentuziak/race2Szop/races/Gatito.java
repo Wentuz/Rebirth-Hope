@@ -25,6 +25,6 @@ public class Gatito implements Race{
     }
 
     public static void onGatitoFish(Player player){
-
+        player.sendMessage("Gatito fish");
     }
 }
