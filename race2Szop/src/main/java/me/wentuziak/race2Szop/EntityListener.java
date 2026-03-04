@@ -2,8 +2,10 @@ package me.wentuziak.race2Szop;
 
 import me.wentuziak.race2Szop.Logic.Cooldowns;
 import me.wentuziak.race2Szop.attribute.AttributeManager;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.Biome;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -55,15 +57,13 @@ public class EntityListener implements Listener {
 
         Projectile fishingBobber = event.getHook();
 
-
-
         if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH){
 
             Entity caught = event.getCaught();
             if(caught instanceof Item){
                 ItemStack caughtFish = ((Item) caught).getItemStack();
 
-                caughtFish = onPlayerCatchFish(player, raceKey, caughtFish);
+                caughtFish = onPlayerCatchFish(player, raceKey, caughtFish, Projectile fishingBobber);
                 caughtFish.setAmount(10);
             }
         }

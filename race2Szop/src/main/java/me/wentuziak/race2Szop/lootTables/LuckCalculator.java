@@ -26,4 +26,8 @@ public class LuckCalculator {
         return (int) luckAttribute.getValue() / 2;
     }
 
+    public static int randomInteger(int max){
+        return (int)(Math.random() * max);
+    }
+
 }
