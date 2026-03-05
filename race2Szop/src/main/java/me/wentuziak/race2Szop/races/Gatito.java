@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
 import static me.wentuziak.race2Szop.Logic.Effects.givePotionEffect;
+import static me.wentuziak.race2Szop.lootTables.LuckCalculator.getLuckLevel;
+import static me.wentuziak.race2Szop.lootTables.LuckCalculator.randomInteger;
 
 public class Gatito implements Race{
     NamespacedKey raceKey = Race.currentRaceKey("GATITO_RACE");
@@ -24,7 +26,7 @@ public class Gatito implements Race{
 
     }
 
-    public static void onGatitoFish(Player player){
-        player.sendMessage("Gatito fish");
+    public static int onGatitoFish(Player player){
+        return randomInteger(getLuckLevel(player) / 2);
     }
 }

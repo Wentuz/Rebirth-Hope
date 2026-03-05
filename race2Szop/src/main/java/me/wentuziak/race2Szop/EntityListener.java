@@ -63,8 +63,7 @@ public class EntityListener implements Listener {
             if(caught instanceof Item){
                 ItemStack caughtFish = ((Item) caught).getItemStack();
 
-                caughtFish = onPlayerCatchFish(player, raceKey, caughtFish, Projectile fishingBobber);
-                caughtFish.setAmount(10);
+                onPlayerCatchFish(player, raceKey, caughtFish, fishingBobber);
             }
         }
     }
