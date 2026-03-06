@@ -5,14 +5,17 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import static me.wentuziak.race2Szop.RaceKeys.ENDERIAN_RACE;
-import static me.wentuziak.race2Szop.lootTables.LuckCalculator.randomInteger;
 
-public class PlayerAttackManager {
+public class PlayerFoodManager {
 
-    public static void playerGetHurt(Player player, NamespacedKey raceKey){
+    public static void playerLooseHunger(Player player, NamespacedKey raceKey){
         if (raceKey.equals(ENDERIAN_RACE)){
-            if (randomInteger(5) == 1) Enderian.onPlayerHurt(player);
+            Enderian.onLooseHunger(player);
         }
+    }
+
+    public static void playerGainHunger(Player player, NamespacedKey raceKey){
+
     }
 
 }

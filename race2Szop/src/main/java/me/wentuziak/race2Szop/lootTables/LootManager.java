@@ -40,6 +40,12 @@ public class LootManager {
 
         return lootMaterial;
     }
+
+    public static Material getLootMaterial(Material material){
+        return material;
+    }
+
+
     private static Material getRandomMaterial(HashMap<Integer, Material> map) {
         List<Integer> keys = new ArrayList<>(map.keySet());
         int randomIndex = new Random().nextInt(keys.size());

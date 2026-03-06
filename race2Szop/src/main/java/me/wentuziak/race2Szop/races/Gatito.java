@@ -1,8 +1,10 @@
 package me.wentuziak.race2Szop.races;
 
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
 import static me.wentuziak.race2Szop.Logic.Effects.givePotionEffect;
@@ -24,6 +26,12 @@ public class Gatito implements Race{
 
     public static void onGatitoRide(Player player, LivingEntity rideableEntity){
 
+        ItemStack itemInHand = player.getInventory().getItemInMainHand();
+        ItemStack itemOffHand = player.getInventory().getItemInOffHand();
+
+        if ((itemInHand.getType() == Material.AIR) && (itemOffHand.getType() == Material.AIR)){
+            rideableEntity.addPassenger(player);
+        }
     }
 
     public static int onGatitoFish(Player player){

@@ -9,14 +9,20 @@ import org.bukkit.block.Biome;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 
 import static me.wentuziak.race2Szop.RaceKeys.*;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.getLuckLevel;
+import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.playerGetHurt;
 import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFishingManager.onPlayerCatchFish;
+import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerGainHunger;
+import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerLooseHunger;
+import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.playerRightClickLivingEntity;
 import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.playerMoved;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStop;
@@ -33,20 +39,17 @@ public class EntityListener implements Listener {
 
         Player player = event.getPlayer();
         raceKey = getPlayerRaceKey(player);
+        Entity clickedEntity = event.getRightClicked();
 
-        player.sendMessage("Clicked an entity :");
-
-        String str = "";
-
-        if (event.getRightClicked() instanceof Cow && player.getPersistentDataContainer().has(RaceKeys.GATITO_RACE)){
-
-            Cooldowns.startCooldownCountdown(player, 10);
-
-            str = "Cow";
+        if (raceKey == null){
+            return;
         }else{
-            str = "not Cow";
+            if (clickedEntity instanceof LivingEntity) {
+                playerRightClickLivingEntity(player, (LivingEntity) clickedEntity, raceKey);
+            }
+
         }
-        player.sendMessage(str);
+
     }
 
     @EventHandler
@@ -69,6 +72,21 @@ public class EntityListener implements Listener {
     }
 
     @EventHandler
+    public void onPlayerGetHurt(EntityDamageEvent event){
+        if (event.getEntity() instanceof Player){
+            Player player = (Player) event.getEntity();
+            raceKey = getPlayerRaceKey(player);
+
+            if (raceKey == null){
+                return;
+            }else{
+                playerGetHurt(player, raceKey);
+            }
+        }
+
+    }
+
+    @EventHandler
     public void onPlayerMove(PlayerMoveEvent event){
         Player player = event.getPlayer();
         raceKey = getPlayerRaceKey(player);
@@ -78,7 +96,6 @@ public class EntityListener implements Listener {
         }else{
             playerMoved(player, raceKey);
         }
-
     }
 
     @EventHandler
@@ -138,6 +155,29 @@ public class EntityListener implements Listener {
             parrotSleep(player);
         }else if (raceKey.equals(GATITO_RACE)){
             onGatitoEnterBed(player);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerChangeFoodLevel(FoodLevelChangeEvent event){
+        if (event.getEntity() instanceof Player){
+            Player player = (Player) event.getEntity();
+
+            int oldHunger = player.getFoodLevel();
+            int newHunger = event.getFoodLevel();
+
+            raceKey = getPlayerRaceKey(player);
+
+            if (raceKey == null){
+                return;
+            }
+            if (oldHunger > newHunger){
+                playerLooseHunger(player, raceKey);
+            }else {
+                playerGainHunger(player, raceKey);
+            }
+
+
         }
     }
 }
