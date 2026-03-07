@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Random;
 
 import static me.wentuziak.race2Szop.lootTables.FishingLoot.*;
+import static me.wentuziak.race2Szop.lootTables.MiningLoot.miningNetherrack;
+import static me.wentuziak.race2Szop.lootTables.MiningLoot.miningRocks;
 
 public class LootManager {
 
@@ -42,6 +44,13 @@ public class LootManager {
     }
 
     public static Material getLootMaterial(Material material){
+        if (material.equals(Material.GRANITE) || material.equals(Material.ANDESITE) || material.equals(Material.DIORITE)){
+            return getRandomMaterial(miningRocks);
+        } else if (material.equals(Material.NETHERRACK)) {
+            return getRandomMaterial(miningNetherrack);
+        }
+
+
         return material;
     }
 

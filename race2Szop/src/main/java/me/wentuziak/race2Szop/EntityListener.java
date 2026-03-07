@@ -2,13 +2,17 @@ package me.wentuziak.race2Szop;
 
 import me.wentuziak.race2Szop.Logic.Cooldowns;
 import me.wentuziak.race2Szop.attribute.AttributeManager;
+import me.wentuziak.race2Szop.playerEvents.PlayerBreakBlockManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Biome;
+import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.*;
@@ -18,6 +22,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import static me.wentuziak.race2Szop.RaceKeys.*;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.getLuckLevel;
 import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.playerGetHurt;
+import static me.wentuziak.race2Szop.playerEvents.PlayerBreakBlockManager.breakBlockManager;
 import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFishingManager.onPlayerCatchFish;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerGainHunger;
@@ -38,18 +43,17 @@ public class EntityListener implements Listener {
     public void onEntityRightClick(PlayerInteractEntityEvent event){
 
         Player player = event.getPlayer();
-        raceKey = getPlayerRaceKey(player);
         Entity clickedEntity = event.getRightClicked();
 
-        if (raceKey == null){
-            return;
-        }else{
-            if (clickedEntity instanceof LivingEntity) {
-                playerRightClickLivingEntity(player, (LivingEntity) clickedEntity, raceKey);
-            }
 
-        }
-
+//        if (event.getRightClicked() instanceof Player) {
+//            Player clickedPlayer = (Player) event.getRightClicked();
+//            raceKey = getPlayerRaceKey(clickedPlayer);
+//            if (raceKey == null){
+//                return;
+//            }
+//            playerRightClickLivingEntity(player, (LivingEntity) clickedPlayer, raceKey);
+//        }
     }
 
     @EventHandler
@@ -113,6 +117,50 @@ public class EntityListener implements Listener {
             onSneakStop(player, raceKey);
         }
     }
+
+//    @EventHandler
+//    public void onPlayerBreakBlock(BlockBreakEvent event){
+//        Player player = event.getPlayer();
+//        ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
+//        ItemStack itemInOffHand = player.getInventory().getItemInOffHand();
+//        raceKey = getPlayerRaceKey(player);
+//
+//        if (itemInMainHand.getType() == Material.AIR && itemInOffHand.getType() == Material.AIR
+//                && raceKey != null) {
+//            player.sendMessage("stop at 1");
+//            return;
+//        }
+//        Block block = event.getBlock();
+//        Material drop =  block.getType();
+//
+//        player.sendMessage(drop + "");
+//        block.setType(Material.ACACIA_BOAT);
+//        //breakBlockManager(player, drop, raceKey, event.getBlock());
+//    }
+
+    @EventHandler
+    public void onPlayerBreakBlockDropItem(BlockDropItemEvent event){
+        Player player = event.getPlayer();
+        ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
+        ItemStack itemInOffHand = player.getInventory().getItemInOffHand();
+        raceKey = getPlayerRaceKey(player);
+
+        if (itemInMainHand.getType() == Material.AIR && itemInOffHand.getType() == Material.AIR
+                && raceKey != null) {
+            player.sendMessage("stop at 1");
+            return;
+        }
+
+
+        //Block block = event.getBlock();
+        //ItemStack drop =  block;
+
+        player.sendMessage(event.getItems() + "");
+        //block.setType(Material.ACACIA_BOAT);
+        //breakBlockManager(player, drop, raceKey, event.getBlock());
+    }
+
+
 
     @EventHandler
     public void onPlayerSprint(PlayerToggleSprintEvent event){
