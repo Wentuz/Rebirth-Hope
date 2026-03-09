@@ -6,25 +6,39 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import static me.wentuziak.race2Szop.Logic.GetItemCategories.isHoe;
 import static me.wentuziak.race2Szop.Logic.GetItemCategories.isPickaxe;
-import static me.wentuziak.race2Szop.lootTables.LootManager.getLootMaterial;
+import static me.wentuziak.race2Szop.lootTables.LootManager.*;
+import static me.wentuziak.race2Szop.lootTables.LuckCalculator.*;
 
 public class PlayerBreakBlockManager {
 
-    public static ItemStack breakBlockManager(Player player, ItemStack drop, NamespacedKey raceKey, Block brokenBlock){
-
+    public static ItemStack breakBlockManager(Player player, ItemStack drop, NamespacedKey raceKey, Material brokenBlock){
         ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
-        Material material = brokenBlock.getType();
-        
+        Material finalDrop = brokenBlock;
+        // TODO :
+        // > check Goat race for drops from leaves
+        // > add toolKey for all drops
 
-        if (isPickaxe(itemInMainHand.getType())){
-            material = getLootMaterial(material);
-            player.sendMessage("stop at 3");
+        //randomInteger(5)
+        if (0 >= getHandLuck(itemInMainHand)){
+
+            if (isPickaxe(itemInMainHand.getType())){
+                brokenBlock = getPickAxeLootMaterial(brokenBlock);
+            } else if (isHoe(itemInMainHand.getType())) {
+                brokenBlock = getHoeLootMaterial(brokenBlock);
+            }
+
+            //check for errors
+            if (finalDrop.equals(brokenBlock)) return drop;
+
+            drop.setAmount(drop.getAmount() + getHandLuck(itemInMainHand));
+
+            drop.setType(brokenBlock);
 
         }
-        
-        drop.setType(material);
-        player.sendMessage("stop at 4");
+
+
 
         return drop;
     }

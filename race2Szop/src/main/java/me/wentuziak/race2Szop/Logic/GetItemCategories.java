@@ -71,6 +71,16 @@ public class GetItemCategories {
             Material.NETHERITE_PICKAXE
     );
 
+    public static final Set<Material> HOES = EnumSet.of(
+            Material.WOODEN_HOE,
+            Material.STONE_HOE,
+            Material.IRON_HOE,
+            Material.GOLDEN_HOE,
+            Material.DIAMOND_HOE,
+            Material.NETHERITE_HOE
+    );
+
+
     public static final Set<Material> FOODS = EnumSet.of(
             Material.BREAD,
             Material.CAKE,
@@ -95,6 +105,10 @@ public class GetItemCategories {
 
     public static boolean isPickaxe(Material material) {
         return PICKAXES.contains(material);
+    }
+
+    public static boolean isHoe(Material material) {
+        return HOES.contains(material);
     }
 
     public static boolean isHelmet(Material material) {

@@ -21,6 +21,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 
 import static me.wentuziak.race2Szop.RaceKeys.*;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.getLuckLevel;
+import static me.wentuziak.race2Szop.lootTables.LuckCalculator.randomInteger;
 import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.playerGetHurt;
 import static me.wentuziak.race2Szop.playerEvents.PlayerBreakBlockManager.breakBlockManager;
 import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
@@ -145,19 +146,21 @@ public class EntityListener implements Listener {
         ItemStack itemInOffHand = player.getInventory().getItemInOffHand();
         raceKey = getPlayerRaceKey(player);
 
+
         if (itemInMainHand.getType() == Material.AIR && itemInOffHand.getType() == Material.AIR
                 && raceKey != null) {
-            player.sendMessage("stop at 1");
             return;
         }
 
+        if (event.getItems().isEmpty()){
+            return;
+        }
 
-        //Block block = event.getBlock();
-        //ItemStack drop =  block;
+        ItemStack drop =  event.getItems().getFirst().getItemStack();
 
-        player.sendMessage(event.getItems() + "");
-        //block.setType(Material.ACACIA_BOAT);
-        //breakBlockManager(player, drop, raceKey, event.getBlock());
+        breakBlockManager(player, drop, raceKey, event.getBlockState().getType());
+
+
     }
 
 

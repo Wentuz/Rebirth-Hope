@@ -13,7 +13,7 @@ public class LuckCalculator {
                 + getLuckAttribute(player);
     }
 
-    private static int getHandLuck(ItemStack itemStack) {
+    public static int getHandLuck(ItemStack itemStack) {
         int lootingLvl = itemStack.getEnchantmentLevel(Enchantment.LOOTING);
         int fortuneLvl = itemStack.getEnchantmentLevel(Enchantment.FORTUNE);
         int luckOfSeaLvl = itemStack.getEnchantmentLevel(Enchantment.LUCK_OF_THE_SEA);

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import static me.wentuziak.race2Szop.lootTables.CropsLoot.grassLoot;
 import static me.wentuziak.race2Szop.lootTables.FishingLoot.*;
 import static me.wentuziak.race2Szop.lootTables.MiningLoot.miningNetherrack;
 import static me.wentuziak.race2Szop.lootTables.MiningLoot.miningRocks;
@@ -43,14 +44,23 @@ public class LootManager {
         return lootMaterial;
     }
 
-    public static Material getLootMaterial(Material material){
+    public static Material getPickAxeLootMaterial(Material material){
         if (material.equals(Material.GRANITE) || material.equals(Material.ANDESITE) || material.equals(Material.DIORITE)){
             return getRandomMaterial(miningRocks);
         } else if (material.equals(Material.NETHERRACK)) {
             return getRandomMaterial(miningNetherrack);
         }
-
-
+        return material;
+    }
+    public static Material getHoeLootMaterial(Material material){
+        if (material.equals(Material.SHORT_GRASS) || material.equals(Material.TALL_GRASS)
+                || material.equals(Material.FERN) || material.equals(Material.TALL_DRY_GRASS)
+                || material.equals(Material.SHORT_DRY_GRASS) || material.equals(Material.LARGE_FERN)
+                || material.equals(Material.BUSH)){
+            return getRandomMaterial(grassLoot);
+        } else if (material.equals(Material.NETHERRACK)) {
+            return getRandomMaterial(miningNetherrack);
+        }
         return material;
     }
 
