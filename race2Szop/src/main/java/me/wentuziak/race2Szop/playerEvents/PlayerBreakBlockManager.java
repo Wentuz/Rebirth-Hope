@@ -21,7 +21,7 @@ public class PlayerBreakBlockManager {
         // > add toolKey for all drops
 
         //randomInteger(5)
-        if (0 >= getHandLuck(itemInMainHand)){
+        if (0 <= getHandLuck(itemInMainHand)){
 
             if (isPickaxe(itemInMainHand.getType())){
                 brokenBlock = getPickAxeLootMaterial(brokenBlock);
@@ -32,7 +32,9 @@ public class PlayerBreakBlockManager {
             //check for errors
             if (finalDrop.equals(brokenBlock)) return drop;
 
-            drop.setAmount(drop.getAmount() + getHandLuck(itemInMainHand));
+            if (!(brokenBlock.equals(Material.COBBLESTONE))){
+                drop.setAmount(drop.getAmount() + randomInteger(getLuckLevel(player)));
+            }
 
             drop.setType(brokenBlock);
 

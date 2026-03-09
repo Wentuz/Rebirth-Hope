@@ -14,7 +14,8 @@ public class GetItemCategories {
             Material.GOLDEN_HELMET,
             Material.DIAMOND_HELMET,
             Material.NETHERITE_HELMET,
-            Material.TURTLE_HELMET
+            Material.TURTLE_HELMET,
+            Material.COPPER_HELMET
     );
 
     public static final Set<Material> BODY_ITEMS = EnumSet.of(
@@ -23,7 +24,8 @@ public class GetItemCategories {
             Material.IRON_CHESTPLATE,
             Material.GOLDEN_CHESTPLATE,
             Material.DIAMOND_CHESTPLATE,
-            Material.NETHERITE_CHESTPLATE
+            Material.NETHERITE_CHESTPLATE,
+            Material.COPPER_CHESTPLATE
     );
 
     public static final Set<Material> LEGS_ITEMS = EnumSet.of(
@@ -32,7 +34,8 @@ public class GetItemCategories {
             Material.IRON_LEGGINGS,
             Material.GOLDEN_LEGGINGS,
             Material.DIAMOND_LEGGINGS,
-            Material.NETHERITE_LEGGINGS
+            Material.NETHERITE_LEGGINGS,
+            Material.COPPER_LEGGINGS
     );
 
     public static final Set<Material> BOOTS_ITEMS = EnumSet.of(
@@ -41,7 +44,8 @@ public class GetItemCategories {
             Material.IRON_BOOTS,
             Material.GOLDEN_BOOTS,
             Material.DIAMOND_BOOTS,
-            Material.NETHERITE_BOOTS
+            Material.NETHERITE_BOOTS,
+            Material.COPPER_BOOTS
     );
 
     public static final Set<Material> SWORDS = EnumSet.of(
@@ -50,7 +54,8 @@ public class GetItemCategories {
             Material.IRON_SWORD,
             Material.GOLDEN_SWORD,
             Material.DIAMOND_SWORD,
-            Material.NETHERITE_SWORD
+            Material.NETHERITE_SWORD,
+            Material.COPPER_SWORD
     );
 
     public static final Set<Material> AXES = EnumSet.of(
@@ -59,7 +64,8 @@ public class GetItemCategories {
             Material.IRON_AXE,
             Material.GOLDEN_AXE,
             Material.DIAMOND_AXE,
-            Material.NETHERITE_AXE
+            Material.NETHERITE_AXE,
+            Material.COPPER_AXE
     );
 
     public static final Set<Material> PICKAXES = EnumSet.of(
@@ -68,7 +74,9 @@ public class GetItemCategories {
             Material.IRON_PICKAXE,
             Material.GOLDEN_PICKAXE,
             Material.DIAMOND_PICKAXE,
-            Material.NETHERITE_PICKAXE
+            Material.NETHERITE_PICKAXE,
+            Material.COPPER_PICKAXE
+
     );
 
     public static final Set<Material> HOES = EnumSet.of(
@@ -77,7 +85,9 @@ public class GetItemCategories {
             Material.IRON_HOE,
             Material.GOLDEN_HOE,
             Material.DIAMOND_HOE,
-            Material.NETHERITE_HOE
+            Material.NETHERITE_HOE,
+            Material.COPPER_HOE
+
     );
 
 
