@@ -22,11 +22,15 @@ public class PlayerBreakBlockManager {
         if (randomInteger(10) <= getHandLuck(itemInMainHand)){
 
             if (isPickaxe(itemInMainHand.getType())){
+                //TODO:
+                //pickaxe more loot from ores
                 brokenBlock = getPickAxeLootMaterial(brokenBlock);
             } else if (isHoe(itemInMainHand.getType())) {
                 brokenBlock = getHoeLootMaterial(brokenBlock);
             } else if (isAxe(itemInMainHand.getType())) {
                 brokenBlock = getAxeLootMaterial(brokenBlock);
+            } else if (isShovel(itemInMainHand.getType())) {
+                brokenBlock = getShovelLootMaterial(brokenBlock);
             }
 
 
@@ -37,7 +41,10 @@ public class PlayerBreakBlockManager {
                 return drop;
             }
 
-            if (!((brokenBlock.equals(Material.COBBLESTONE)) || isAxe(itemInMainHand.getType()))){
+            // how much of loot drops
+            if (isShovel(itemInMainHand.getType())){
+                drop.setAmount(1 + randomInteger(getHandLuck(itemInMainHand)));
+            } else if (!((brokenBlock.equals(Material.COBBLESTONE)) || isAxe(itemInMainHand.getType()))){
                 drop.setAmount(drop.getAmount() + randomInteger(getLuckLevel(player) / 2));
             }
 

@@ -11,8 +11,7 @@ import java.util.Random;
 
 import static me.wentuziak.race2Szop.lootTables.CropsLoot.grassLoot;
 import static me.wentuziak.race2Szop.lootTables.FishingLoot.*;
-import static me.wentuziak.race2Szop.lootTables.MiningLoot.miningNetherrack;
-import static me.wentuziak.race2Szop.lootTables.MiningLoot.miningRocks;
+import static me.wentuziak.race2Szop.lootTables.MiningLoot.*;
 
 public class LootManager {
 
@@ -52,6 +51,17 @@ public class LootManager {
         }
         return material;
     }
+
+    public static Material getShovelLootMaterial(Material material){
+        return switch (material) {
+            case Material.SAND -> getRandomMaterial(miningSand);
+            case Material.GRAVEL -> getRandomMaterial(miningGravel);
+            case Material.DIRT -> getRandomMaterial(miningDirt);
+
+            default -> material;
+        };
+    }
+
     public static Material getHoeLootMaterial(Material material){
         if (material.equals(Material.SHORT_GRASS) || material.equals(Material.TALL_GRASS)
                 || material.equals(Material.FERN) || material.equals(Material.TALL_DRY_GRASS)

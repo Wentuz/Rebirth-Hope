@@ -91,6 +91,18 @@ public class GetItemCategories {
     );
 
 
+    public static final Set<Material> SHOVELS = EnumSet.of(
+            Material.WOODEN_SHOVEL,
+            Material.STONE_SHOVEL,
+            Material.IRON_SHOVEL,
+            Material.GOLDEN_SHOVEL,
+            Material.DIAMOND_SHOVEL,
+            Material.NETHERITE_SHOVEL,
+            Material.COPPER_SHOVEL
+
+    );
+
+
     public static final Set<Material> FOODS = EnumSet.of(
             Material.BREAD,
             Material.CAKE,
@@ -107,6 +119,10 @@ public class GetItemCategories {
 
     public static boolean isSword(Material material) {
         return SWORDS.contains(material);
+    }
+
+    public static boolean isShovel(Material material) {
+        return SHOVELS.contains(material);
     }
 
     public static boolean isAxe(Material material) {
