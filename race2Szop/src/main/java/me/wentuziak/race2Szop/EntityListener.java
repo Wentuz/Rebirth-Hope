@@ -156,11 +156,16 @@ public class EntityListener implements Listener {
             return;
         }
 
+        //TODO :
+        // age verification for crops
+        
         ItemStack drop =  event.getItems().getFirst().getItemStack();
+        ItemStack lastDrop =  event.getItems().getLast().getItemStack();
 
+        if (!lastDrop.equals(drop)){
+            breakBlockManager(player, lastDrop, raceKey, event.getBlockState().getType());
+        }
         breakBlockManager(player, drop, raceKey, event.getBlockState().getType());
-
-
     }
 
 

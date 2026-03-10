@@ -6,8 +6,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import static me.wentuziak.race2Szop.Logic.GetItemCategories.isHoe;
-import static me.wentuziak.race2Szop.Logic.GetItemCategories.isPickaxe;
+import static me.wentuziak.race2Szop.Logic.GetItemCategories.*;
 import static me.wentuziak.race2Szop.lootTables.LootManager.*;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.*;
 
@@ -20,24 +19,29 @@ public class PlayerBreakBlockManager {
         // > check Goat race for drops from leaves
         // > add toolKey for all drops
 
-        //randomInteger(5)
-        if (0 <= getHandLuck(itemInMainHand)){
+        if (randomInteger(10) <= getHandLuck(itemInMainHand)){
 
             if (isPickaxe(itemInMainHand.getType())){
                 brokenBlock = getPickAxeLootMaterial(brokenBlock);
             } else if (isHoe(itemInMainHand.getType())) {
                 brokenBlock = getHoeLootMaterial(brokenBlock);
+            } else if (isAxe(itemInMainHand.getType())) {
+                brokenBlock = getAxeLootMaterial(brokenBlock);
             }
 
-            //check for errors
-            if (finalDrop.equals(brokenBlock)) return drop;
 
-            if (!(brokenBlock.equals(Material.COBBLESTONE))){
-                drop.setAmount(drop.getAmount() + randomInteger(getLuckLevel(player)));
+            //check for errors or not valid drops, excluding crops
+            if (finalDrop.equals(brokenBlock) &&
+                    !(finalDrop.equals(Material.WHEAT) || finalDrop.equals(Material.CARROTS)
+                    || finalDrop.equals(Material.POTATOES)) || finalDrop.equals(Material.BEETROOTS)) {
+                return drop;
+            }
+
+            if (!((brokenBlock.equals(Material.COBBLESTONE)) || isAxe(itemInMainHand.getType()))){
+                drop.setAmount(drop.getAmount() + randomInteger(getLuckLevel(player) / 2));
             }
 
             drop.setType(brokenBlock);
-
         }
 
 
