@@ -1,5 +1,6 @@
 package me.wentuziak.race2Szop;
 
+import me.wentuziak.race2Szop.items.ItemRecipes;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -16,6 +17,8 @@ public class PlayerOnLogin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
+
+        ItemRecipes.getRecipeKeys().forEach(player::discoverRecipe);
 
         if(player.hasPlayedBefore()){
                 PersistentDataContainer dataContainer = player.getPersistentDataContainer();
