@@ -39,6 +39,23 @@ public class ItemRecipes {
         quickPickRecipe.setIngredient('U', Material.NETHERITE_UPGRADE_SMITHING_TEMPLATE);
         Bukkit.addRecipe(quickPickRecipe);
 
+
+        //
+        //      Hasty Pick Recipe
+        //
+        ItemStack luckyPick = ItemCrafting.createLuckyPick();
+        key = new NamespacedKey(Race2Szop.getInstance(), "LuckyPickRecipe");
+        recipeKeys.add(key);
+
+        ShapedRecipe luckyPickRecipe = new ShapedRecipe(key, luckyPick);
+        luckyPickRecipe.shape(
+                "NDN",
+                " E ",
+                " E ");
+        luckyPickRecipe.setIngredient('E', Material.END_ROD);
+        luckyPickRecipe.setIngredient('N', Material.NETHERITE_INGOT);
+        luckyPickRecipe.setIngredient('D', Material.DRAGON_BREATH);
+        Bukkit.addRecipe(luckyPickRecipe);
     }
 
 

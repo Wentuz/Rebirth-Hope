@@ -1,10 +1,14 @@
 package me.wentuziak.race2Szop.Logic;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+
+import static org.bukkit.Bukkit.getServer;
 
 public class Checkers {
 
@@ -18,6 +22,11 @@ public class Checkers {
         if (player.isInWater()) return true;
         if (!player.getWorld().hasStorm() && !player.getWorld().isThundering()) return false;
         return !isPlayerHiddenFromSun((Player) player);
+    }
+
+    public static boolean isDaytime(World world) {
+        long time = world.getTime();
+        return time >= 0 && time < 12000;
     }
 
     public static boolean isPlayerHiddenFromSun(Player player){
