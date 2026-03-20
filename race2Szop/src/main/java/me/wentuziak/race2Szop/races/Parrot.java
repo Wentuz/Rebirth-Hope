@@ -14,8 +14,12 @@ import static me.wentuziak.race2Szop.actions.MovementActions.*;
 public class Parrot implements Race {
     NamespacedKey raceKey = Race.currentRaceKey("PARROT_RACE");
 
-    public static void parrotFood(Player player){
-
+    public static void parrotFood(Player player, Material food){
+        switch(food){
+            case Material.COOKIE -> givePotionEffect(player, PotionEffectType.WITHER, 15, 0);
+            case Material.APPLE -> givePotionEffect(player, PotionEffectType.REGENERATION, 10, 0);
+            case Material.MELON -> givePotionEffect(player, PotionEffectType.SPEED, 30, 0);
+        }
     }
 
     public static void parrotFly(Player player){

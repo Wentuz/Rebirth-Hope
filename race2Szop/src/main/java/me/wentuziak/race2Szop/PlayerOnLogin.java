@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import static me.wentuziak.race2Szop.RaceKeys.getPlayerRaceKey;
 import static me.wentuziak.race2Szop.attribute.AttributeManager.attributeManager;
 
 public class PlayerOnLogin implements Listener {
@@ -41,5 +42,21 @@ public class PlayerOnLogin implements Listener {
     private boolean playerFirstJoin(Player player){
         return true;
     }
+
+    public static NamespacedKey retrievePlayerRaceKey(Player player){
+        NamespacedKey raceKey = getKey();
+
+
+
+        if (raceKey != null) return getPlayerRaceKey(player);
+        else{
+            return null;
+        }
+    }
+
+    private static NamespacedKey getKey(){
+        return null;
+    }
+
 
 }
