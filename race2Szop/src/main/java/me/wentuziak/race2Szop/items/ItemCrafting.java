@@ -28,7 +28,9 @@ import static org.bukkit.Bukkit.getLogger;
 
 public class ItemCrafting {
 
-
+     //------------------------------------------------------------------------------------
+     //                                     PICKAXES
+     //------------------------------------------------------------------------------------
 
     @SuppressWarnings("deprecation")
     public static ItemStack createLuckyPick(){
@@ -51,18 +53,97 @@ public class ItemCrafting {
     }
 
     public static ItemStack createQuickPick(){
-        ItemStack quickPick = new ItemStack(Material.DIAMOND_PICKAXE);
-        ItemMeta quickPickMeta = quickPick.getItemMeta();
+        ItemStack item = new ItemStack(Material.DIAMOND_PICKAXE);
+        ItemMeta itemMeta = item.getItemMeta();
 
-        assert quickPickMeta != null;
-        quickPickMeta.setDisplayName(ChatColor.GOLD + "Quick Pick");
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.GOLD + "Quick Pick");
 
-        quickPickMeta.addAttributeModifier(Attribute.BLOCK_BREAK_SPEED, handMiningBonusAttribute);
-        quickPickMeta.addAttributeModifier(Attribute.ATTACK_SPEED, handAttackSpeedPPickaxeAttribute);
-        quickPickMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, handAttackDamage5Attribute);
+        itemMeta.addAttributeModifier(Attribute.BLOCK_BREAK_SPEED, handMiningBonusAttribute);
+        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED, handAttackSpeedPPickaxeAttribute);
+        itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, handAttackDamage5Attribute);
 
-        quickPick.setItemMeta(quickPickMeta);
+        item.setItemMeta(itemMeta);
 
-        return quickPick;
+        return item;
     }
+
+    //------------------------------------------------------------------------------------
+    //                                     AXES
+    //------------------------------------------------------------------------------------
+
+    public static ItemStack createQuickAxe(){
+        ItemStack item = new ItemStack(Material.DIAMOND_AXE);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.GOLD + "Quick Axe");
+
+        itemMeta.addAttributeModifier(Attribute.BLOCK_BREAK_SPEED, handMiningBonusAttribute);
+        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED, handAttackSpeedOneAttribute);
+        itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, handAttackDamage9Attribute);
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+    public static ItemStack createLuckyAxe(){
+        ItemStack item = new ItemStack(Material.NETHERITE_AXE);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.DARK_PURPLE + "Lucky Axe");
+
+        itemMeta.addAttributeModifier(Attribute.LUCK, handLuckAttribute);
+        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED, handAttackSpeedOneAttribute);
+        itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, handAttackDamage9Attribute);
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+
+    //------------------------------------------------------------------------------------
+    //                                     HOES
+    //------------------------------------------------------------------------------------
+
+    public static ItemStack createLuckyHoe(){
+        ItemStack item = new ItemStack(Material.NETHERITE_HOE);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.DARK_PURPLE + "Lucky Hoe");
+
+        itemMeta.addAttributeModifier(Attribute.LUCK, handLuckAttribute);
+        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED, handAttackSpeedOneAttribute);
+        itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, handAttackDamage4Attribute);
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+
+    //------------------------------------------------------------------------------------
+    //                                     SHOVELS
+    //------------------------------------------------------------------------------------
+
+    public static ItemStack createLuckyShovel(){
+        ItemStack item = new ItemStack(Material.NETHERITE_SHOVEL);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.DARK_PURPLE + "Lucky Shovel");
+
+        itemMeta.addAttributeModifier(Attribute.LUCK, handLuckAttribute);
+        itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED, handAttackSpeedOneAttribute);
+        itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, handAttackDamage4Attribute);
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+
+    //------------------------------------------------------------------------------------
+    //                                     SWORDS
+    //------------------------------------------------------------------------------------
 }

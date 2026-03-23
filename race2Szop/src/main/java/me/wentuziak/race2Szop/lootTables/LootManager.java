@@ -49,7 +49,19 @@ public class LootManager {
         } else if (material.equals(Material.NETHERRACK)) {
             return getRandomMaterial(miningNetherrack);
         }
-        return material;
+        return switch (material) {
+            case Material.COAL_ORE, Material.DEEPSLATE_COAL_ORE -> Material.COAL;
+            case Material.COPPER_ORE, Material.DEEPSLATE_COPPER_ORE -> Material.RAW_COPPER;
+            case Material.IRON_ORE, Material.DEEPSLATE_IRON_ORE -> Material.RAW_IRON;
+            case Material.GOLD_ORE, Material.DEEPSLATE_GOLD_ORE, Material.NETHER_GOLD_ORE -> Material.RAW_GOLD;
+            case Material.REDSTONE_ORE, Material.DEEPSLATE_REDSTONE_ORE -> Material.REDSTONE_WIRE;
+            case Material.DIAMOND_ORE, Material.DEEPSLATE_DIAMOND_ORE -> Material.DIAMOND;
+            case Material.LAPIS_ORE, Material.DEEPSLATE_LAPIS_ORE -> Material.LAPIS_LAZULI;
+            case Material.EMERALD_ORE, Material.DEEPSLATE_EMERALD_ORE -> Material.EMERALD;
+            case Material.NETHER_QUARTZ_ORE -> Material.QUARTZ;
+
+            default -> material;
+        };
     }
 
     public static Material getShovelLootMaterial(Material material){

@@ -21,6 +21,7 @@ public class getToolModifiers {
     public static final AttributeModifier handAttackSpeedSwordAttribute = getAttackSpeedSwordModifier();
     public static final AttributeModifier handAttackSpeedPPickaxeAttribute = getAttackSpeedPickaxeModifier();
 
+    public static final AttributeModifier handAttackDamage4Attribute = getAttackDamage4Modifier();
     public static final AttributeModifier handAttackDamage5Attribute = getAttackDamage5Modifier();
     public static final AttributeModifier handAttackDamage6Attribute = getAttackDamage6Modifier();
     public static final AttributeModifier handAttackDamage7Attribute = getAttackDamage7Modifier();
@@ -90,7 +91,7 @@ public class getToolModifiers {
     private static AttributeModifier getAttackSpeedSwordModifier(){
         return new AttributeModifier(
                 new NamespacedKey(Race2Szop.getInstance(), "AttackSpeedSwordAttribute"),
-                1.6, // amount
+                1.6 - 4, // amount
                 AttributeModifier.Operation.ADD_NUMBER,
                 EquipmentSlotGroup.HAND // or specific group
         );
@@ -98,7 +99,7 @@ public class getToolModifiers {
     private static AttributeModifier getAttackSpeedOneModifier(){
         return new AttributeModifier(
                 new NamespacedKey(Race2Szop.getInstance(), "AttackSpeedOneAttribute"),
-                1, // amount
+                1 - 4, // amount
                 AttributeModifier.Operation.ADD_NUMBER,
                 EquipmentSlotGroup.HAND // or specific group
         );
@@ -106,7 +107,7 @@ public class getToolModifiers {
     private static AttributeModifier getAttackSpeedPickaxeModifier(){
         return new AttributeModifier(
                 new NamespacedKey(Race2Szop.getInstance(), "AttackSpeedPickaxeAttribute"),
-                1.2, // amount
+                1.2 - 4, // amount
                 AttributeModifier.Operation.ADD_NUMBER,
                 EquipmentSlotGroup.HAND // or specific group
         );
@@ -115,6 +116,14 @@ public class getToolModifiers {
      //
      //         Attack Damage
      //
+     private static AttributeModifier getAttackDamage4Modifier(){
+         return new AttributeModifier(
+                 new NamespacedKey(Race2Szop.getInstance(), "AttackDamage4Attribute"),
+                 4, // amount
+                 AttributeModifier.Operation.ADD_NUMBER,
+                 EquipmentSlotGroup.HAND // or specific group
+         );
+     }
      private static AttributeModifier getAttackDamage5Modifier(){
          return new AttributeModifier(
                  new NamespacedKey(Race2Szop.getInstance(), "AttackDamage5Attribute"),

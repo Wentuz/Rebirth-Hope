@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
 import java.util.ArrayList;
@@ -21,6 +22,10 @@ public class ItemRecipes {
     public static void register(){
 
         NamespacedKey key;
+
+        //------------------------------------------------------------------------------------
+        //                                     PICKAXES
+        //------------------------------------------------------------------------------------
 
         //
         //      Hasty Pick Recipe
@@ -41,7 +46,7 @@ public class ItemRecipes {
 
 
         //
-        //      Hasty Pick Recipe
+        //      Lucky Pick Recipe
         //
         ItemStack luckyPick = ItemCrafting.createLuckyPick();
         key = new NamespacedKey(Race2Szop.getInstance(), "LuckyPickRecipe");
@@ -56,6 +61,89 @@ public class ItemRecipes {
         luckyPickRecipe.setIngredient('N', Material.NETHERITE_INGOT);
         luckyPickRecipe.setIngredient('D', Material.DRAGON_BREATH);
         Bukkit.addRecipe(luckyPickRecipe);
+
+        //------------------------------------------------------------------------------------
+        //                                     AXES
+        //------------------------------------------------------------------------------------
+
+        //
+        //      Lucky Axe Recipe
+        //
+        ItemStack luckyAxe = ItemCrafting.createLuckyAxe();
+        key = new NamespacedKey(Race2Szop.getInstance(), "LuckyAxeRecipe");
+        recipeKeys.add(key);
+
+        ShapedRecipe luckyAxeRecipe = new ShapedRecipe(key, luckyAxe);
+        luckyAxeRecipe.shape(
+                "ND ",
+                "NE ",
+                " E ");
+        luckyAxeRecipe.setIngredient('E', Material.END_ROD);
+        luckyAxeRecipe.setIngredient('N', Material.NETHERITE_INGOT);
+        luckyAxeRecipe.setIngredient('D', Material.DRAGON_BREATH);
+        Bukkit.addRecipe(luckyAxeRecipe);
+
+        //
+        //      Quick Axe Recipe
+        //
+        ItemStack quickAxe = ItemCrafting.createQuickAxe();
+        key = new NamespacedKey(Race2Szop.getInstance(), "QuickAxeRecipe");
+        recipeKeys.add(key);
+
+        ShapedRecipe quickAxeRecipe = new ShapedRecipe(key, quickAxe);
+        quickAxeRecipe.shape(
+                "GU ",
+                "GB ",
+                " B ");
+        quickAxeRecipe.setIngredient('B', Material.BLAZE_ROD);
+        quickAxeRecipe.setIngredient('G', Material.GOLD_INGOT);
+        quickAxeRecipe.setIngredient('U', Material.NETHERITE_UPGRADE_SMITHING_TEMPLATE);
+        Bukkit.addRecipe(quickAxeRecipe);
+
+        //------------------------------------------------------------------------------------
+        //                                     HOES
+        //------------------------------------------------------------------------------------
+
+        //
+        //      Lucky Hoe Recipe
+        //
+        ItemStack luckyHoe = ItemCrafting.createLuckyHoe();
+        key = new NamespacedKey(Race2Szop.getInstance(), "LuckyHoeRecipe");
+        recipeKeys.add(key);
+
+        ShapedRecipe luckyHoeRecipe = new ShapedRecipe(key, luckyHoe);
+        luckyHoeRecipe.shape(
+                "ND ",
+                " E ",
+                " E ");
+        luckyHoeRecipe.setIngredient('E', Material.END_ROD);
+        luckyHoeRecipe.setIngredient('D', Material.DRAGON_BREATH);
+        luckyHoeRecipe.setIngredient('N', Material.NETHERITE_INGOT);
+        Bukkit.addRecipe(luckyHoeRecipe);
+
+        //------------------------------------------------------------------------------------
+        //                                     SHOVELS
+        //------------------------------------------------------------------------------------
+
+        //
+        //      Lucky Shovel Recipe
+        //
+        ItemStack luckyShovel = ItemCrafting.createLuckyShovel();
+        key = new NamespacedKey(Race2Szop.getInstance(), "LuckyShovelRecipe");
+        recipeKeys.add(key);
+
+        ShapedRecipe luckyShovelRecipe = new ShapedRecipe(key, luckyShovel);
+        luckyShovelRecipe.shape(
+                " N ",
+                " E ",
+                " E ");
+        luckyShovelRecipe.setIngredient('E', Material.END_ROD);
+        luckyShovelRecipe.setIngredient('N', Material.NETHERITE_INGOT);
+        Bukkit.addRecipe(luckyShovelRecipe);
+
+        //------------------------------------------------------------------------------------
+        //                                     SWORDS
+        //------------------------------------------------------------------------------------
     }
 
 

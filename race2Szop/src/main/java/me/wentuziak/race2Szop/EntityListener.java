@@ -119,25 +119,6 @@ public class EntityListener implements Listener {
         }
     }
 
-//    @EventHandler
-//    public void onPlayerBreakBlock(BlockBreakEvent event){
-//        Player player = event.getPlayer();
-//        ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
-//        ItemStack itemInOffHand = player.getInventory().getItemInOffHand();
-//        raceKey = getPlayerRaceKey(player);
-//
-//        if (itemInMainHand.getType() == Material.AIR && itemInOffHand.getType() == Material.AIR
-//                && raceKey != null) {
-//            player.sendMessage("stop at 1");
-//            return;
-//        }
-//        Block block = event.getBlock();
-//        Material drop =  block.getType();
-//
-//        player.sendMessage(drop + "");
-//        block.setType(Material.ACACIA_BOAT);
-//        //breakBlockManager(player, drop, raceKey, event.getBlock());
-//    }
 
     @EventHandler
     public void onPlayerBreakBlockDropItem(BlockDropItemEvent event){
