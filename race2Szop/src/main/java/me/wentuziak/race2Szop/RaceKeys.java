@@ -8,6 +8,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Set;
 
 import static me.wentuziak.race2Szop.attribute.AttributeManager.attributeManager;
 
@@ -78,6 +79,10 @@ public class RaceKeys {
             }
         }
         return null;
+    }
+
+    public static Set<NamespacedKey> getPlayerRaceKeySet(Player player){
+        return player.getPersistentDataContainer().getKeys();
     }
 
 }

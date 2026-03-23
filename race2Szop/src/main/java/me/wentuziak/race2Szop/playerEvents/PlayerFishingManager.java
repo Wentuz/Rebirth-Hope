@@ -9,6 +9,8 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Set;
+
 import static me.wentuziak.race2Szop.RaceKeys.GATITO_RACE;
 import static me.wentuziak.race2Szop.lootTables.LootManager.getLootMaterial;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.getLuckLevel;
@@ -17,7 +19,7 @@ import static me.wentuziak.race2Szop.races.Gatito.onGatitoFish;
 
 public class PlayerFishingManager {
 
-    public static ItemStack onPlayerCatchFish(Player player, NamespacedKey raceKey, ItemStack caughtFish, Projectile fishingBobber){
+    public static ItemStack onPlayerCatchFish(Player player, Set<NamespacedKey> raceKey, ItemStack caughtFish, Projectile fishingBobber){
 
         Location loc = fishingBobber.getLocation();
         Biome biome = loc.getWorld().getBiome(loc);
@@ -35,7 +37,7 @@ public class PlayerFishingManager {
             //get treasure loot
         }
 
-        if (raceKey.equals(GATITO_RACE)){
+        if (raceKey.contains(GATITO_RACE)){
             amount = amount + onGatitoFish(player);
         }
 

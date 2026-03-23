@@ -19,6 +19,8 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 
+import java.util.Set;
+
 import static me.wentuziak.race2Szop.RaceKeys.*;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.getLuckLevel;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.randomInteger;
@@ -38,7 +40,7 @@ import static me.wentuziak.race2Szop.races.Parrot.parrotSleep;
 public class EntityListener implements Listener {
 
     PersistentDataContainer dataContainer;
-    NamespacedKey raceKey;
+    Set<NamespacedKey> raceKey;
 
     @EventHandler
     public void onEntityRightClick(PlayerInteractEntityEvent event){
@@ -61,7 +63,7 @@ public class EntityListener implements Listener {
     public void onPlayerFish(PlayerFishEvent event){
 
         Player player = event.getPlayer();
-        raceKey = getPlayerRaceKey(player);
+        raceKey = getPlayerRaceKeySet(player);
 
         Projectile fishingBobber = event.getHook();
 
@@ -80,9 +82,9 @@ public class EntityListener implements Listener {
     public void onPlayerGetHurt(EntityDamageEvent event){
         if (event.getEntity() instanceof Player){
             Player player = (Player) event.getEntity();
-            raceKey = getPlayerRaceKey(player);
+            raceKey = getPlayerRaceKeySet(player);
 
-            if (raceKey == null){
+            if (raceKey.isEmpty()){
                 return;
             }else{
                 playerGetHurt(player, raceKey);
@@ -94,9 +96,9 @@ public class EntityListener implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event){
         Player player = event.getPlayer();
-        raceKey = getPlayerRaceKey(player);
+        raceKey = getPlayerRaceKeySet(player);
 
-        if (raceKey == null){
+        if (raceKey.isEmpty()){
             return;
         }else{
             playerMoved(player, raceKey);
@@ -106,9 +108,17 @@ public class EntityListener implements Listener {
     @EventHandler
     public void onPlayerSneak(PlayerToggleSneakEvent event){
         Player player = event.getPlayer();
-        raceKey = getPlayerRaceKey(player);
+        raceKey = getPlayerRaceKeySet(player);
 
-        if (raceKey == null){
+
+//        PersistentDataContainer dataContainer = player.getPersistentDataContainer();
+//        Set<NamespacedKey> raceKey = dataContainer.getKeys();
+//
+//        if (raceKey.contains(GATITO_RACE)){
+//            player.sendMessage(" yesss ");
+//        }
+
+        if (raceKey.isEmpty()){
             return;
         }
 
@@ -125,11 +135,11 @@ public class EntityListener implements Listener {
         Player player = event.getPlayer();
         ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
         ItemStack itemInOffHand = player.getInventory().getItemInOffHand();
-        raceKey = getPlayerRaceKey(player);
+        raceKey = getPlayerRaceKeySet(player);
 
 
         if (itemInMainHand.getType() == Material.AIR && itemInOffHand.getType() == Material.AIR
-                && raceKey != null) {
+                && !raceKey.isEmpty()) {
             return;
         }
 
@@ -154,14 +164,14 @@ public class EntityListener implements Listener {
     @EventHandler
     public void onPlayerSprint(PlayerToggleSprintEvent event){
         Player player = event.getPlayer();
-        raceKey = getPlayerRaceKey(player);
+        raceKey = getPlayerRaceKeySet(player);
 
-        if (raceKey == null) {
+        if (raceKey.isEmpty()) {
             player.sendMessage("no key");
 
             return;
         }else {
-            player.sendMessage("has key : " + raceKey);
+            player.sendMessage("has key : " + raceKey.toString());
         }
     }
 
@@ -170,10 +180,10 @@ public class EntityListener implements Listener {
         Player player = event.getPlayer();
         ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
         ItemStack itemInOffHand = player.getInventory().getItemInOffHand();
-        raceKey = getPlayerRaceKey(player);
+        raceKey = getPlayerRaceKeySet(player);
 
         if (itemInMainHand.getType() == Material.AIR && itemInOffHand.getType() == Material.AIR
-                && raceKey != null) {
+                && !raceKey.isEmpty()) {
             detectClapRace(player, raceKey);
         }
         return;
@@ -182,15 +192,15 @@ public class EntityListener implements Listener {
     @EventHandler
     public void onPlayerEnterBed(PlayerBedEnterEvent event){
         Player player = event.getPlayer();
-        raceKey = getPlayerRaceKey(player);
+        raceKey = getPlayerRaceKeySet(player);
 
-        if (raceKey == null){
+        if (raceKey.isEmpty()){
             return;
         }
 
-        if (raceKey.equals(PARROT_RACE)){
+        if (raceKey.contains(PARROT_RACE)){
             parrotSleep(player);
-        }else if (raceKey.equals(GATITO_RACE)){
+        }else if (raceKey.contains(GATITO_RACE)){
             onGatitoEnterBed(player);
         }
     }
@@ -203,9 +213,9 @@ public class EntityListener implements Listener {
             int oldHunger = player.getFoodLevel();
             int newHunger = event.getFoodLevel();
 
-            raceKey = getPlayerRaceKey(player);
+            raceKey = getPlayerRaceKeySet(player);
 
-            if (raceKey == null){
+            if (raceKey.isEmpty()){
                 return;
             }
             if (oldHunger > newHunger){

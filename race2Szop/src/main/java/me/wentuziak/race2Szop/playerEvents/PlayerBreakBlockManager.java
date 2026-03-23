@@ -9,13 +9,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.Set;
+
 import static me.wentuziak.race2Szop.Logic.GetItemCategories.*;
 import static me.wentuziak.race2Szop.lootTables.LootManager.*;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.*;
 
 public class PlayerBreakBlockManager {
 
-    public static ItemStack breakBlockManager(Player player, ItemStack drop, NamespacedKey raceKey, Material brokenBlock){
+    public static ItemStack breakBlockManager(Player player, ItemStack drop, Set<NamespacedKey> raceKey, Material brokenBlock){
         ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
         Material finalDrop = brokenBlock;
         // TODO :
@@ -42,7 +44,6 @@ public class PlayerBreakBlockManager {
                 if (finalDrop.equals(brokenBlock) &&
                         !(finalDrop.equals(Material.WHEAT) || finalDrop.equals(Material.CARROTS)
                                 || finalDrop.equals(Material.POTATOES)) || finalDrop.equals(Material.BEETROOTS)) {
-                    player.sendMessage("base return");
                     return drop;
                 }
 
@@ -50,8 +51,7 @@ public class PlayerBreakBlockManager {
                 if (isShovel(itemInMainHand.getType())) {
                     drop.setAmount(1 + randomInteger(getHandLuck(itemInMainHand)));
                 } else if (!((brokenBlock.equals(Material.COBBLESTONE)) || isAxe(itemInMainHand.getType()))) {
-                    player.sendMessage("cobble");
-                    drop.setAmount(drop.getAmount() + randomInteger(getLuckLevel(player)));
+                    drop.setAmount(drop.getAmount() + (randomInteger(getLuckLevel(player)) /2 ) + getHandLuck(itemInMainHand));
                 }
 
                 drop.setType(brokenBlock);
