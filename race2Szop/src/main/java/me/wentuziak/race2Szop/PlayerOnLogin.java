@@ -26,7 +26,8 @@ public class PlayerOnLogin implements Listener {
                 NamespacedKey[] raceKeys = RaceKeys.getRaceKeys();
 
                 attributeManager(player); // ensure none are loaded
-                for (NamespacedKey key : raceKeys) {
+
+            for (NamespacedKey key : raceKeys) {
                     if (dataContainer.has(key, PersistentDataType.BOOLEAN)) {
                         String keyString =  key.getKey().toUpperCase();
                         keyString = keyString.substring(0, keyString.length() - 4);
