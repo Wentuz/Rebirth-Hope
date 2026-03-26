@@ -1,6 +1,5 @@
 package me.wentuziak.race2Szop;
 
-import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -9,8 +8,6 @@ import org.bukkit.persistence.PersistentDataType;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Set;
-
-import static me.wentuziak.race2Szop.attribute.AttributeManager.attributeManager;
 
 public class RaceKeys {
     public static final NamespacedKey BASIC_RACE = new NamespacedKey(Race2Szop.getInstance(), "BasicRace");

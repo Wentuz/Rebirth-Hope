@@ -24,6 +24,7 @@ public class Gatito implements Race{
 
     }
 
+
     public static void onGatitoRide(Player player, LivingEntity rideableEntity){
 
         ItemStack itemInHand = player.getInventory().getItemInMainHand();

@@ -6,13 +6,22 @@ import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
+import java.util.Set;
+
 import static me.wentuziak.race2Szop.RaceKeys.*;
 import static me.wentuziak.race2Szop.races.Gatito.onGatitoRide;
+import static me.wentuziak.race2Szop.races.Skelly.skellyMount;
 
 public class PlayerInteractionManager {
 
-    public static void playerRightClickLivingEntity(Player player, LivingEntity clickedEntity, NamespacedKey raceKey){
+    public static void playerRightClickLivingEntity(Player player, LivingEntity clickedEntity, Set<NamespacedKey> raceKey){
 
+    }
+
+    public static void playerMountEntity(Player player, LivingEntity clickedEntity, Set<NamespacedKey> raceKey){
+        if(raceKey.contains(SKELETON_RACE)){
+            skellyMount(clickedEntity);
+        }
     }
 
 }

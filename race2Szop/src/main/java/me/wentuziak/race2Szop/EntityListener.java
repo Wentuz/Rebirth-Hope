@@ -1,36 +1,30 @@
 package me.wentuziak.race2Szop;
 
-import me.wentuziak.race2Szop.Logic.Cooldowns;
-import me.wentuziak.race2Szop.attribute.AttributeManager;
-import me.wentuziak.race2Szop.playerEvents.PlayerBreakBlockManager;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.Biome;
-import org.bukkit.block.Block;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDropItemEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityMountEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataContainer;
 
 import java.util.Set;
 
 import static me.wentuziak.race2Szop.RaceKeys.*;
-import static me.wentuziak.race2Szop.lootTables.LuckCalculator.getLuckLevel;
-import static me.wentuziak.race2Szop.lootTables.LuckCalculator.randomInteger;
 import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.playerGetHurt;
+import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.playerHitLivingEntity;
 import static me.wentuziak.race2Szop.playerEvents.PlayerBreakBlockManager.breakBlockManager;
 import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFishingManager.onPlayerCatchFish;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerGainHunger;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerLooseHunger;
-import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.playerRightClickLivingEntity;
+import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.playerMountEntity;
+import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.onSprintStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.playerMoved;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStop;
@@ -39,7 +33,6 @@ import static me.wentuziak.race2Szop.races.Parrot.parrotSleep;
 
 public class EntityListener implements Listener {
 
-    PersistentDataContainer dataContainer;
     Set<NamespacedKey> raceKey;
 
     @EventHandler
@@ -57,6 +50,34 @@ public class EntityListener implements Listener {
 //            }
 //            playerRightClickLivingEntity(player, (LivingEntity) clickedPlayer, raceKey);
 //        }
+    }
+
+    @EventHandler
+    public void playerAttackLivingEntity(EntityDamageByEntityEvent event){
+
+        if (event.getDamager() instanceof Player player &&
+            event.getEntity() instanceof LivingEntity hitEntity){
+            if (player.getAttackCooldown() == 1){
+                raceKey = getPlayerRaceKeySet(player);
+
+                playerHitLivingEntity(player, hitEntity, raceKey);
+            }
+        }
+
+    }
+
+    @EventHandler
+    public void onPlayerMount(EntityMountEvent event){
+
+        if ((event.getEntity() instanceof Player player) &&
+            event.getMount() instanceof LivingEntity mount){
+            player = (Player) event.getEntity();
+
+            mount = (LivingEntity) event.getMount();
+            raceKey = getPlayerRaceKeySet(player);
+
+            playerMountEntity(player, mount, raceKey);
+        }
     }
 
     @EventHandler
@@ -80,15 +101,10 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onPlayerGetHurt(EntityDamageEvent event){
-        if (event.getEntity() instanceof Player){
-            Player player = (Player) event.getEntity();
+        if (event.getEntity() instanceof Player player){
             raceKey = getPlayerRaceKeySet(player);
 
-            if (raceKey.isEmpty()){
-                return;
-            }else{
-                playerGetHurt(player, raceKey);
-            }
+            if (!raceKey.isEmpty()) playerGetHurt(player, raceKey);
         }
 
     }
@@ -98,9 +114,7 @@ public class EntityListener implements Listener {
         Player player = event.getPlayer();
         raceKey = getPlayerRaceKeySet(player);
 
-        if (raceKey.isEmpty()){
-            return;
-        }else{
+        if (!raceKey.isEmpty()){
             playerMoved(player, raceKey);
         }
     }
@@ -109,14 +123,6 @@ public class EntityListener implements Listener {
     public void onPlayerSneak(PlayerToggleSneakEvent event){
         Player player = event.getPlayer();
         raceKey = getPlayerRaceKeySet(player);
-
-
-//        PersistentDataContainer dataContainer = player.getPersistentDataContainer();
-//        Set<NamespacedKey> raceKey = dataContainer.getKeys();
-//
-//        if (raceKey.contains(GATITO_RACE)){
-//            player.sendMessage(" yesss ");
-//        }
 
         if (raceKey.isEmpty()){
             return;
@@ -149,7 +155,7 @@ public class EntityListener implements Listener {
 
         //TODO :
         // age verification for crops
-        
+
         ItemStack drop =  event.getItems().getFirst().getItemStack();
         ItemStack lastDrop =  event.getItems().getLast().getItemStack();
 
@@ -166,12 +172,10 @@ public class EntityListener implements Listener {
         Player player = event.getPlayer();
         raceKey = getPlayerRaceKeySet(player);
 
-        if (raceKey.isEmpty()) {
-            player.sendMessage("no key");
-
-            return;
-        }else {
-            player.sendMessage("has key : " + raceKey.toString());
+        if (!raceKey.isEmpty()) {
+            if (event.isSprinting()) {
+                onSprintStart(player, raceKey);
+            }
         }
     }
 
@@ -186,7 +190,7 @@ public class EntityListener implements Listener {
                 && !raceKey.isEmpty()) {
             detectClapRace(player, raceKey);
         }
-        return;
+
     }
 
     @EventHandler
@@ -207,8 +211,7 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onPlayerChangeFoodLevel(FoodLevelChangeEvent event){
-        if (event.getEntity() instanceof Player){
-            Player player = (Player) event.getEntity();
+        if (event.getEntity() instanceof Player player){
 
             int oldHunger = player.getFoodLevel();
             int newHunger = event.getFoodLevel();

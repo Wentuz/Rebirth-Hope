@@ -4,6 +4,8 @@ import me.wentuziak.race2Szop.commands.CommandManager;
 import me.wentuziak.race2Szop.items.ItemRecipes;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public final class Race2Szop extends JavaPlugin {
 
     @Override
@@ -14,7 +16,7 @@ public final class Race2Szop extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerOnLogin(), this);
 
-        getCommand("szopRace").setExecutor(new CommandManager());
+        Objects.requireNonNull(getCommand("szopRace")).setExecutor(new CommandManager());
 
         // Plugin startup logic
 

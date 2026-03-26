@@ -1,13 +1,16 @@
 package me.wentuziak.race2Szop.races;
 
 import me.wentuziak.race2Szop.Logic.Cooldowns;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
+import me.wentuziak.race2Szop.Race2Szop;
+import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
+import org.bukkit.potion.PotionEffectType;
+
+import java.util.Objects;
 
 import static me.wentuziak.race2Szop.Logic.Checkers.isPlayerAboveGround;
+import static me.wentuziak.race2Szop.Logic.Effects.givePotionEffect;
 import static me.wentuziak.race2Szop.Logic.Effects.particleEmitterOnEntity;
 import static me.wentuziak.race2Szop.actions.MovementActions.addVelocityAtCursour;
 
@@ -29,12 +32,22 @@ public class Goat implements Race {
         }
     }
 
+    public static void goatRamAttack(Player player, LivingEntity attackedEntity){
+        if (player.hasPotionEffect(PotionEffectType.SPEED)){
+            Location location = attackedEntity.getLocation();
+
+            for (int x = 0; x < 3; x++){
+                Bukkit.getScheduler().runTaskLater(Race2Szop.getInstance(), () -> {
+                    WindCharge windCharge = (WindCharge) Objects.requireNonNull(location.getWorld()).spawnEntity(location, EntityType.WIND_CHARGE);
+                    windCharge.explode();
+                },  2);
+            }
+        }
+    }
+
     public static void goatRam(Player player){
-        //speed at started sprinting
 
-
-
-        //first few seconds give bonus to firts attack & massive knockback
+        givePotionEffect(player, PotionEffectType.SPEED, 2, 0);
     }
 
 }
