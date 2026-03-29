@@ -12,8 +12,10 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.Set;
 
 import static me.wentuziak.race2Szop.Logic.GetItemCategories.*;
+import static me.wentuziak.race2Szop.RaceKeys.GOAT_RACE;
 import static me.wentuziak.race2Szop.lootTables.LootManager.*;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.*;
+import static me.wentuziak.race2Szop.races.Goat.goatBreakBlock;
 
 public class PlayerBreakBlockManager {
 
@@ -57,7 +59,6 @@ public class PlayerBreakBlockManager {
                 drop.setType(brokenBlock);
             }
         }
-
 
         return drop;
     }

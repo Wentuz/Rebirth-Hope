@@ -12,6 +12,7 @@ import java.util.Random;
 import static me.wentuziak.race2Szop.lootTables.CropsLoot.grassLoot;
 import static me.wentuziak.race2Szop.lootTables.FishingLoot.*;
 import static me.wentuziak.race2Szop.lootTables.MiningLoot.*;
+import static me.wentuziak.race2Szop.lootTables.PiglinTrades.piglinTrade;
 
 public class LootManager {
 
@@ -102,6 +103,10 @@ public class LootManager {
             case Material.ACACIA_LOG -> Material.ACACIA_WOOD;
             default -> material;
         };
+    }
+
+    public static Material getPiglinBarterLoot(){
+        return getRandomMaterial(piglinTrade);
     }
 
 

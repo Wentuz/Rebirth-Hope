@@ -22,7 +22,6 @@ public class CropsLoot {
         grassLoot.put(12, Material.LILY_OF_THE_VALLEY);
         grassLoot.put(13, Material.BROWN_MUSHROOM);
         grassLoot.put(14, Material.RED_MUSHROOM);
-
     }
 
 }

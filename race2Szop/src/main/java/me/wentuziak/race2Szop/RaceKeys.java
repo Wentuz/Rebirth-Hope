@@ -51,7 +51,7 @@ public class RaceKeys {
     public static List<String> getRaceList(){
         return java.util.Arrays.asList(
                 "goat", "gatito", "enderian", "parrot",
-                "skeleton", "merfolk", "nerher"
+                "skeleton", "merfolk", "nether"
         );
     }
 

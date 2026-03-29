@@ -6,13 +6,11 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityMountEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.List;
 import java.util.Set;
 
 import static me.wentuziak.race2Szop.RaceKeys.*;
@@ -23,12 +21,14 @@ import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRa
 import static me.wentuziak.race2Szop.playerEvents.PlayerFishingManager.onPlayerCatchFish;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerGainHunger;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerLooseHunger;
+import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.playerBarterManager;
 import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.playerMountEntity;
 import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.onSprintStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.playerMoved;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStop;
 import static me.wentuziak.race2Szop.races.Gatito.onGatitoEnterBed;
+import static me.wentuziak.race2Szop.races.Goat.goatBreakBlock;
 import static me.wentuziak.race2Szop.races.Parrot.parrotSleep;
 
 public class EntityListener implements Listener {
@@ -163,9 +163,21 @@ public class EntityListener implements Listener {
             breakBlockManager(player, lastDrop, raceKey, event.getBlockState().getType());
         }
         breakBlockManager(player, drop, raceKey, event.getBlockState().getType());
+
+
+        //todo:
+        // get this to work
+        if (raceKey.contains(GOAT_RACE)) goatBreakBlock(event.getBlock());
+
     }
 
+    @EventHandler
+    public void onPiglinBarter(PiglinBarterEvent event){
+        List<ItemStack> barteredItem = event.getOutcome();
+        Piglin piglin = event.getEntity();
 
+        playerBarterManager(piglin, (ItemStack) barteredItem);
+    }
 
     @EventHandler
     public void onPlayerSprint(PlayerToggleSprintEvent event){

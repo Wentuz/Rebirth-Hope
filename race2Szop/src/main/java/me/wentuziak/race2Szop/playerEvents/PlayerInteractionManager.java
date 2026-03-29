@@ -4,12 +4,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Piglin;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Set;
 
 import static me.wentuziak.race2Szop.RaceKeys.*;
 import static me.wentuziak.race2Szop.races.Gatito.onGatitoRide;
+import static me.wentuziak.race2Szop.races.NetherFolk.piglinTradeOutcome;
 import static me.wentuziak.race2Szop.races.Skelly.skellyMount;
 
 public class PlayerInteractionManager {
@@ -22,6 +25,13 @@ public class PlayerInteractionManager {
         if(raceKey.contains(SKELETON_RACE)){
             skellyMount(clickedEntity);
         }
+    }
+
+
+    public static void playerBarterManager(Piglin piglin, ItemStack droppedItem){
+
+        piglinTradeOutcome(droppedItem);
+
     }
 
 }
