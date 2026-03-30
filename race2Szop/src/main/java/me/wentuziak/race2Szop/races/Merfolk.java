@@ -7,6 +7,7 @@ public class Merfolk implements Race {
     NamespacedKey raceKey = Race.currentRaceKey("MERFOLK_RACE");
 
     public static void merfolkBreathe(Player player){
+
         //fish
     }
 

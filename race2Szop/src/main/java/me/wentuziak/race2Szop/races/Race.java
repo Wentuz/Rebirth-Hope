@@ -18,7 +18,7 @@ public interface Race {
 
     public static int checkCurrentLevel(Player player){
 
-        if (player.getPersistentDataContainer().has(RaceKeys.BASIC_RACE)){
+        if (player.getPersistentDataContainer().has(RaceKeys.BASE_UPGRADE)){
             return 1;
         } else if (player.getPersistentDataContainer().has(RaceKeys.ADVANCED_UPGRADE)) {
             return 2;

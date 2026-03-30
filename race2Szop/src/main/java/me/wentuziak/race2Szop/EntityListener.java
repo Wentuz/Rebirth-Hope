@@ -1,75 +1,193 @@
 package me.wentuziak.race2Szop;
 
-import me.wentuziak.race2Szop.Logic.Cooldowns;
-import me.wentuziak.race2Szop.attribute.AttributeManager;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Cow;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockDropItemEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataContainer;
 
-import static me.wentuziak.race2Szop.RaceKeys.getPlayerRaceKey;
+import java.util.List;
+import java.util.Set;
+
+import static me.wentuziak.race2Szop.RaceKeys.*;
+import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.playerGetHurt;
+import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.playerHitLivingEntity;
+import static me.wentuziak.race2Szop.playerEvents.PlayerBreakBlockManager.breakBlockManager;
 import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
+import static me.wentuziak.race2Szop.playerEvents.PlayerFishingManager.onPlayerCatchFish;
+import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerGainHunger;
+import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerLooseHunger;
+import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.playerBarterManager;
+import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.playerMountEntity;
+import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.onSprintStart;
+import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.playerMoved;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStop;
+import static me.wentuziak.race2Szop.races.Gatito.onGatitoEnterBed;
+import static me.wentuziak.race2Szop.races.Goat.goatBreakBlock;
+import static me.wentuziak.race2Szop.races.Parrot.parrotSleep;
 
 public class EntityListener implements Listener {
 
-    PersistentDataContainer dataContainer;
-    NamespacedKey raceKey;
+    Set<NamespacedKey> raceKey;
 
     @EventHandler
     public void onEntityRightClick(PlayerInteractEntityEvent event){
 
         Player player = event.getPlayer();
-        player.sendMessage("Clicked an entity :");
+        Entity clickedEntity = event.getRightClicked();
 
-        String str = "";
 
-        if (event.getRightClicked() instanceof Cow && player.getPersistentDataContainer().has(RaceKeys.GATITO_RACE)){
+//        if (event.getRightClicked() instanceof Player) {
+//            Player clickedPlayer = (Player) event.getRightClicked();
+//            raceKey = getPlayerRaceKey(clickedPlayer);
+//            if (raceKey == null){
+//                return;
+//            }
+//            playerRightClickLivingEntity(player, (LivingEntity) clickedPlayer, raceKey);
+//        }
+    }
 
-            Cooldowns.startCooldownCountdown(player, 10);
+    @EventHandler
+    public void playerAttackLivingEntity(EntityDamageByEntityEvent event){
 
-            str = "Cow";
-        }else{
-            str = "not Cow";
+        if (event.getDamager() instanceof Player player &&
+            event.getEntity() instanceof LivingEntity hitEntity){
+            if (player.getAttackCooldown() == 1){
+                raceKey = getPlayerRaceKeySet(player);
+
+                playerHitLivingEntity(player, hitEntity, raceKey);
+            }
         }
-        player.sendMessage(str);
+
+    }
+
+    @EventHandler
+    public void onPlayerMount(EntityMountEvent event){
+
+        if ((event.getEntity() instanceof Player player) &&
+            event.getMount() instanceof LivingEntity mount){
+            player = (Player) event.getEntity();
+
+            mount = (LivingEntity) event.getMount();
+            raceKey = getPlayerRaceKeySet(player);
+
+            playerMountEntity(player, mount, raceKey);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerFish(PlayerFishEvent event){
+
+        Player player = event.getPlayer();
+        raceKey = getPlayerRaceKeySet(player);
+
+        Projectile fishingBobber = event.getHook();
+
+        if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH){
+
+            Entity caught = event.getCaught();
+            if(caught instanceof Item){
+                ItemStack caughtFish = ((Item) caught).getItemStack();
+
+                onPlayerCatchFish(player, raceKey, caughtFish, fishingBobber);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerGetHurt(EntityDamageEvent event){
+        if (event.getEntity() instanceof Player player){
+            raceKey = getPlayerRaceKeySet(player);
+
+            if (!raceKey.isEmpty()) playerGetHurt(player, raceKey);
+        }
+
     }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event){
         Player player = event.getPlayer();
+        raceKey = getPlayerRaceKeySet(player);
 
-
+        if (!raceKey.isEmpty()){
+            playerMoved(player, raceKey);
+        }
     }
 
     @EventHandler
     public void onPlayerSneak(PlayerToggleSneakEvent event){
         Player player = event.getPlayer();
+        raceKey = getPlayerRaceKeySet(player);
+
+        if (raceKey.isEmpty()){
+            return;
+        }
 
         if (!player.isSneaking()){
-            onSneakStart(player);
+            onSneakStart(player, raceKey);
         }else{
-            onSneakStop(player);
+            onSneakStop(player, raceKey);
         }
+    }
+
+
+    @EventHandler
+    public void onPlayerBreakBlockDropItem(BlockDropItemEvent event){
+        Player player = event.getPlayer();
+        ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
+        ItemStack itemInOffHand = player.getInventory().getItemInOffHand();
+        raceKey = getPlayerRaceKeySet(player);
+
+
+        if (itemInMainHand.getType() == Material.AIR && itemInOffHand.getType() == Material.AIR
+                && !raceKey.isEmpty()) {
+            return;
+        }
+
+        if (event.getItems().isEmpty()){
+            return;
+        }
+
+        //TODO :
+        // age verification for crops
+
+        ItemStack drop =  event.getItems().getFirst().getItemStack();
+        ItemStack lastDrop =  event.getItems().getLast().getItemStack();
+
+        if (!lastDrop.equals(drop)){
+            breakBlockManager(player, lastDrop, raceKey, event.getBlockState().getType());
+        }
+        breakBlockManager(player, drop, raceKey, event.getBlockState().getType());
+
+
+        //todo:
+        // get this to work
+        if (raceKey.contains(GOAT_RACE)) goatBreakBlock(event.getBlock());
+
+    }
+
+    @EventHandler
+    public void onPiglinBarter(PiglinBarterEvent event){
+        List<ItemStack> barteredItem = event.getOutcome();
+        Piglin piglin = event.getEntity();
+
+        playerBarterManager(piglin, (ItemStack) barteredItem);
     }
 
     @EventHandler
     public void onPlayerSprint(PlayerToggleSprintEvent event){
         Player player = event.getPlayer();
-        raceKey = getPlayerRaceKey(player);
+        raceKey = getPlayerRaceKeySet(player);
 
-        if (raceKey == null) {
-            player.sendMessage("no key");
-
-            return;
-        }else {
-            player.sendMessage("has key : " + raceKey);
+        if (!raceKey.isEmpty()) {
+            if (event.isSprinting()) {
+                onSprintStart(player, raceKey);
+            }
         }
     }
 
@@ -78,16 +196,50 @@ public class EntityListener implements Listener {
         Player player = event.getPlayer();
         ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
         ItemStack itemInOffHand = player.getInventory().getItemInOffHand();
-        raceKey = getPlayerRaceKey(player);
+        raceKey = getPlayerRaceKeySet(player);
 
         if (itemInMainHand.getType() == Material.AIR && itemInOffHand.getType() == Material.AIR
-                && raceKey != null) {
+                && !raceKey.isEmpty()) {
             detectClapRace(player, raceKey);
         }
-        return;
-
 
     }
 
+    @EventHandler
+    public void onPlayerEnterBed(PlayerBedEnterEvent event){
+        Player player = event.getPlayer();
+        raceKey = getPlayerRaceKeySet(player);
 
+        if (raceKey.isEmpty()){
+            return;
+        }
+
+        if (raceKey.contains(PARROT_RACE)){
+            parrotSleep(player);
+        }else if (raceKey.contains(GATITO_RACE)){
+            onGatitoEnterBed(player);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerChangeFoodLevel(FoodLevelChangeEvent event){
+        if (event.getEntity() instanceof Player player){
+
+            int oldHunger = player.getFoodLevel();
+            int newHunger = event.getFoodLevel();
+
+            raceKey = getPlayerRaceKeySet(player);
+
+            if (raceKey.isEmpty()){
+                return;
+            }
+            if (oldHunger > newHunger){
+                playerLooseHunger(player, raceKey);
+            }else {
+                playerGainHunger(player, raceKey);
+            }
+
+
+        }
+    }
 }

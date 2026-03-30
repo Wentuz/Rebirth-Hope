@@ -26,7 +26,7 @@ public class MovementActions {
             glideTask = new BukkitRunnable() {
                 @Override
                 public void run(){
-                    if (isPlayerAboveGround(finalPlayer, 0.2) || player.isInWater()) {
+                    if (!isPlayerAboveGround(finalPlayer, 0.2) || player.isInWater()) {
                         stopPlayerGlideTask(finalPlayer);
                         return;
                     }
