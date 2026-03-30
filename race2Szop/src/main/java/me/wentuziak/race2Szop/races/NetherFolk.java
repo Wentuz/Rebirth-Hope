@@ -1,13 +1,17 @@
 package me.wentuziak.race2Szop.races;
 
 import me.wentuziak.race2Szop.Logic.Cooldowns;
+import me.wentuziak.race2Szop.Race2Szop;
 import me.wentuziak.race2Szop.actions.BarActions;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.WindCharge;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.Objects;
 
 import static me.wentuziak.race2Szop.Logic.Effects.givePotionEffect;
 import static me.wentuziak.race2Szop.lootTables.LootManager.getPiglinBarterLoot;
@@ -18,9 +22,25 @@ public class NetherFolk implements Race {
     static double cooldownModifier = 0.15;
 
 
-    public static void onChangeRace(Player player){
+    public static void onChangeRaceToNetherFolk(Player player){
 
-        // start in the nether
+        if (player.getExp() != 0) return;
+
+        teleportToNether(player);
+    }
+
+    public static void netherFolkRespawn(Player player){
+        Bukkit.getScheduler().runTaskLater(Race2Szop.getInstance(), () -> {
+            teleportToNether(player);
+        },  1);
+    }
+
+    private static void teleportToNether(Player player){
+        World netherWorld = Bukkit.getWorld("world_nether");
+        if (netherWorld != null) {
+            Location location = netherWorld.getSpawnLocation();
+            player.teleport(location);
+        }
     }
 
     public static void netherFolkLevitation(Player player){
