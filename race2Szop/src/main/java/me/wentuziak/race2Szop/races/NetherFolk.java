@@ -38,8 +38,6 @@ public class NetherFolk implements Race {
 
     public static ItemStack piglinTradeOutcome(ItemStack droppedItem){
         Material material = droppedItem.getType();
-        //todo:
-        //  error with ItemStack -> List<ItemStack>
         switch (material){
             case Material.IRON_BOOTS, Material.POTION, Material.SPLASH_POTION, Material.ENDER_PEARL -> {
                 return droppedItem;

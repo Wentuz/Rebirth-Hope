@@ -176,7 +176,9 @@ public class EntityListener implements Listener {
         List<ItemStack> barteredItem = event.getOutcome();
         Piglin piglin = event.getEntity();
 
-        playerBarterManager(piglin, (ItemStack) barteredItem);
+
+
+        playerBarterManager(piglin, barteredItem);
     }
 
     @EventHandler
