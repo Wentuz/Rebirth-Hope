@@ -29,6 +29,7 @@ import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStar
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStop;
 import static me.wentuziak.race2Szop.races.Gatito.onGatitoEnterBed;
 import static me.wentuziak.race2Szop.races.Goat.goatBreakBlock;
+import static me.wentuziak.race2Szop.races.Merfolk.merfolkBreathe;
 import static me.wentuziak.race2Szop.races.NetherFolk.netherFolkRespawn;
 import static me.wentuziak.race2Szop.races.Parrot.parrotSleep;
 
@@ -227,7 +228,6 @@ public class EntityListener implements Listener {
     @EventHandler
     public void onPlayerChangeFoodLevel(FoodLevelChangeEvent event){
         if (event.getEntity() instanceof Player player){
-
             int oldHunger = player.getFoodLevel();
             int newHunger = event.getFoodLevel();
 
@@ -241,6 +241,18 @@ public class EntityListener implements Listener {
             }else {
                 playerGainHunger(player, raceKey);
             }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerOxygenChange(EntityAirChangeEvent event){
+        if (event.getEntity() instanceof Player player){
+            raceKey = getPlayerRaceKeySet(player);
+
+            if (raceKey.isEmpty()){
+                return;
+            }
+            if (raceKey.contains(MERFOLK_RACE)) merfolkBreathe(player, event);
         }
     }
 

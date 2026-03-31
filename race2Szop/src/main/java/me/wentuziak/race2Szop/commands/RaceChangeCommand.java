@@ -11,6 +11,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.Arrays;
 
 import static me.wentuziak.race2Szop.attribute.AttributeManager.attributeManager;
+import static me.wentuziak.race2Szop.races.Merfolk.onChangeRaceToMerfolk;
 import static me.wentuziak.race2Szop.races.NetherFolk.onChangeRaceToNetherFolk;
 
 public class RaceChangeCommand {
@@ -42,6 +43,7 @@ public class RaceChangeCommand {
 
 
             if (getKey.equals("NETHER_RACE")) onChangeRaceToNetherFolk(targetPlayer);
+            if (getKey.equals("MERFOLK_RACE")) onChangeRaceToMerfolk(targetPlayer);
 
             return true;
         }else{
