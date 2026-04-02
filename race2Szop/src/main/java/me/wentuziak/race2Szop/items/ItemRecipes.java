@@ -144,6 +144,65 @@ public class ItemRecipes {
         //------------------------------------------------------------------------------------
         //                                     SWORDS
         //------------------------------------------------------------------------------------
+
+        //------------------------------------------------------------------------------------
+        //                                     BOWS
+        //------------------------------------------------------------------------------------
+
+        //
+        //      Multi Attack Bow Recipe
+        //
+        ItemStack multiAttackBow = ItemCrafting.createMultiAttackBow();
+        key = new NamespacedKey(Race2Szop.getInstance(), "MultiAttackBowRecipe");
+        recipeKeys.add(key);
+
+        ShapedRecipe multiAttackBowRecipe = new ShapedRecipe(key, multiAttackBow);
+        multiAttackBowRecipe.shape(
+                "SW ",
+                "S T",
+                "SW ");
+        multiAttackBowRecipe.setIngredient('S', Material.STRING);
+        multiAttackBowRecipe.setIngredient('W', Material.STICK);
+        multiAttackBowRecipe.setIngredient('T', Material.TRIPWIRE_HOOK);
+        Bukkit.addRecipe(multiAttackBowRecipe);
+        //------------------------------------------------------------------------------------
+        //                                     CROSSBOWS
+        //------------------------------------------------------------------------------------
+
+        //
+        //      Multi Attack CrossBow Recipe
+        //
+        ItemStack multiAttackCrossBow = ItemCrafting.createMultiAttackCrossBow();
+        key = new NamespacedKey(Race2Szop.getInstance(), "MultiAttackCrossBowRecipe");
+        recipeKeys.add(key);
+
+        ShapedRecipe multiAttackCrossBowRecipe = new ShapedRecipe(key, multiAttackCrossBow);
+        multiAttackCrossBowRecipe.shape(
+                "SDS",
+                " C ",
+                "   ");
+        multiAttackCrossBowRecipe.setIngredient('C', Material.CROSSBOW);
+        multiAttackCrossBowRecipe.setIngredient('D', Material.DISPENSER);
+        multiAttackCrossBowRecipe.setIngredient('S', Material.STICK);
+        Bukkit.addRecipe(multiAttackCrossBowRecipe);
+
+        //
+        //      Blaze CrossBow Recipe
+        //
+        ItemStack blazeCrossBow = ItemCrafting.createBlazeCrossBow();
+        key = new NamespacedKey(Race2Szop.getInstance(), "BlazeCrossBowRecipe");
+        recipeKeys.add(key);
+
+        ShapedRecipe blazeCrossBowRecipe = new ShapedRecipe(key, blazeCrossBow);
+        blazeCrossBowRecipe.shape(
+                "BFB",
+                " C ",
+                "   ");
+        blazeCrossBowRecipe.setIngredient('C', Material.CROSSBOW);
+        blazeCrossBowRecipe.setIngredient('F', Material.FIRE_CHARGE);
+        blazeCrossBowRecipe.setIngredient('B', Material.BLAZE_ROD);
+        Bukkit.addRecipe(blazeCrossBowRecipe);
+
     }
 
 

@@ -5,8 +5,11 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+
+import java.util.Objects;
 
 import static org.bukkit.Bukkit.getServer;
 
@@ -51,4 +54,19 @@ public class Checkers {
 //        }
 //    }
 
+    public static Player getNearestPlayer(Location location){
+        Player nearestPlayer = null;
+        double nearestDistanceSquared = Double.MAX_VALUE;
+
+        for (Entity entity : Objects.requireNonNull(location.getWorld()).getNearbyEntities(location, 50, 50, 50)) {
+            if (entity instanceof Player) {
+                double distanceSquared = entity.getLocation().distanceSquared(location);
+                if (distanceSquared < nearestDistanceSquared) {
+                    nearestDistanceSquared = distanceSquared;
+                    nearestPlayer = (Player) entity;
+                }
+            }
+        }
+        return nearestPlayer;
+    }
 }

@@ -1,18 +1,92 @@
 package me.wentuziak.race2Szop.races;
 
-import org.bukkit.NamespacedKey;
+import me.wentuziak.race2Szop.Logic.Cooldowns;
+import me.wentuziak.race2Szop.actions.BarActions;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityAirChangeEvent;
+import org.bukkit.potion.PotionEffectType;
+
+import static me.wentuziak.race2Szop.Logic.Checkers.isPlayerHiddenFromSun;
+import static me.wentuziak.race2Szop.Logic.Checkers.isPlayerWet;
+import static me.wentuziak.race2Szop.Logic.Effects.givePotionEffect;
+import static me.wentuziak.race2Szop.Logic.Effects.particleEmitterOnEntity;
+import static me.wentuziak.race2Szop.actions.BarActions.hurtPlayer;
+import static me.wentuziak.race2Szop.actions.MovementActions.addVelocityAtCursour;
 
 public class Merfolk implements Race {
     NamespacedKey raceKey = Race.currentRaceKey("MERFOLK_RACE");
 
-    public static void merfolkBreathe(Player player){
+    public static void onChangeRaceToMerfolk(Player player){
+        player.setRemainingAir(250);
+    }
 
-        //fish
+    public static void merfolkBreathe(Player player, EntityAirChangeEvent event){
+
+        int eventAir = event.getAmount();
+        int playerAir = player.getRemainingAir();
+
+
+        int difference = eventAir - playerAir;
+
+        if (isPlayerWet(player)){
+            //WTF I dont want to touch it anymore
+            //if (!isPlayerHiddenFromSun(player) && player.getWorld().hasStorm() && player.getWorld().isThundering()) difference = difference - 5;
+            if (difference > 0) {
+                if (playerAir >= 0) {
+                    event.setAmount(eventAir - 5);
+                }
+                if (playerAir <= 5){
+                    merfolkNoAir(player);
+                }
+            }
+            else {
+                if (playerAir < 295){
+                    event.setAmount(eventAir + 5);
+                }
+            }
+        }else{
+            if (difference > 0) {
+                if (playerAir >= 0) {
+                    event.setAmount(eventAir - 5);
+                }
+                if (playerAir <= 5){
+                    merfolkNoAir(player);
+                }
+            }
+        }
+    }
+
+    private static void merfolkNoAir(Player player){
+        if (isPlayerWet(player) && !player.hasCooldown(Material.DOLPHIN_SPAWN_EGG)){
+            hurtPlayer(player, -1, Sound.ENTITY_PLAYER_HURT_DROWN);
+
+            player.setCooldown(Material.DOLPHIN_SPAWN_EGG, 20);
+        }
     }
 
     public static void onConduitClick(Player player){
-        // summons storm
+        if (Cooldowns.checkPlayerCooldown(player)) return;
+
+
+        player.getWorld().setThundering(true);
+        givePotionEffect(player, PotionEffectType.DOLPHINS_GRACE, 60 * 4, 0);
+
+        Race.giveRaceCooldown(player, cooldownModifier);
+
+    }
+
+    public static void onMerfolkStartSwim(Player player){
+        givePotionEffect(player, PotionEffectType.DOLPHINS_GRACE, 4, 0);
+
+        merfolkRiptide(player);
+    }
+
+    public static void merfolkRiptide(Player player){
+        addVelocityAtCursour(player, 1.5);
+        player.playSound(player.getLocation(), Sound.ITEM_TRIDENT_RIPTIDE_1, 1.0f, 1.0f);
+        particleEmitterOnEntity(player, Particle.BUBBLE, 1, 3, 0.1, 0.1, 0.1, 0.1);
+
     }
 
 }

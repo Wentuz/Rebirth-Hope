@@ -1,7 +1,9 @@
 package me.wentuziak.race2Szop;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.advancement.AdvancementDisplayType;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,24 +13,26 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import static me.wentuziak.race2Szop.RaceKeys.*;
-import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.playerGetHurt;
-import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.playerHitLivingEntity;
+import static me.wentuziak.race2Szop.actions.BowActions.arrowManager;
+import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.*;
 import static me.wentuziak.race2Szop.playerEvents.PlayerBreakBlockManager.breakBlockManager;
 import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFishingManager.onPlayerCatchFish;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerGainHunger;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerLooseHunger;
-import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.playerBarterManager;
-import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.playerMountEntity;
+import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.*;
 import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.onSprintStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.playerMoved;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStop;
 import static me.wentuziak.race2Szop.races.Gatito.onGatitoEnterBed;
 import static me.wentuziak.race2Szop.races.Goat.goatBreakBlock;
+import static me.wentuziak.race2Szop.races.Merfolk.merfolkBreathe;
+import static me.wentuziak.race2Szop.races.NetherFolk.netherFolkRespawn;
 import static me.wentuziak.race2Szop.races.Parrot.parrotSleep;
 
 public class EntityListener implements Listener {
@@ -39,17 +43,21 @@ public class EntityListener implements Listener {
     public void onEntityRightClick(PlayerInteractEntityEvent event){
 
         Player player = event.getPlayer();
-        Entity clickedEntity = event.getRightClicked();
 
 
 //        if (event.getRightClicked() instanceof Player) {
 //            Player clickedPlayer = (Player) event.getRightClicked();
-//            raceKey = getPlayerRaceKey(clickedPlayer);
+//            raceKey = getPlayerRaceKeySet(clickedPlayer);
 //            if (raceKey == null){
 //                return;
 //            }
 //            playerRightClickLivingEntity(player, (LivingEntity) clickedPlayer, raceKey);
 //        }
+        if (event.getRightClicked() instanceof LivingEntity clickedEntity) {
+            raceKey = getPlayerRaceKeySet(player);
+
+            playerRightClickLivingEntity(player, clickedEntity, raceKey);
+        }
     }
 
     @EventHandler
@@ -63,7 +71,38 @@ public class EntityListener implements Listener {
                 playerHitLivingEntity(player, hitEntity, raceKey);
             }
         }
+    }
 
+    @EventHandler
+    public void onPlayerAdvancement(PlayerAdvancementDoneEvent event){
+        //Player player = event.getPlayer();
+        //event.getAdvancement().getKey()
+        //if (event.getAdvancement().getDisplay().getType().equals(AdvancementDisplayType.GOAL)) player.sendMessage("TEST PASSED !!! ");
+        //if (event.getAdvancement().getDisplay().getType().equals(AdvancementDisplayType.CHALLENGE)) player.sendMessage("Challange Passed !!! ");
+        //if (event.getAdvancement().getDisplay().getType().equals(AdvancementDisplayType.TASK)) player.sendMessage("task Passed !!! ");
+
+
+        //TODO:
+        //  on CHALLANGE -> give ADVANCED_UPGRADE race bonus
+        //  on GOAL -> give BASE_UPGRADE race bonus
+
+        //player.sendMessage(event.getAdvancement().getDisplay().getType() + " ");
+
+
+    }
+
+    @EventHandler
+    public void onPlayerShootArrow(EntityShootBowEvent event){
+        if (event.getEntity() instanceof Player player){
+            playerShootBowManager(player, event);
+        }
+    }
+
+    @EventHandler
+    public void onArrowLand(ProjectileHitEvent event){
+        if (event.getEntityType().equals(EntityType.ARROW)){
+            arrowManager((Arrow) event.getEntity());
+        }
     }
 
     @EventHandler
@@ -176,7 +215,9 @@ public class EntityListener implements Listener {
         List<ItemStack> barteredItem = event.getOutcome();
         Piglin piglin = event.getEntity();
 
-        playerBarterManager(piglin, (ItemStack) barteredItem);
+
+
+        playerBarterManager(piglin, barteredItem);
     }
 
     @EventHandler
@@ -224,7 +265,6 @@ public class EntityListener implements Listener {
     @EventHandler
     public void onPlayerChangeFoodLevel(FoodLevelChangeEvent event){
         if (event.getEntity() instanceof Player player){
-
             int oldHunger = player.getFoodLevel();
             int newHunger = event.getFoodLevel();
 
@@ -238,8 +278,31 @@ public class EntityListener implements Listener {
             }else {
                 playerGainHunger(player, raceKey);
             }
+        }
+    }
 
+    @EventHandler
+    public void onPlayerOxygenChange(EntityAirChangeEvent event){
+        if (event.getEntity() instanceof Player player){
+            raceKey = getPlayerRaceKeySet(player);
 
+            if (raceKey.isEmpty()){
+                return;
+            }
+            if (raceKey.contains(MERFOLK_RACE)) merfolkBreathe(player, event);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event){
+        Player player = event.getPlayer();
+        raceKey = getPlayerRaceKeySet(player);
+        if (raceKey.isEmpty()){
+            return;
+        }
+
+        if ((!event.isAnchorSpawn() || !event.isBedSpawn()) && raceKey.contains(NETHER_RACE)){
+            netherFolkRespawn(player);
         }
     }
 }

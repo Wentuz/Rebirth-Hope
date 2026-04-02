@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-import static me.wentuziak.race2Szop.ItemKeys.LUCKY_TOOL;
+import static me.wentuziak.race2Szop.ItemKeys.*;
 import static me.wentuziak.race2Szop.items.getToolModifiers.*;
 import static org.bukkit.Bukkit.getLogger;
 
@@ -94,6 +94,8 @@ public class ItemCrafting {
         assert itemMeta != null;
         itemMeta.setDisplayName(ChatColor.DARK_PURPLE + "Lucky Axe");
 
+        itemMeta.getPersistentDataContainer().set(LUCKY_TOOL, PersistentDataType.BOOLEAN, true);
+
         itemMeta.addAttributeModifier(Attribute.LUCK, handLuckAttribute);
         itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED, handAttackSpeedOneAttribute);
         itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, handAttackDamage9Attribute);
@@ -113,6 +115,8 @@ public class ItemCrafting {
 
         assert itemMeta != null;
         itemMeta.setDisplayName(ChatColor.DARK_PURPLE + "Lucky Hoe");
+
+        itemMeta.getPersistentDataContainer().set(LUCKY_TOOL, PersistentDataType.BOOLEAN, true);
 
         itemMeta.addAttributeModifier(Attribute.LUCK, handLuckAttribute);
         itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED, handAttackSpeedOneAttribute);
@@ -134,6 +138,8 @@ public class ItemCrafting {
         assert itemMeta != null;
         itemMeta.setDisplayName(ChatColor.DARK_PURPLE + "Lucky Shovel");
 
+        itemMeta.getPersistentDataContainer().set(LUCKY_TOOL, PersistentDataType.BOOLEAN, true);
+
         itemMeta.addAttributeModifier(Attribute.LUCK, handLuckAttribute);
         itemMeta.addAttributeModifier(Attribute.ATTACK_SPEED, handAttackSpeedOneAttribute);
         itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, handAttackDamage4Attribute);
@@ -146,4 +152,54 @@ public class ItemCrafting {
     //------------------------------------------------------------------------------------
     //                                     SWORDS
     //------------------------------------------------------------------------------------
+
+    //------------------------------------------------------------------------------------
+    //                                     BOWS
+    //------------------------------------------------------------------------------------
+
+    public static ItemStack createMultiAttackBow(){
+        ItemStack item = new ItemStack(Material.BOW);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.YELLOW + "Multi Attack Bow");
+
+        itemMeta.getPersistentDataContainer().set(MULTI_ATTACK_EFFECT, PersistentDataType.BOOLEAN, true);
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+
+    //------------------------------------------------------------------------------------
+    //                                     BOWS
+    //------------------------------------------------------------------------------------
+
+    public static ItemStack createMultiAttackCrossBow(){
+        ItemStack item = new ItemStack(Material.CROSSBOW);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.YELLOW + "Multi Attack CrossBow");
+
+        itemMeta.getPersistentDataContainer().set(MULTI_ATTACK_EFFECT, PersistentDataType.BOOLEAN, true);
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+
+    public static ItemStack createBlazeCrossBow(){
+        ItemStack item = new ItemStack(Material.CROSSBOW);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.GOLD + "Blaze CrossBow");
+
+        itemMeta.getPersistentDataContainer().set(BLAZE_EFFECT, PersistentDataType.BOOLEAN, true);
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
 }
