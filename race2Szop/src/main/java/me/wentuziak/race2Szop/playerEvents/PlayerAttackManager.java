@@ -5,15 +5,19 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.Objects;
 import java.util.Set;
 
+import static me.wentuziak.race2Szop.ItemKeys.BLAZE_EFFECT;
 import static me.wentuziak.race2Szop.ItemKeys.MULTI_ATTACK_EFFECT;
 import static me.wentuziak.race2Szop.RaceKeys.*;
+import static me.wentuziak.race2Szop.actions.BowActions.blazeProjectile;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.randomInteger;
 import static me.wentuziak.race2Szop.races.Goat.goatRamAttack;
 
@@ -34,14 +38,15 @@ public class PlayerAttackManager {
 
     public static void playerShootBowManager(Player player, EntityShootBowEvent event){
         ItemStack usedBow = event.getBow();
-
-        Arrow usedArrow = (Arrow) event.getProjectile();
-
+        Projectile projectile = (Projectile) event.getProjectile();
         assert usedBow != null;
         PersistentDataContainer bowContainer = Objects.requireNonNull(usedBow.getItemMeta()).getPersistentDataContainer();
 
         if (bowContainer.has(MULTI_ATTACK_EFFECT)){
-            player.sendMessage("MULTI ATTACK !!! " + usedArrow);
+            event.getProjectile().getPersistentDataContainer().set(MULTI_ATTACK_EFFECT, PersistentDataType.BOOLEAN, true);
+        }
+        if (bowContainer.has(BLAZE_EFFECT)){
+            blazeProjectile(projectile);
         }
     }
 
