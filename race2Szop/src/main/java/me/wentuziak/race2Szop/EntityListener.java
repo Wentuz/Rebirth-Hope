@@ -2,6 +2,7 @@ package me.wentuziak.race2Szop;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.advancement.AdvancementDisplayType;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,8 +22,7 @@ import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRa
 import static me.wentuziak.race2Szop.playerEvents.PlayerFishingManager.onPlayerCatchFish;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerGainHunger;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerLooseHunger;
-import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.playerBarterManager;
-import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.playerMountEntity;
+import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.*;
 import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.onSprintStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.playerMoved;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStart;
@@ -41,17 +41,21 @@ public class EntityListener implements Listener {
     public void onEntityRightClick(PlayerInteractEntityEvent event){
 
         Player player = event.getPlayer();
-        Entity clickedEntity = event.getRightClicked();
 
 
 //        if (event.getRightClicked() instanceof Player) {
 //            Player clickedPlayer = (Player) event.getRightClicked();
-//            raceKey = getPlayerRaceKey(clickedPlayer);
+//            raceKey = getPlayerRaceKeySet(clickedPlayer);
 //            if (raceKey == null){
 //                return;
 //            }
 //            playerRightClickLivingEntity(player, (LivingEntity) clickedPlayer, raceKey);
 //        }
+        if (event.getRightClicked() instanceof LivingEntity clickedEntity) {
+            raceKey = getPlayerRaceKeySet(player);
+
+            playerRightClickLivingEntity(player, clickedEntity, raceKey);
+        }
     }
 
     @EventHandler
@@ -65,6 +69,23 @@ public class EntityListener implements Listener {
                 playerHitLivingEntity(player, hitEntity, raceKey);
             }
         }
+    }
+
+    @EventHandler
+    public void onPlayerAdvancement(PlayerAdvancementDoneEvent event){
+        Player player = event.getPlayer();
+        //event.getAdvancement().getKey()
+        //if (event.getAdvancement().getDisplay().getType().equals(AdvancementDisplayType.GOAL)) player.sendMessage("TEST PASSED !!! ");
+        //if (event.getAdvancement().getDisplay().getType().equals(AdvancementDisplayType.CHALLENGE)) player.sendMessage("Challange Passed !!! ");
+        //if (event.getAdvancement().getDisplay().getType().equals(AdvancementDisplayType.TASK)) player.sendMessage("task Passed !!! ");
+
+
+        //TODO:
+        //  on CHALLANGE -> give ADVANCED_UPGRADE race bonus
+        //  on GOAL -> give BASE_UPGRADE race bonus
+
+        //player.sendMessage(event.getAdvancement().getDisplay().getType() + " ");
+
 
     }
 

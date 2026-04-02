@@ -11,6 +11,7 @@ import java.util.Set;
 
 import static me.wentuziak.race2Szop.Logic.Checkers.getNearestPlayer;
 import static me.wentuziak.race2Szop.RaceKeys.*;
+import static me.wentuziak.race2Szop.races.Gatito.onGatitoRide;
 import static me.wentuziak.race2Szop.races.NetherFolk.piglinTradeOutcome;
 import static me.wentuziak.race2Szop.races.Skelly.skellyMount;
 import static org.bukkit.Bukkit.getLogger;
@@ -18,7 +19,9 @@ import static org.bukkit.Bukkit.getLogger;
 public class PlayerInteractionManager {
 
     public static void playerRightClickLivingEntity(Player player, LivingEntity clickedEntity, Set<NamespacedKey> raceKey){
-
+        if (raceKey.contains(GATITO_RACE)){
+            onGatitoRide(player, clickedEntity);
+        }
     }
 
     public static void playerMountEntity(Player player, LivingEntity clickedEntity, Set<NamespacedKey> raceKey){

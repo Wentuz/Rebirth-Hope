@@ -11,6 +11,7 @@ import org.jspecify.annotations.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static me.wentuziak.race2Szop.Logic.RaceLevelManager.unLoadAllAdvancments;
 import static me.wentuziak.race2Szop.RaceKeys.getRaceList;
 import static me.wentuziak.race2Szop.commands.RaceChangeCommand.swapPlayerRace;
 import static me.wentuziak.race2Szop.commands.RaceChangeCommand.unLoadRace;
@@ -84,6 +85,9 @@ public class CommandManager implements TabExecutor {
                     return false;
             }
             unLoadRace(targetPlayer);
+
+            unLoadAllAdvancments(targetPlayer);
+
             return true;
         }else{
             Player targetPlayer;
