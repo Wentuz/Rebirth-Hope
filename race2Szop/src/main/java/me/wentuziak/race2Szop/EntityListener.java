@@ -1,5 +1,6 @@
 package me.wentuziak.race2Szop;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.advancement.AdvancementDisplayType;
@@ -12,11 +13,12 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import static me.wentuziak.race2Szop.RaceKeys.*;
-import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.playerGetHurt;
-import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.playerHitLivingEntity;
+import static me.wentuziak.race2Szop.actions.BowActions.arrowManager;
+import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.*;
 import static me.wentuziak.race2Szop.playerEvents.PlayerBreakBlockManager.breakBlockManager;
 import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFishingManager.onPlayerCatchFish;
@@ -73,7 +75,7 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onPlayerAdvancement(PlayerAdvancementDoneEvent event){
-        Player player = event.getPlayer();
+        //Player player = event.getPlayer();
         //event.getAdvancement().getKey()
         //if (event.getAdvancement().getDisplay().getType().equals(AdvancementDisplayType.GOAL)) player.sendMessage("TEST PASSED !!! ");
         //if (event.getAdvancement().getDisplay().getType().equals(AdvancementDisplayType.CHALLENGE)) player.sendMessage("Challange Passed !!! ");
@@ -87,6 +89,20 @@ public class EntityListener implements Listener {
         //player.sendMessage(event.getAdvancement().getDisplay().getType() + " ");
 
 
+    }
+
+    @EventHandler
+    public void onPlayerShootArrow(EntityShootBowEvent event){
+        if (event.getEntity() instanceof Player player){
+            playerShootBowManager(player, event);
+        }
+    }
+
+    @EventHandler
+    public void onArrowLand(ProjectileHitEvent event){
+        if (event.getEntityType().equals(EntityType.ARROW)){
+            arrowManager((Arrow) event.getEntity());
+        }
     }
 
     @EventHandler

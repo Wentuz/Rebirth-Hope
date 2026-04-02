@@ -11,5 +11,7 @@ public class ItemKeys {
     public static final NamespacedKey SLIMY_EFFECT = new NamespacedKey(Race2Szop.getInstance(), "SlimyEffect");
     public static final NamespacedKey FLAME_EFFECT = new NamespacedKey(Race2Szop.getInstance(), "FlameEffect");
     public static final NamespacedKey WITCHY_EFFECT = new NamespacedKey(Race2Szop.getInstance(), "WitchyEffect");
+    public static final NamespacedKey MULTI_ATTACK_EFFECT = new NamespacedKey(Race2Szop.getInstance(), "MultiAttackEffect");
+
 
 }

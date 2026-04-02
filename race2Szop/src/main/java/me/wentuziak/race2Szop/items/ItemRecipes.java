@@ -144,6 +144,27 @@ public class ItemRecipes {
         //------------------------------------------------------------------------------------
         //                                     SWORDS
         //------------------------------------------------------------------------------------
+
+        //------------------------------------------------------------------------------------
+        //                                     BOWS
+        //------------------------------------------------------------------------------------
+
+        //
+        //      Multi Attack Bow Recipe
+        //
+        ItemStack multiAttackBow = ItemCrafting.createMultiAttackBow();
+        key = new NamespacedKey(Race2Szop.getInstance(), "MultiAttackBowRecipe");
+        recipeKeys.add(key);
+
+        ShapedRecipe multiAttackBowRecipe = new ShapedRecipe(key, multiAttackBow);
+        multiAttackBowRecipe.shape(
+                "SW ",
+                "S T",
+                "SW ");
+        multiAttackBowRecipe.setIngredient('S', Material.STRING);
+        multiAttackBowRecipe.setIngredient('W', Material.STICK);
+        multiAttackBowRecipe.setIngredient('T', Material.TRIPWIRE_HOOK);
+        Bukkit.addRecipe(multiAttackBowRecipe);
     }
 
 
