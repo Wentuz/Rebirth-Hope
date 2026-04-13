@@ -7,6 +7,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
+import org.bukkit.inventory.ShapelessRecipe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -202,6 +203,18 @@ public class ItemRecipes {
         blazeCrossBowRecipe.setIngredient('F', Material.FIRE_CHARGE);
         blazeCrossBowRecipe.setIngredient('B', Material.BLAZE_ROD);
         Bukkit.addRecipe(blazeCrossBowRecipe);
+
+        //
+        //      Knockback Salmon Recipe
+        //
+        ItemStack salmonKnock = ItemCrafting.createKnockBackSalmon();
+        key = new NamespacedKey(Race2Szop.getInstance(), "knockbackSalmonRecipe");
+        recipeKeys.add(key);
+
+        ShapelessRecipe salmonKnockRecipe = new ShapelessRecipe(key, salmonKnock);
+        salmonKnockRecipe.addIngredient(1, Material.SALMON);
+        salmonKnockRecipe.addIngredient(1, Material.SLIME_BALL);
+        Bukkit.addRecipe(salmonKnockRecipe);
 
     }
 

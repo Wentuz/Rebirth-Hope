@@ -18,6 +18,7 @@ import java.util.Set;
 
 import static me.wentuziak.race2Szop.RaceKeys.*;
 import static me.wentuziak.race2Szop.actions.BowActions.arrowManager;
+import static me.wentuziak.race2Szop.actions.CrossBowActions.fireworkManager;
 import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.*;
 import static me.wentuziak.race2Szop.playerEvents.PlayerBreakBlockManager.breakBlockManager;
 import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
@@ -94,6 +95,7 @@ public class EntityListener implements Listener {
     @EventHandler
     public void onPlayerShootArrow(EntityShootBowEvent event){
         if (event.getEntity() instanceof Player player){
+
             playerShootBowManager(player, event);
         }
     }
@@ -102,6 +104,8 @@ public class EntityListener implements Listener {
     public void onArrowLand(ProjectileHitEvent event){
         if (event.getEntityType().equals(EntityType.ARROW)){
             arrowManager((Arrow) event.getEntity());
+        } else if (event.getEntityType().equals(EntityType.FIREWORK_ROCKET)) {
+            fireworkManager((Firework) event.getEntity());
         }
     }
 

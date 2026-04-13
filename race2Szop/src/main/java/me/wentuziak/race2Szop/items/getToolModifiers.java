@@ -29,9 +29,14 @@ public class getToolModifiers {
     public static final AttributeModifier handAttackDamage9Attribute = getAttackDamage9Modifier();
     public static final AttributeModifier handAttackDamage10Attribute = getAttackDamage10Modifier();
 
+    public static final AttributeModifier handKnockback10Attribute = getKnockback10Modifier();
+
+    //  todo:
+    //   simplify
+    //
 
 
-     //
+    //
      //       Luck modifiers
      //
     private static AttributeModifier getLuckHandModifier(){
@@ -167,6 +172,18 @@ public class getToolModifiers {
     private static AttributeModifier getAttackDamage10Modifier(){
         return new AttributeModifier(
                 new NamespacedKey(Race2Szop.getInstance(), "AttackDamage10Attribute"),
+                10, // amount
+                AttributeModifier.Operation.ADD_NUMBER,
+                EquipmentSlotGroup.HAND // or specific group
+        );
+    }
+
+    //
+    //          Knockback
+    //
+    private static AttributeModifier getKnockback10Modifier(){
+        return new AttributeModifier(
+                new NamespacedKey(Race2Szop.getInstance(), "Knockback10Attribute"),
                 10, // amount
                 AttributeModifier.Operation.ADD_NUMBER,
                 EquipmentSlotGroup.HAND // or specific group

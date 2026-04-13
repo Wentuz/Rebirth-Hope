@@ -163,6 +163,7 @@ public class ItemCrafting {
 
         assert itemMeta != null;
         itemMeta.setDisplayName(ChatColor.YELLOW + "Multi Attack Bow");
+        itemMeta.setLore(List.of(ChatColor.UNDERLINE + "Multi Attack"));
 
         itemMeta.getPersistentDataContainer().set(MULTI_ATTACK_EFFECT, PersistentDataType.BOOLEAN, true);
 
@@ -202,4 +203,21 @@ public class ItemCrafting {
 
         return item;
     }
+
+    //------------------------------------------------------------------------------------
+    //                                     MISCALENOUS
+    //------------------------------------------------------------------------------------
+    public static ItemStack createKnockBackSalmon(){
+        ItemStack item = new ItemStack(Material.SALMON);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.RED + "Salmon of absolute STENCH");
+
+        itemMeta.addAttributeModifier(Attribute.ATTACK_KNOCKBACK, handKnockback10Attribute);
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+
 }

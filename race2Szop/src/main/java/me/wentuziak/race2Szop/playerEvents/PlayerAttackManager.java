@@ -1,11 +1,11 @@
 package me.wentuziak.race2Szop.playerEvents;
 
+import me.wentuziak.race2Szop.Race2Szop;
 import me.wentuziak.race2Szop.races.Enderian;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -18,6 +18,7 @@ import static me.wentuziak.race2Szop.ItemKeys.BLAZE_EFFECT;
 import static me.wentuziak.race2Szop.ItemKeys.MULTI_ATTACK_EFFECT;
 import static me.wentuziak.race2Szop.RaceKeys.*;
 import static me.wentuziak.race2Szop.actions.BowActions.blazeProjectile;
+import static me.wentuziak.race2Szop.actions.CrossBowActions.ghastProjectile;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.randomInteger;
 import static me.wentuziak.race2Szop.races.Goat.goatRamAttack;
 
@@ -46,8 +47,25 @@ public class PlayerAttackManager {
             event.getProjectile().getPersistentDataContainer().set(MULTI_ATTACK_EFFECT, PersistentDataType.BOOLEAN, true);
         }
         if (bowContainer.has(BLAZE_EFFECT)){
-            blazeProjectile(projectile);
+            int x = 0;
+            int delay;
+            if (projectile.getType().equals(EntityType.FIREWORK_ROCKET)){
+                delay = 5;
+            } else {
+                delay = 1;
+            }
+
+            if (Objects.requireNonNull(usedBow.getItemMeta()).getEnchantLevel(Enchantment.MULTISHOT) != 0) x = 2;
+            do {
+                Bukkit.getScheduler().runTaskLater(Race2Szop.getInstance(), () -> {
+                    if (delay != 1){
+                        ghastProjectile(projectile);
+                    }else{
+                        blazeProjectile(projectile);
+                    }
+                },  delay);
+                x = x - 1;
+            }while(x > 0);
         }
     }
-
 }
