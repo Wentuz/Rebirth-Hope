@@ -11,11 +11,11 @@ import org.jspecify.annotations.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static me.wentuziak.race2Szop.Logic.RaceLevelManager.unLoadAllAdvancments;
 import static me.wentuziak.race2Szop.RaceKeys.getRaceList;
 import static me.wentuziak.race2Szop.commands.RaceChangeCommand.swapPlayerRace;
 import static me.wentuziak.race2Szop.commands.RaceChangeCommand.unLoadRace;
 import static me.wentuziak.race2Szop.commands.RaceLevelCommand.changePlayerLvl;
+import static me.wentuziak.race2Szop.playerEvents.PlayerAdvancementManager.unLoadAllAdvancments;
 
 public class CommandManager implements TabExecutor {
 
@@ -37,6 +37,9 @@ public class CommandManager implements TabExecutor {
 
         String usedCommand = args[0].toLowerCase();
 
+        //
+        //              Change race
+        //
         if (usedCommand.equals(changeRace)){
             Player targetPlayer;
             switch (args.length) {
@@ -61,9 +64,13 @@ public class CommandManager implements TabExecutor {
 
             return swapPlayerRace(targetPlayer, args[1]);
         }
-        else if (usedCommand.equals(getInfo)){
+        else if (usedCommand.equals(getInfo)){  //getInfo
             sender.sendMessage("get info " + usedCommand + " " + args.length);
-        }else if (usedCommand.equals(unloadRace)){
+        }
+        //
+        //              Unload Race
+        //
+        else if (usedCommand.equals(unloadRace)){
             Player targetPlayer;
             switch (args.length) {
                 case 1:
@@ -89,7 +96,11 @@ public class CommandManager implements TabExecutor {
             unLoadAllAdvancments(targetPlayer);
 
             return true;
-        }else{
+        }
+        //
+        //              Level change
+        //
+        else{
             Player targetPlayer;
             switch (args.length) {
                 case 1:

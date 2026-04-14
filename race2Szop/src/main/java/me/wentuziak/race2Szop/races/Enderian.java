@@ -18,7 +18,6 @@ public class Enderian implements Race{
     static NamespacedKey raceKey = Race.currentRaceKey("ENDERIAN_RACE");
     static double cooldownModifier = 0.5;
 
-
     public static void throwPearlOrTeleport(Player player){
         if (Cooldowns.checkPlayerCooldown(player)) return;
 

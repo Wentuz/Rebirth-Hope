@@ -163,7 +163,7 @@ public class ItemCrafting {
 
         assert itemMeta != null;
         itemMeta.setDisplayName(ChatColor.YELLOW + "Multi Attack Bow");
-        itemMeta.setLore(List.of(ChatColor.UNDERLINE + "Multi Attack"));
+        itemMeta.setLore(List.of(ChatColor.BOLD + "Multi Attack"));
 
         itemMeta.getPersistentDataContainer().set(MULTI_ATTACK_EFFECT, PersistentDataType.BOOLEAN, true);
 
@@ -182,6 +182,7 @@ public class ItemCrafting {
 
         assert itemMeta != null;
         itemMeta.setDisplayName(ChatColor.YELLOW + "Multi Attack CrossBow");
+        itemMeta.setLore(List.of(ChatColor.BOLD + "Multi Attack"));
 
         itemMeta.getPersistentDataContainer().set(MULTI_ATTACK_EFFECT, PersistentDataType.BOOLEAN, true);
 

@@ -47,25 +47,19 @@ public class PlayerAttackManager {
             event.getProjectile().getPersistentDataContainer().set(MULTI_ATTACK_EFFECT, PersistentDataType.BOOLEAN, true);
         }
         if (bowContainer.has(BLAZE_EFFECT)){
-            int x = 0;
             int delay;
             if (projectile.getType().equals(EntityType.FIREWORK_ROCKET)){
-                delay = 5;
+                delay = 2;
             } else {
                 delay = 1;
             }
 
-            if (Objects.requireNonNull(usedBow.getItemMeta()).getEnchantLevel(Enchantment.MULTISHOT) != 0) x = 2;
-            do {
-                Bukkit.getScheduler().runTaskLater(Race2Szop.getInstance(), () -> {
-                    if (delay != 1){
-                        ghastProjectile(projectile);
-                    }else{
-                        blazeProjectile(projectile);
-                    }
+            Bukkit.getScheduler().runTaskLater(Race2Szop.getInstance(), () -> {
+                if (delay != 1){
+                    ghastProjectile(projectile);
+                }else{
+                    blazeProjectile(projectile);}
                 },  delay);
-                x = x - 1;
-            }while(x > 0);
         }
     }
 }

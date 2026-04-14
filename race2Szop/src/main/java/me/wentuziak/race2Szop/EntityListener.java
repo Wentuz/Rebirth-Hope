@@ -3,6 +3,7 @@ package me.wentuziak.race2Szop;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementDisplayType;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -19,6 +20,7 @@ import java.util.Set;
 import static me.wentuziak.race2Szop.RaceKeys.*;
 import static me.wentuziak.race2Szop.actions.BowActions.arrowManager;
 import static me.wentuziak.race2Szop.actions.CrossBowActions.fireworkManager;
+import static me.wentuziak.race2Szop.playerEvents.PlayerAdvancementManager.playerGetAdvancement;
 import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.*;
 import static me.wentuziak.race2Szop.playerEvents.PlayerBreakBlockManager.breakBlockManager;
 import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
@@ -76,19 +78,24 @@ public class EntityListener implements Listener {
 
     @EventHandler
     public void onPlayerAdvancement(PlayerAdvancementDoneEvent event){
-        //Player player = event.getPlayer();
-        //event.getAdvancement().getKey()
-        //if (event.getAdvancement().getDisplay().getType().equals(AdvancementDisplayType.GOAL)) player.sendMessage("TEST PASSED !!! ");
-        //if (event.getAdvancement().getDisplay().getType().equals(AdvancementDisplayType.CHALLENGE)) player.sendMessage("Challange Passed !!! ");
-        //if (event.getAdvancement().getDisplay().getType().equals(AdvancementDisplayType.TASK)) player.sendMessage("task Passed !!! ");
+        Player player = event.getPlayer();
+        Advancement adv = event.getAdvancement();
+
+        if (adv.getDisplay() != null) {
+
+
+            if (event.getAdvancement().getDisplay().getType().equals(AdvancementDisplayType.CHALLENGE) ||
+                    event.getAdvancement().getDisplay().getType().equals(AdvancementDisplayType.GOAL)){
+                playerGetAdvancement(player, event.getAdvancement());
+            }
+
+
+        }
 
 
         //TODO:
         //  on CHALLANGE -> give ADVANCED_UPGRADE race bonus
         //  on GOAL -> give BASE_UPGRADE race bonus
-
-        //player.sendMessage(event.getAdvancement().getDisplay().getType() + " ");
-
 
     }
 
