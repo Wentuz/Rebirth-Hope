@@ -1,6 +1,5 @@
 package me.wentuziak.race2Szop;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.advancement.Advancement;
@@ -14,7 +13,6 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import static me.wentuziak.race2Szop.RaceKeys.*;
@@ -32,6 +30,7 @@ import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.onSprintStar
 import static me.wentuziak.race2Szop.playerEvents.PlayerMoveManager.playerMoved;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStart;
 import static me.wentuziak.race2Szop.playerEvents.PlayerSneakManager.onSneakStop;
+import static me.wentuziak.race2Szop.playerEvents.PlayerTakeDamageManager.onPlayerFallDamage;
 import static me.wentuziak.race2Szop.races.Gatito.onGatitoEnterBed;
 import static me.wentuziak.race2Szop.races.Goat.goatBreakBlock;
 import static me.wentuziak.race2Szop.races.Merfolk.merfolkBreathe;
@@ -72,6 +71,15 @@ public class EntityListener implements Listener {
                 raceKey = getPlayerRaceKeySet(player);
 
                 playerHitLivingEntity(player, hitEntity, raceKey);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerTakeDamage(EntityDamageEvent event){
+        if (event.getEntity() instanceof Player player){
+            if (event.getCause() == EntityDamageEvent.DamageCause.FALL){
+                onPlayerFallDamage(player, event.getDamage());
             }
         }
     }

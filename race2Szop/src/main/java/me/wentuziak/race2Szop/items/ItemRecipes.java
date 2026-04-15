@@ -204,6 +204,9 @@ public class ItemRecipes {
         blazeCrossBowRecipe.setIngredient('B', Material.BLAZE_ROD);
         Bukkit.addRecipe(blazeCrossBowRecipe);
 
+        //------------------------------------------------------------------------------------
+        //                                     MISCELLANEOUS
+        //------------------------------------------------------------------------------------
         //
         //      Knockback Salmon Recipe
         //
@@ -216,6 +219,41 @@ public class ItemRecipes {
         salmonKnockRecipe.addIngredient(1, Material.SLIME_BALL);
         Bukkit.addRecipe(salmonKnockRecipe);
 
+        //------------------------------------------------------------------------------------
+        //                                     BOOTS
+        //------------------------------------------------------------------------------------
+        //
+        //      Slime boots Recipe
+        //
+        ItemStack slimeBoots = ItemCrafting.createSlimeBoots();
+        key = new NamespacedKey(Race2Szop.getInstance(), "SlimeBootsRecipe");
+        recipeKeys.add(key);
+
+        ShapedRecipe slimeBootsRecipe = new ShapedRecipe(key, slimeBoots);
+        slimeBootsRecipe.shape(
+                "SSS",
+                "SIS",
+                "SSS");
+        slimeBootsRecipe.setIngredient('S', Material.SLIME_BALL);
+        slimeBootsRecipe.setIngredient('I', Material.IRON_BOOTS);
+        Bukkit.addRecipe(slimeBootsRecipe);
+
+        //
+        //      Explosion Boots Recipe
+        //
+        ItemStack explosionBoots = ItemCrafting.createExplosionBoots();
+        key = new NamespacedKey(Race2Szop.getInstance(), "ExplosionBootsRecipe");
+        recipeKeys.add(key);
+
+        ShapedRecipe explosionBootsRecipe = new ShapedRecipe(key, explosionBoots);
+        explosionBootsRecipe.shape(
+                "   ",
+                "BIB",
+                "G G");
+        explosionBootsRecipe.setIngredient('G', Material.GUNPOWDER);
+        explosionBootsRecipe.setIngredient('I', Material.IRON_BOOTS);
+        explosionBootsRecipe.setIngredient('B', Material.BLAZE_POWDER);
+        Bukkit.addRecipe(explosionBootsRecipe);
     }
 
 
