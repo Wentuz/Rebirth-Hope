@@ -13,6 +13,7 @@ import java.util.Set;
 
 import static me.wentuziak.race2Szop.Logic.GetItemCategories.*;
 import static me.wentuziak.race2Szop.RaceKeys.GOAT_RACE;
+import static me.wentuziak.race2Szop.items.LuckyTool.luckyToolManager;
 import static me.wentuziak.race2Szop.lootTables.LootManager.*;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.*;
 import static me.wentuziak.race2Szop.races.Goat.goatBreakBlock;
@@ -29,35 +30,7 @@ public class PlayerBreakBlockManager {
 
         PersistentDataContainer playerContainer = itemInMainHand.getItemMeta().getPersistentDataContainer();
         if (playerContainer.has(ItemKeys.LUCKY_TOOL, PersistentDataType.BYTE)) {
-
-            if (randomInteger(10) <= getHandLuck(itemInMainHand)) {
-                if (isPickaxe(itemInMainHand.getType())) {
-                    brokenBlock = getPickAxeLootMaterial(brokenBlock);
-                } else if (isHoe(itemInMainHand.getType())) {
-                    brokenBlock = getHoeLootMaterial(brokenBlock);
-                } else if (isAxe(itemInMainHand.getType())) {
-                    brokenBlock = getAxeLootMaterial(brokenBlock);
-                } else if (isShovel(itemInMainHand.getType())) {
-                    brokenBlock = getShovelLootMaterial(brokenBlock);
-                }
-
-
-                //check for errors or not valid drops, excluding crops
-                if (finalDrop.equals(brokenBlock) &&
-                        !(finalDrop.equals(Material.WHEAT) || finalDrop.equals(Material.CARROTS)
-                                || finalDrop.equals(Material.POTATOES)) || finalDrop.equals(Material.BEETROOTS)) {
-                    return drop;
-                }
-
-                // how much of loot drops
-                if (isShovel(itemInMainHand.getType())) {
-                    drop.setAmount(1 + randomInteger(getHandLuck(itemInMainHand)));
-                } else if (!((brokenBlock.equals(Material.COBBLESTONE)) || isAxe(itemInMainHand.getType()))) {
-                    drop.setAmount(drop.getAmount() + (randomInteger(getLuckLevel(player)) /2 ) + getHandLuck(itemInMainHand));
-                }
-
-                drop.setType(brokenBlock);
-            }
+            luckyToolManager(itemInMainHand, finalDrop, brokenBlock, drop, player);
         }
 
         return drop;

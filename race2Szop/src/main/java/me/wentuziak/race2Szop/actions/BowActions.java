@@ -50,16 +50,13 @@ public class BowActions {
                 EntityType.SMALL_FIREBALL
         );
 
-        // Copy velocity
         Vector velocity = projectile.getVelocity();
         fireball.setVelocity(velocity);
 
-        // Optional: set shooter
         if (projectile.getShooter() instanceof org.bukkit.entity.LivingEntity shooter) {
             fireball.setShooter(shooter);
         }
 
-        // Optional: no block damage (like blaze fireballs)
         fireball.setIsIncendiary(true);
         fireball.setYield(0);
 

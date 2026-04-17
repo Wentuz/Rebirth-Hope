@@ -3,6 +3,7 @@ package me.wentuziak.race2Szop.races;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.data.type.Switch;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -37,7 +38,7 @@ public class Skelly implements Race {
         }
     }
 
-    public static void skellyShootArrow(Player player){
+    public static void skellyShootArrow(Arrow arrow){
 
     }
 

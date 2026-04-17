@@ -12,9 +12,12 @@ public interface Race {
     public Double cooldownModifier = 1.0;
     public String levelMessage = "";
 
+
+
     // TODO :
     // read skill input
     // lvl up
+    // variable for basic 1st lvl and 2nd lvl
 
     public static int checkCurrentLevel(Player player){
 

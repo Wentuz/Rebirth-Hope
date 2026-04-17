@@ -1,16 +1,14 @@
 package me.wentuziak.race2Szop.items;
 
 import me.wentuziak.race2Szop.Race2Szop;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.components.ToolComponent;
 import org.bukkit.inventory.meta.components.WeaponComponent;
 import org.bukkit.inventory.meta.components.consumable.ConsumableComponent;
@@ -163,6 +161,7 @@ public class ItemCrafting {
 
         assert itemMeta != null;
         itemMeta.setDisplayName(ChatColor.YELLOW + "Multi Attack Bow");
+        itemMeta.setLore(List.of(ChatColor.BOLD + "Multi Attack"));
 
         itemMeta.getPersistentDataContainer().set(MULTI_ATTACK_EFFECT, PersistentDataType.BOOLEAN, true);
 
@@ -181,6 +180,7 @@ public class ItemCrafting {
 
         assert itemMeta != null;
         itemMeta.setDisplayName(ChatColor.YELLOW + "Multi Attack CrossBow");
+        itemMeta.setLore(List.of(ChatColor.BOLD + "Multi Attack"));
 
         itemMeta.getPersistentDataContainer().set(MULTI_ATTACK_EFFECT, PersistentDataType.BOOLEAN, true);
 
@@ -202,4 +202,72 @@ public class ItemCrafting {
 
         return item;
     }
+
+    //------------------------------------------------------------------------------------
+    //                                     MISCELLANEOUS
+    //------------------------------------------------------------------------------------
+    public static ItemStack createKnockBackSalmon(){
+        ItemStack item = new ItemStack(Material.SALMON);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.RED + "Salmon of absolute STENCH");
+
+        itemMeta.addAttributeModifier(Attribute.ATTACK_KNOCKBACK, handKnockback10Attribute);
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+    public static ItemStack createBlazeLighter(){
+        ItemStack item = new ItemStack(Material.FLINT_AND_STEEL);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.GOLD + "Blaze Flint 'n steel");
+        itemMeta.setLore(List.of(ChatColor.YELLOW + "No powder ?"));
+
+        itemMeta.getPersistentDataContainer().set(BLAZE_EFFECT, PersistentDataType.BOOLEAN, true);
+
+        itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, offhandAttackDamage2Attribute);
+        itemMeta.addAttributeModifier(Attribute.BURNING_TIME, offhandMinus20Attribute);
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+    //------------------------------------------------------------------------------------
+    //                                     BOOTS
+    //------------------------------------------------------------------------------------
+    public static ItemStack createSlimeBoots(){
+        ItemStack item = new ItemStack(Material.LEATHER_BOOTS);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.GREEN + "Slime Boots");
+        itemMeta.setLore(List.of(ChatColor.DARK_GREEN + "Don't lick them"));
+        ((LeatherArmorMeta) itemMeta).setColor(Color.GREEN);
+
+        itemMeta.getPersistentDataContainer().set(SLIMY_EFFECT, PersistentDataType.BOOLEAN, true);
+        itemMeta.addAttributeModifier(Attribute.ARMOR, feetArmor2Attribute);
+        itemMeta.addAttributeModifier(Attribute.FALL_DAMAGE_MULTIPLIER, feetFall20Attribute);
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+
+    public static ItemStack createExplosionBoots(){
+        ItemStack item = new ItemStack(Material.IRON_BOOTS);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.RED + "Explosive Boots");
+        itemMeta.setLore(List.of(ChatColor.DARK_RED + "Safe to lick"));
+
+        itemMeta.getPersistentDataContainer().set(EXPLOSIVE_EFFECT, PersistentDataType.BOOLEAN, true);
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+
 }

@@ -18,6 +18,10 @@ public class MovementActions {
         player.setVelocity(direction.multiply(speed));
     }
 
+    public static void multiplyUpwardVelocity(Player player, Double speed){
+        player.setVelocity(player.getVelocity().setY(speed));
+    }
+
     public static void playerGlideTask(Player player){
 
         // fly
