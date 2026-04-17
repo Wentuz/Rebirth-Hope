@@ -1,10 +1,11 @@
 package me.wentuziak.race2Szop.Logic;
 
 import me.wentuziak.race2Szop.Race2Szop;
-import org.bukkit.Bukkit;
-import org.bukkit.Particle;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -34,6 +35,31 @@ public class Effects {
 
         entity.addPotionEffect(new PotionEffect(potionType, 20 * seconds, intensity));
 
+    }
+
+    public static Firework randomFirework(int power, Location location){
+        Firework firework = (Firework) location.getWorld().spawn(location, Firework.class);
+        FireworkMeta meta = firework.getFireworkMeta();
+
+        meta.setPower(power);
+
+        FireworkEffect effect = FireworkEffect.builder()
+                .withColor(getRandomColor())
+                .withFade(getRandomColor())
+                .with(FireworkEffect.Type.BALL_LARGE)
+                .build();
+        meta.addEffect(effect);
+        firework.setFireworkMeta(meta);
+
+        return firework;
+    }
+
+    private static Color getRandomColor() {
+        int red = (int)(Math.random() * 255 + 1);
+        int green = (int)(Math.random() * 255 + 1);
+        int blue = (int)(Math.random() * 255 + 1);
+
+        return Color.fromRGB(red, green, blue);
     }
 
 }

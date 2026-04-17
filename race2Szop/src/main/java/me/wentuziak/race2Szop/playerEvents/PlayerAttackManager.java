@@ -19,6 +19,7 @@ import static me.wentuziak.race2Szop.RaceKeys.*;
 
 
 import static me.wentuziak.race2Szop.items.BlazeBow.blazeBowShoot;
+import static me.wentuziak.race2Szop.items.BlazeFlintNSteel.blazeFlintNSteelSwingAction;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.randomInteger;
 import static me.wentuziak.race2Szop.races.Goat.goatRamAttack;
 
@@ -63,7 +64,7 @@ public class PlayerAttackManager {
             dataContainer = Objects.requireNonNull(mainHandItem.getItemMeta()).getPersistentDataContainer();
 
             if (dataContainer.has(BLAZE_EFFECT)){
-                player.sendMessage("SWING FLAME");
+                blazeFlintNSteelSwingAction(player);
             }
         }
 
@@ -72,7 +73,7 @@ public class PlayerAttackManager {
             dataContainer = Objects.requireNonNull(offHandItem.getItemMeta()).getPersistentDataContainer();
 
             if (dataContainer.has(BLAZE_EFFECT)){
-                player.sendMessage("SWING FLAME");
+                blazeFlintNSteelSwingAction(player);
             }
         }
 

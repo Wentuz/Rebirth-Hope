@@ -18,6 +18,7 @@ import java.util.Set;
 import static me.wentuziak.race2Szop.RaceKeys.*;
 import static me.wentuziak.race2Szop.actions.BowActions.arrowManager;
 import static me.wentuziak.race2Szop.actions.CrossBowActions.fireworkManager;
+import static me.wentuziak.race2Szop.actions.SnowBallActions.snowballFallManager;
 import static me.wentuziak.race2Szop.playerEvents.PlayerAdvancementManager.playerGetAdvancement;
 import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.*;
 import static me.wentuziak.race2Szop.playerEvents.PlayerBreakBlockManager.breakBlockManager;
@@ -126,11 +127,13 @@ public class EntityListener implements Listener {
     }
 
     @EventHandler
-    public void onArrowLand(ProjectileHitEvent event){
+    public void onProjectileLand(ProjectileHitEvent event){
         if (event.getEntityType().equals(EntityType.ARROW)){
             arrowManager((Arrow) event.getEntity());
         } else if (event.getEntityType().equals(EntityType.FIREWORK_ROCKET)) {
             fireworkManager((Firework) event.getEntity());
+        } else if (event.getEntityType().equals(EntityType.SNOWBALL)) {
+            snowballFallManager((Snowball) event.getEntity());
         }
     }
 
