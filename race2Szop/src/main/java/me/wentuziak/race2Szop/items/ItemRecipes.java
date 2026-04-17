@@ -218,6 +218,17 @@ public class ItemRecipes {
         salmonKnockRecipe.addIngredient(1, Material.SALMON);
         salmonKnockRecipe.addIngredient(1, Material.SLIME_BALL);
         Bukkit.addRecipe(salmonKnockRecipe);
+        //
+        //      Blaze lighter Recipe
+        //
+        ItemStack blazeLighter = ItemCrafting.createBlazeLighter();
+        key = new NamespacedKey(Race2Szop.getInstance(), "BlazeLighterRecipe");
+        recipeKeys.add(key);
+
+        ShapelessRecipe blazeLighterRecipe = new ShapelessRecipe(key, blazeLighter);
+        blazeLighterRecipe.addIngredient(1, Material.FLINT_AND_STEEL);
+        blazeLighterRecipe.addIngredient(1, Material.BLAZE_POWDER);
+        Bukkit.addRecipe(blazeLighterRecipe);
 
         //------------------------------------------------------------------------------------
         //                                     BOOTS

@@ -14,11 +14,11 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.Objects;
 import java.util.Set;
 
-import static me.wentuziak.race2Szop.ItemKeys.BLAZE_EFFECT;
-import static me.wentuziak.race2Szop.ItemKeys.MULTI_ATTACK_EFFECT;
+import static me.wentuziak.race2Szop.ItemKeys.*;
 import static me.wentuziak.race2Szop.RaceKeys.*;
-import static me.wentuziak.race2Szop.actions.BowActions.blazeProjectile;
-import static me.wentuziak.race2Szop.actions.CrossBowActions.ghastProjectile;
+
+
+import static me.wentuziak.race2Szop.items.BlazeBow.blazeBowShoot;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.randomInteger;
 import static me.wentuziak.race2Szop.races.Goat.goatRamAttack;
 
@@ -47,19 +47,35 @@ public class PlayerAttackManager {
             event.getProjectile().getPersistentDataContainer().set(MULTI_ATTACK_EFFECT, PersistentDataType.BOOLEAN, true);
         }
         if (bowContainer.has(BLAZE_EFFECT)){
-            int delay;
-            if (projectile.getType().equals(EntityType.FIREWORK_ROCKET)){
-                delay = 2;
-            } else {
-                delay = 1;
-            }
-
-            Bukkit.getScheduler().runTaskLater(Race2Szop.getInstance(), () -> {
-                if (delay != 1){
-                    ghastProjectile(projectile);
-                }else{
-                    blazeProjectile(projectile);}
-                },  delay);
+            blazeBowShoot(projectile);
         }
+    }
+
+    public static void playerSwingAttackManager(Player player){
+        ItemStack mainHandItem = player.getInventory().getItemInMainHand();
+        ItemStack offHandItem = player.getInventory().getItemInOffHand();
+
+
+        assert mainHandItem != null;
+        PersistentDataContainer dataContainer;
+
+        if (mainHandItem.hasItemMeta()) {
+            dataContainer = Objects.requireNonNull(mainHandItem.getItemMeta()).getPersistentDataContainer();
+
+            if (dataContainer.has(BLAZE_EFFECT)){
+                player.sendMessage("SWING FLAME");
+            }
+        }
+
+        assert offHandItem != null;
+        if (offHandItem.hasItemMeta()) {
+            dataContainer = Objects.requireNonNull(offHandItem.getItemMeta()).getPersistentDataContainer();
+
+            if (dataContainer.has(BLAZE_EFFECT)){
+                player.sendMessage("SWING FLAME");
+            }
+        }
+
+
     }
 }

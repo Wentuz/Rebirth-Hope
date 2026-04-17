@@ -85,6 +85,16 @@ public class EntityListener implements Listener {
     }
 
     @EventHandler
+    public static void onPlayerSwing(PlayerAnimationEvent event){
+        if (event.getAnimationType() == PlayerAnimationType.ARM_SWING){
+            Player player = event.getPlayer();
+            if (player.getAttackCooldown() == 1){
+                playerSwingAttackManager(player);
+            }
+        }
+    }
+
+    @EventHandler
     public void onPlayerAdvancement(PlayerAdvancementDoneEvent event){
         Player player = event.getPlayer();
         Advancement adv = event.getAdvancement();

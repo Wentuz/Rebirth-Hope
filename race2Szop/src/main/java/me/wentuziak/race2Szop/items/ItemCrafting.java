@@ -218,7 +218,23 @@ public class ItemCrafting {
 
         return item;
     }
+    public static ItemStack createBlazeLighter(){
+        ItemStack item = new ItemStack(Material.FLINT_AND_STEEL);
+        ItemMeta itemMeta = item.getItemMeta();
 
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.GOLD + "Blaze Flint 'n steel");
+        itemMeta.setLore(List.of(ChatColor.YELLOW + "No powder ?"));
+
+        itemMeta.getPersistentDataContainer().set(BLAZE_EFFECT, PersistentDataType.BOOLEAN, true);
+
+        itemMeta.addAttributeModifier(Attribute.ATTACK_DAMAGE, offhandAttackDamage2Attribute);
+        itemMeta.addAttributeModifier(Attribute.BURNING_TIME, offhandMinus20Attribute);
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
     //------------------------------------------------------------------------------------
     //                                     BOOTS
     //------------------------------------------------------------------------------------

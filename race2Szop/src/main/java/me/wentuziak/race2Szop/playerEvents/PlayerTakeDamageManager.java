@@ -7,8 +7,9 @@ import org.bukkit.persistence.PersistentDataContainer;
 import java.util.Objects;
 
 import static me.wentuziak.race2Szop.ItemKeys.*;
-import static me.wentuziak.race2Szop.actions.BootActions.explosionBootsFall;
-import static me.wentuziak.race2Szop.actions.BootActions.slimeBootsFall;
+import static me.wentuziak.race2Szop.items.ExplosiveBoots.explosionBootsFall;
+import static me.wentuziak.race2Szop.items.SlimeBoots.slimeBootsFall;
+
 
 public class PlayerTakeDamageManager {
 

@@ -29,6 +29,10 @@ public class getToolModifiers {
     public static final AttributeModifier handAttackDamage9Attribute = getAttackDamage9Modifier();
     public static final AttributeModifier handAttackDamage10Attribute = getAttackDamage10Modifier();
 
+    public static final AttributeModifier offhandAttackDamage2Attribute = getAttackDamage2offHandModifier();
+
+    public static final AttributeModifier offhandMinus20Attribute = getminus20offHandModifier();
+
     public static final AttributeModifier handKnockback10Attribute = getKnockback10Modifier();
 
     public static final AttributeModifier feetArmor2Attribute = getArmor2BootsModifier();
@@ -211,6 +215,29 @@ public class getToolModifiers {
                 -0.2, // amount
                 AttributeModifier.Operation.MULTIPLY_SCALAR_1,
                 EquipmentSlotGroup.FEET // or specific group
+        );
+    }
+
+    //
+    //          Offhand Attack
+    //
+    private static AttributeModifier getAttackDamage2offHandModifier(){
+        return new AttributeModifier(
+                new NamespacedKey(Race2Szop.getInstance(), "AttackDamage2offHandAttribute"),
+                2, // amount
+                AttributeModifier.Operation.ADD_NUMBER,
+                EquipmentSlotGroup.OFFHAND // or specific group
+        );
+    }
+    //
+    //          Offhand -20%
+    //
+    private static AttributeModifier getminus20offHandModifier(){
+        return new AttributeModifier(
+                new NamespacedKey(Race2Szop.getInstance(), "Minus20offHandAttribute"),
+                -0.2, // amount
+                AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                EquipmentSlotGroup.OFFHAND // or specific group
         );
     }
 }
