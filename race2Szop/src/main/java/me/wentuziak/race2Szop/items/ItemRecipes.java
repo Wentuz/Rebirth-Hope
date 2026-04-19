@@ -265,7 +265,21 @@ public class ItemRecipes {
         explosionBootsRecipe.setIngredient('I', Material.IRON_BOOTS);
         explosionBootsRecipe.setIngredient('B', Material.BLAZE_POWDER);
         Bukkit.addRecipe(explosionBootsRecipe);
+        //
+        //      Hermes Boots Recipe
+        //
+        ItemStack hermesBoots = ItemCrafting.createHermesBoots();
+        key = new NamespacedKey(Race2Szop.getInstance(), "HermesBootsRecipe");
+        recipeKeys.add(key);
+
+        ShapedRecipe hermesBootsRecipe = new ShapedRecipe(key, hermesBoots);
+        hermesBootsRecipe.shape(
+                "WHW",
+                "HCH",
+                "WHW");
+        hermesBootsRecipe.setIngredient('C', Material.CHAINMAIL_BOOTS);
+        hermesBootsRecipe.setIngredient('W', Material.WIND_CHARGE);
+        hermesBootsRecipe.setIngredient('H', Material.CHORUS_FRUIT);
+        Bukkit.addRecipe(hermesBootsRecipe);
     }
-
-
 }

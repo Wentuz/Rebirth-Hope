@@ -10,7 +10,7 @@ public class SlimeBoots {
 
     public static void slimeBootsFall(Player player, double damage){
         particleEmitterOnEntity(player, Particle.ITEM_SLIME, 4, 4);
-        if (damage > 2) damage = 2;
+        damage = damage / 5;
         multiplyUpwardVelocity(player, damage);
     }
 

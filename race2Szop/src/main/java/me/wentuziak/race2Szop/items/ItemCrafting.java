@@ -250,6 +250,7 @@ public class ItemCrafting {
         itemMeta.getPersistentDataContainer().set(SLIMY_EFFECT, PersistentDataType.BOOLEAN, true);
         itemMeta.addAttributeModifier(Attribute.ARMOR, feetArmor2Attribute);
         itemMeta.addAttributeModifier(Attribute.FALL_DAMAGE_MULTIPLIER, feetFall20Attribute);
+        itemMeta.addAttributeModifier(Attribute.JUMP_STRENGTH, feetJump2Attribute);
 
         item.setItemMeta(itemMeta);
 
@@ -265,6 +266,57 @@ public class ItemCrafting {
         itemMeta.setLore(List.of(ChatColor.DARK_RED + "Safe to lick"));
 
         itemMeta.getPersistentDataContainer().set(EXPLOSIVE_EFFECT, PersistentDataType.BOOLEAN, true);
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+
+
+    public static ItemStack createHermesBoots(){
+        ItemStack item = new ItemStack(Material.CHAINMAIL_BOOTS);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.DARK_PURPLE + "Hermes Boots");
+        itemMeta.setLore(List.of(ChatColor.GOLD + "don't shoot the messenger"));
+
+        itemMeta.addAttributeModifier(Attribute.ARMOR, feetArmor2Attribute);
+        itemMeta.addAttributeModifier(Attribute.MOVEMENT_SPEED, feetJump2Attribute);
+        itemMeta.addAttributeModifier(Attribute.STEP_HEIGHT, feetStep1Attribute);
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+
+    //------------------------------------------------------------------------------------
+    //                                     CHESTPLATES
+    //------------------------------------------------------------------------------------
+    public static ItemStack createJetPack(){
+        ItemStack item = new ItemStack(Material.DIAMOND_CHESTPLATE);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Star Chestplate");
+        itemMeta.setLore(List.of(ChatColor.GOLD + "fire works ?"));
+
+        itemMeta.getPersistentDataContainer().set(PHANTOM_EFFECT, PersistentDataType.BOOLEAN, true);
+
+        item.setItemMeta(itemMeta);
+
+        return item;
+    }
+
+    public static ItemStack createLevitatingChest(){
+        ItemStack item = new ItemStack(Material.DIAMOND_CHESTPLATE);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert itemMeta != null;
+        itemMeta.setDisplayName(ChatColor.DARK_PURPLE + "box");
+        itemMeta.setLore(List.of(ChatColor.GOLD + "Like being hit by a shulker"));
+
+        itemMeta.getPersistentDataContainer().set(PHANTOM_EFFECT, PersistentDataType.BOOLEAN, true);
+
         item.setItemMeta(itemMeta);
 
         return item;

@@ -1,5 +1,6 @@
 package me.wentuziak.race2Szop.playerEvents;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -16,8 +17,7 @@ public class PlayerTakeDamageManager {
     public static void onPlayerFallDamage(Player player, double damage){
         ItemStack boots = player.getInventory().getBoots();
 
-        assert boots != null;
-        if (!boots.hasItemMeta() || player.isSneaking()) return;
+        if (boots == null || boots.getType() == Material.AIR || !boots.hasItemMeta() || player.isSneaking()) return;
 
         PersistentDataContainer bootContainer = Objects.requireNonNull(boots.getItemMeta()).getPersistentDataContainer();
         if (bootContainer.has(SLIMY_EFFECT)){
