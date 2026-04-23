@@ -242,10 +242,7 @@ public class EntityListener implements Listener {
         breakBlockManager(player, drop, raceKey, event.getBlockState().getType());
 
 
-        //todo:
-        // get this to work
-        if (raceKey.contains(GOAT_RACE)) goatBreakBlock(event.getBlock());
-
+        if (raceKey.contains(GOAT_RACE)) goatBreakBlock(event.getBlock().getLocation(), event.getBlockState().getType());
     }
 
     @EventHandler

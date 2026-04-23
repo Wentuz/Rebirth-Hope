@@ -65,7 +65,7 @@ public class Merfolk implements Race {
     }
 
     private static void merfolkNoAir(Player player){
-        if (isPlayerWet(player) && !player.hasCooldown(Material.DOLPHIN_SPAWN_EGG)){
+        if (!player.hasCooldown(Material.DOLPHIN_SPAWN_EGG)){
             hurtPlayer(player, -1, Sound.ENTITY_PLAYER_HURT_DROWN);
 
             player.setCooldown(Material.DOLPHIN_SPAWN_EGG, 20);

@@ -27,6 +27,9 @@ public class NetherFolk implements Race {
         if (player.getExp() != 0) return;
 
         teleportToNether(player);
+
+        givePotionEffect(player, PotionEffectType.HASTE, 10, 10);
+        givePotionEffect(player, PotionEffectType.REGENERATION, 10, 10);
     }
 
     public static void netherFolkRespawn(Player player){

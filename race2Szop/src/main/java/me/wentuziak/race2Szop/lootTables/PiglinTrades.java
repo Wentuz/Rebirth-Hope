@@ -15,6 +15,7 @@ public class PiglinTrades {
         piglinTrade.put(5, Material.WARPED_WART_BLOCK);
         piglinTrade.put(6, Material.NETHER_WART_BLOCK);
         piglinTrade.put(7, Material.CRIMSON_FUNGUS);
+        piglinTrade.put(8, Material.APPLE);
     }
 
 }

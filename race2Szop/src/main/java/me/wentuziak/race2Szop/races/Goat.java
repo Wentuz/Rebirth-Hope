@@ -20,8 +20,9 @@ public class Goat implements Race {
     NamespacedKey raceKey = Race.currentRaceKey("GOAT_RACE");
     static Double cooldownModifier = 0.05;
 
-    public static void goatBreakBlock(Block brokenBlock){
-        brokenBlock.getWorld().dropItemNaturally(brokenBlock.getLocation(), new ItemStack(getHoeLootMaterial(brokenBlock.getType())));
+    public static void goatBreakBlock(Location location ,Material brokenBlock){
+        ItemStack itemStack = new ItemStack(getHoeLootMaterial(brokenBlock), 1);
+        Item item = location.getWorld().dropItemNaturally(location, itemStack);
     }
 
     public static void goatJump(Player player){
