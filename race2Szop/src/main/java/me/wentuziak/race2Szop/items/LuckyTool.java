@@ -38,7 +38,7 @@ public class LuckyTool {
             // how much of loot drops
             if (isShovel(itemInMainHand.getType())) {
                 drop.setAmount(1 + randomInteger(getHandLuck(itemInMainHand)));
-            } else if (!((brokenBlock.equals(Material.COBBLESTONE)) || isAxe(itemInMainHand.getType()))) {
+            } else if (!((brokenBlock.equals(Material.QUARTZ_BLOCK)) || isAxe(itemInMainHand.getType()))) {
                 drop.setAmount(drop.getAmount() + (randomInteger(getLuckLevel(player)) /2 ) + getHandLuck(itemInMainHand));
             }
 

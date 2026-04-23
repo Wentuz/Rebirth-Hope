@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class MiningLoot {
     public static final HashMap<Integer, Material> miningRocks = new HashMap<>();
     static {
-        miningRocks.put(1, Material.COBBLESTONE);
+        miningRocks.put(1, Material.QUARTZ_BLOCK);
         miningRocks.put(2, Material.QUARTZ);
     }
 

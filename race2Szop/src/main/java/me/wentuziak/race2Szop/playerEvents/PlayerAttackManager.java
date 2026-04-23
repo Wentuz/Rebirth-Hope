@@ -22,6 +22,8 @@ import static me.wentuziak.race2Szop.items.BlazeBow.blazeBowShoot;
 import static me.wentuziak.race2Szop.items.BlazeFlintNSteel.blazeFlintNSteelSwingAction;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.randomInteger;
 import static me.wentuziak.race2Szop.races.Goat.goatRamAttack;
+import static me.wentuziak.race2Szop.races.Skelly.skellyShootArrow;
+import static me.wentuziak.race2Szop.races.Skelly.skellyShootRocket;
 
 public class PlayerAttackManager {
 
@@ -38,7 +40,7 @@ public class PlayerAttackManager {
         }
     }
 
-    public static void playerShootBowManager(Player player, EntityShootBowEvent event){
+    public static void playerShootBowManager(Player player, EntityShootBowEvent event, Set<NamespacedKey> raceKey){
         ItemStack usedBow = event.getBow();
         Projectile projectile = (Projectile) event.getProjectile();
         assert usedBow != null;
@@ -49,6 +51,15 @@ public class PlayerAttackManager {
         }
         if (bowContainer.has(BLAZE_EFFECT)){
             blazeBowShoot(projectile);
+        }
+
+        if (raceKey.contains(SKELETON_RACE)){
+            switch (projectile.getType()){
+                case ARROW:
+                    skellyShootArrow((Arrow) projectile);
+                case FIREWORK_ROCKET:
+                    skellyShootRocket((Firework) projectile);
+            }
         }
     }
 

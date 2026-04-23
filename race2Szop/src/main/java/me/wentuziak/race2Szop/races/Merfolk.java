@@ -23,15 +23,19 @@ public class Merfolk implements Race {
 
     public static void merfolkBreathe(Player player, EntityAirChangeEvent event){
 
+
         int eventAir = event.getAmount();
         int playerAir = player.getRemainingAir();
 
 
         int difference = eventAir - playerAir;
 
+        if (player.hasPotionEffect(PotionEffectType.WATER_BREATHING) && playerAir < 295) return;
+
         if (isPlayerWet(player)){
-            //WTF I dont want to touch it anymore
-            //if (!isPlayerHiddenFromSun(player) && player.getWorld().hasStorm() && player.getWorld().isThundering()) difference = difference - 5;
+            if (!isPlayerHiddenFromSun(player) && (player.getWorld().hasStorm() || player.getWorld().isThundering())) {
+                givePotionEffect(player, PotionEffectType.WATER_BREATHING, 15, 1);
+            }
             if (difference > 0) {
                 if (playerAir >= 0) {
                     event.setAmount(eventAir - 5);
@@ -46,6 +50,9 @@ public class Merfolk implements Race {
                 }
             }
         }else{
+            if (!isPlayerHiddenFromSun(player) && (player.getWorld().hasStorm() || player.getWorld().isThundering())) {
+                givePotionEffect(player, PotionEffectType.WATER_BREATHING, 15, 1);
+            }
             if (difference > 0) {
                 if (playerAir >= 0) {
                     event.setAmount(eventAir - 5);
@@ -77,6 +84,7 @@ public class Merfolk implements Race {
     }
 
     public static void onMerfolkStartSwim(Player player){
+        if (!isPlayerWet(player)) return;
         givePotionEffect(player, PotionEffectType.DOLPHINS_GRACE, 4, 0);
 
         merfolkRiptide(player);

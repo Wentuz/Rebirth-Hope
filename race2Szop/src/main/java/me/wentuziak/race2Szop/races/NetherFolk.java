@@ -52,7 +52,6 @@ public class NetherFolk implements Race {
         }
         givePotionEffect(player, PotionEffectType.LEVITATION, 4 * (intensity * 2 + 1), intensity);
 
-        BarActions.modifyPlayerHunger(player, -2);
         Race.giveRaceCooldown(player, cooldownModifier);
     }
 
@@ -71,8 +70,13 @@ public class NetherFolk implements Race {
                 return droppedItem;
             }
         }
+    }
+
+    public static void netherFolkEatGold(Player player, ItemStack item){
 
     }
+
+
 
 
 

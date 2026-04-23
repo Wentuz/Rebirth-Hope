@@ -37,6 +37,8 @@ public class getToolModifiers {
 
     public static final AttributeModifier feetArmor2Attribute = getArmor2BootsModifier();
     public static final AttributeModifier feetFall20Attribute = getFallDamage20PercentBootsModifier();
+    public static final AttributeModifier feetJump2Attribute = getJump2BootsModifier();
+    public static final AttributeModifier feetStep1Attribute = getStep1BootsModifier();
 
 
     //
@@ -214,6 +216,30 @@ public class getToolModifiers {
                 new NamespacedKey(Race2Szop.getInstance(), "fallDamage20FeetAttribute"),
                 -0.2, // amount
                 AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                EquipmentSlotGroup.FEET // or specific group
+        );
+    }
+
+    //
+    //          JumpHeight
+    //
+    private static AttributeModifier getJump2BootsModifier(){
+        return new AttributeModifier(
+                new NamespacedKey(Race2Szop.getInstance(), "jump2FeetAttribute"),
+                2, // amount
+                AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                EquipmentSlotGroup.FEET // or specific group
+        );
+    }
+
+    //
+    //          StepHeight
+    //
+    private static AttributeModifier getStep1BootsModifier(){
+        return new AttributeModifier(
+                new NamespacedKey(Race2Szop.getInstance(), "stepFeetAttribute"),
+                1, // amount
+                AttributeModifier.Operation.ADD_NUMBER,
                 EquipmentSlotGroup.FEET // or specific group
         );
     }

@@ -9,6 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
@@ -23,7 +25,10 @@ import static me.wentuziak.race2Szop.playerEvents.PlayerAdvancementManager.playe
 import static me.wentuziak.race2Szop.playerEvents.PlayerAttackManager.*;
 import static me.wentuziak.race2Szop.playerEvents.PlayerBreakBlockManager.breakBlockManager;
 import static me.wentuziak.race2Szop.playerEvents.PlayerClapManager.detectClapRace;
+import static me.wentuziak.race2Szop.playerEvents.PlayerCraftingManager.playerCrafting;
+import static me.wentuziak.race2Szop.playerEvents.PlayerCraftingManager.playerSmelting;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFishingManager.onPlayerCatchFish;
+import static me.wentuziak.race2Szop.playerEvents.PlayerFoodConsumptionManager.manageFoodConsumption;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerGainHunger;
 import static me.wentuziak.race2Szop.playerEvents.PlayerFoodManager.playerLooseHunger;
 import static me.wentuziak.race2Szop.playerEvents.PlayerInteractionManager.*;
@@ -121,8 +126,9 @@ public class EntityListener implements Listener {
     @EventHandler
     public void onPlayerShootArrow(EntityShootBowEvent event){
         if (event.getEntity() instanceof Player player){
+            raceKey = getPlayerRaceKeySet(player);
 
-            playerShootBowManager(player, event);
+            playerShootBowManager(player, event, raceKey);
         }
     }
 
@@ -336,5 +342,31 @@ public class EntityListener implements Listener {
         if ((!event.isAnchorSpawn() || !event.isBedSpawn()) && raceKey.contains(NETHER_RACE)){
             netherFolkRespawn(player);
         }
+    }
+
+    @EventHandler
+    public void onPlayerCraftingEvent(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+
+        raceKey = getPlayerRaceKeySet(player);
+        if (raceKey.isEmpty()){
+            return;
+        }
+
+        if (event.getInventory().getType() == InventoryType.SMOKER && event.getSlotType() == InventoryType.SlotType.RESULT) {
+            playerSmelting(player, raceKey, event.getCurrentItem());
+        }
+        if (event.getInventory().getType() == InventoryType.WORKBENCH && event.getSlotType() == InventoryType.SlotType.RESULT) {
+            playerCrafting(player, raceKey, event.getCurrentItem());
+        }
+    }
+
+    @EventHandler
+    public void onPlayerConsumeItemEvent(PlayerItemConsumeEvent event){
+
+        Player player = event.getPlayer();
+
+        manageFoodConsumption(player, event.getItem());
+
     }
 }
