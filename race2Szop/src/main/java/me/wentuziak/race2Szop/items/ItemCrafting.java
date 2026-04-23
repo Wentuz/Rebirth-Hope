@@ -312,10 +312,10 @@ public class ItemCrafting {
         ItemMeta itemMeta = item.getItemMeta();
 
         assert itemMeta != null;
-        itemMeta.setDisplayName(ChatColor.DARK_PURPLE + "box");
+        itemMeta.setDisplayName(ChatColor.DARK_PURPLE + "(no gravity) chestplate");
         itemMeta.setLore(List.of(ChatColor.GOLD + "Like being hit by a shulker"));
 
-        itemMeta.getPersistentDataContainer().set(PHANTOM_EFFECT, PersistentDataType.BOOLEAN, true);
+        itemMeta.getPersistentDataContainer().set(SHULKER_EFFECT, PersistentDataType.BOOLEAN, true);
 
         item.setItemMeta(itemMeta);
 

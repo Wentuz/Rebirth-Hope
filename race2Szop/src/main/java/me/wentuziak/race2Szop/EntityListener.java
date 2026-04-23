@@ -121,8 +121,9 @@ public class EntityListener implements Listener {
     @EventHandler
     public void onPlayerShootArrow(EntityShootBowEvent event){
         if (event.getEntity() instanceof Player player){
+            raceKey = getPlayerRaceKeySet(player);
 
-            playerShootBowManager(player, event);
+            playerShootBowManager(player, event, raceKey);
         }
     }
 

@@ -38,7 +38,7 @@ public class Parrot implements Race {
             Bukkit.getScheduler().runTaskLater(Race2Szop.getInstance(), () -> {
                 player.damage(1);
             },  1);
-            player.sendMessage("You may not rest now, you are too low");
+            player.sendMessage("You may not rest now, you are'nt high enough");
         }
     }
 
