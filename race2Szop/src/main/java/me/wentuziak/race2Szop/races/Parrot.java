@@ -16,7 +16,7 @@ public class Parrot implements Race {
 
     public static void parrotFood(Player player, Material food){
         switch(food){
-            case Material.COOKIE -> givePotionEffect(player, PotionEffectType.WITHER, 15, 0);
+            case Material.COOKIE -> givePotionEffect(player, PotionEffectType.WITHER, 15, 4);
             case Material.APPLE -> givePotionEffect(player, PotionEffectType.REGENERATION, 10, 0);
             case Material.MELON -> givePotionEffect(player, PotionEffectType.SPEED, 30, 0);
         }
@@ -43,11 +43,12 @@ public class Parrot implements Race {
     }
 
     public static void parrotJump(Player player){
-        if (player.getFoodLevel() <= 0) return;
+        if (player.getFoodLevel() <= 0 && player.hasCooldown(Material.PARROT_SPAWN_EGG)) return;
 
         addVelocityAtCursour(player,  (Race.checkCurrentLevel(player) / 0.8) + 0.5);
         BarActions.modifyPlayerHunger(player, -1);
         particleEmitterOnEntity(player, Particle.CLOUD, 1, 5, 0.1, 0.1, 0.1, 0.1);
+        player.setCooldown(Material.PARROT_SPAWN_EGG, 20);
     }
 
 }

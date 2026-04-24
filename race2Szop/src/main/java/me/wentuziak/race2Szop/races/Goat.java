@@ -49,7 +49,7 @@ public class Goat implements Race {
     }
 
     public static void goatRam(Player player){
-
+        particleEmitterOnEntity(player, Particle.SNOWFLAKE, 2, 20 * 2, 0.01, 0.5, 0.01, 0.01);
         givePotionEffect(player, PotionEffectType.SPEED, 2, 0);
     }
 

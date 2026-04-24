@@ -9,6 +9,7 @@ import static me.wentuziak.race2Szop.RaceKeys.*;
 import static me.wentuziak.race2Szop.races.Enderian.enderianInWater;
 import static me.wentuziak.race2Szop.races.Goat.goatRam;
 import static me.wentuziak.race2Szop.races.Merfolk.onMerfolkStartSwim;
+import static me.wentuziak.race2Szop.races.NetherFolk.wetNetherFolk;
 import static me.wentuziak.race2Szop.races.Skelly.burnSkellyOnSun;
 
 public class PlayerMoveManager {
@@ -18,6 +19,8 @@ public class PlayerMoveManager {
             enderianInWater(player);
         } else if (raceKey.contains(SKELETON_RACE)) {
             burnSkellyOnSun(player);
+        } else if (raceKey.contains(NETHER_RACE)) {
+            wetNetherFolk(player);
         }
     }
 

@@ -97,4 +97,11 @@ public class Merfolk implements Race {
 
     }
 
+    public static void merfolkDrinkPotion(Player player){
+        if (!player.hasPotionEffect(PotionEffectType.WATER_BREATHING)){
+            givePotionEffect(player, PotionEffectType.WATER_BREATHING, 10, 0);
+            particleEmitterOnEntity(player, Particle.BUBBLE, 2, 2, 0.01, 0.5, 0.01, 0.01);
+        }
+    }
+
 }

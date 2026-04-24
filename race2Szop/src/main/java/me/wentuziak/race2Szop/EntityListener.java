@@ -362,8 +362,9 @@ public class EntityListener implements Listener {
     public void onPlayerConsumeItemEvent(PlayerItemConsumeEvent event){
 
         Player player = event.getPlayer();
+        raceKey = getPlayerRaceKeySet(player);
 
-        manageFoodConsumption(player, event.getItem());
+        manageFoodConsumption(player, event.getItem(), raceKey);
 
     }
 }
