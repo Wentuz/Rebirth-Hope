@@ -7,6 +7,8 @@ import org.bukkit.entity.*;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
+import java.util.Objects;
+
 import static me.wentuziak.race2Szop.Logic.Checkers.*;
 import static me.wentuziak.race2Szop.Logic.Effects.givePotionEffect;
 
@@ -15,7 +17,10 @@ public class Skelly implements Race {
 
     public static void burnSkellyOnSun(Player player){
         if (isDaytime(player.getWorld()) && !isPlayerHiddenFromSun(player) && !isPlayerWet(player)){
-            player.setFireTicks(20 * 5);
+
+            if (!Objects.requireNonNull(player.getInventory().getHelmet()).getType().equals(Material.AIR)){
+                player.setFireTicks(20 * 5);
+            }
         }else{
             player.setVisualFire(false);
         }

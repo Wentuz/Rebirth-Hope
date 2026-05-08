@@ -41,6 +41,8 @@ public class LootManager {
             lootMaterial = getRandomMaterial(fishingDeepDark);
         }
 
+        if (lootMaterial.equals(Material.CAKE)) getLootMaterial(Biome.RIVER);
+
         return lootMaterial;
     }
 

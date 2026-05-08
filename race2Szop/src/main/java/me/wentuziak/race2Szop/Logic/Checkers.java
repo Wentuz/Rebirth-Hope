@@ -4,12 +4,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
+import java.util.EnumSet;
 import java.util.Objects;
+import java.util.Set;
 
 import static org.bukkit.Bukkit.getServer;
 
@@ -23,7 +26,7 @@ public class Checkers {
     public static boolean isPlayerWet(LivingEntity player){
 
         if (player.isInWater()) return true;
-        if (!player.getWorld().hasStorm() && !player.getWorld().isThundering()) return false;
+        if (!player.getWorld().hasStorm() && !player.getWorld().isThundering() && isHotBiome(player.getWorld().getBiome(player.getLocation()))) return false;
         return !isPlayerHiddenFromSun((Player) player);
     }
 
@@ -41,6 +44,16 @@ public class Checkers {
             }
         }
         return false;
+    }
+
+
+    public static boolean isHotBiome(Biome biome){
+        return biome.equals(Biome.DESERT) ||
+                biome.equals(Biome.BADLANDS) ||
+                biome.equals(Biome.WOODED_BADLANDS) ||
+                biome.equals(Biome.SAVANNA) ||
+                biome.equals(Biome.SAVANNA_PLATEAU) ||
+                biome.equals(Biome.WINDSWEPT_SAVANNA);
     }
 
 //    public static void findNearestBlockAbove(Player player, int value ){
