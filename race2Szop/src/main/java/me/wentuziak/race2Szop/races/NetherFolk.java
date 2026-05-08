@@ -79,13 +79,13 @@ public class NetherFolk implements Race {
 
     public static void netherFolkEat(Player player, ItemStack item){
         if (!player.hasPotionEffect(PotionEffectType.FIRE_RESISTANCE)){
-            givePotionEffect(player, PotionEffectType.FIRE_RESISTANCE, 15, 0);
+            givePotionEffect(player, PotionEffectType.FIRE_RESISTANCE, 2 * 60, 0);
         }
     }
 
     public static void wetNetherFolk(Player player){
         if (!player.hasCooldown(Material.DOLPHIN_SPAWN_EGG) && isPlayerWet(player)){
-            hurtPlayer(player, -1, Sound.ENTITY_PLAYER_HURT_DROWN);
+            hurtPlayer(player, -6, Sound.ENTITY_PLAYER_HURT_DROWN);
 
             player.setCooldown(Material.DOLPHIN_SPAWN_EGG, 20);
         }

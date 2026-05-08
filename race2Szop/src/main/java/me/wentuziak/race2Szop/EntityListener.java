@@ -336,8 +336,11 @@ public class EntityListener implements Listener {
             return;
         }
 
-        if ((!event.isAnchorSpawn() || !event.isBedSpawn()) && raceKey.contains(NETHER_RACE)){
-            netherFolkRespawn(player);
+        if (raceKey.contains(NETHER_RACE)){
+
+            if (event.isAnchorSpawn() ^ event.isBedSpawn()){
+                netherFolkRespawn(player);
+            }
         }
     }
 

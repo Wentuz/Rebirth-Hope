@@ -150,7 +150,7 @@ public class AttributeManager {
     }
 
     static void handleEnderian(){
-        playerScale = playerScale * 1.5;
+        playerScale = playerScale * 1.1;
         playerBlockReach = playerBlockReach * 1.25;
         playerEntityReach = playerEntityReach * 1.25;
         playerHP = playerHP * 1.5;
@@ -176,7 +176,7 @@ public class AttributeManager {
         playerScale = playerScale * 0.9;
     }
     static void handleNetherRace(){
-        playerScale = playerScale * 1.1;
+        playerScale = playerScale * 1.3;
         playerFireTime = playerFireTime * 0;
         playerAttackSpeed = playerAttackSpeed * 1.25;
     }

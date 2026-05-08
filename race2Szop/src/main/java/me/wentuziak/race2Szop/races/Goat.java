@@ -21,8 +21,18 @@ public class Goat implements Race {
     static Double cooldownModifier = 0.05;
 
     public static void goatBreakBlock(Location location ,Material brokenBlock){
-        ItemStack itemStack = new ItemStack(getHoeLootMaterial(brokenBlock), 1);
-        Item item = location.getWorld().dropItemNaturally(location, itemStack);
+        //check if valid item
+        if (brokenBlock.equals(Material.SHORT_GRASS) || brokenBlock.equals(Material.TALL_GRASS)
+                || brokenBlock.equals(Material.FERN) || brokenBlock.equals(Material.TALL_DRY_GRASS)
+                || brokenBlock.equals(Material.SHORT_DRY_GRASS) || brokenBlock.equals(Material.LARGE_FERN)
+                || brokenBlock.equals(Material.BUSH)) {
+
+            ItemStack itemStack = new ItemStack(getHoeLootMaterial(brokenBlock), 1);
+            Item item = location.getWorld().dropItemNaturally(location, itemStack);
+
+        }
+
+
     }
 
     public static void goatJump(Player player){
