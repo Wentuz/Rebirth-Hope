@@ -13,7 +13,9 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.Objects;
 
+import static me.wentuziak.race2Szop.Logic.Checkers.isPlayerWet;
 import static me.wentuziak.race2Szop.Logic.Effects.givePotionEffect;
+import static me.wentuziak.race2Szop.actions.BarActions.hurtPlayer;
 import static me.wentuziak.race2Szop.lootTables.LootManager.getPiglinBarterLoot;
 import static me.wentuziak.race2Szop.lootTables.LuckCalculator.randomInteger;
 
@@ -27,6 +29,9 @@ public class NetherFolk implements Race {
         if (player.getExp() != 0) return;
 
         teleportToNether(player);
+
+        givePotionEffect(player, PotionEffectType.HASTE, 10, 10);
+        givePotionEffect(player, PotionEffectType.REGENERATION, 10, 10);
     }
 
     public static void netherFolkRespawn(Player player){
@@ -72,11 +77,19 @@ public class NetherFolk implements Race {
         }
     }
 
-    public static void netherFolkEatGold(Player player, ItemStack item){
-
+    public static void netherFolkEat(Player player, ItemStack item){
+        if (!player.hasPotionEffect(PotionEffectType.FIRE_RESISTANCE)){
+            givePotionEffect(player, PotionEffectType.FIRE_RESISTANCE, 2 * 60, 0);
+        }
     }
 
+    public static void wetNetherFolk(Player player){
+        if (!player.hasCooldown(Material.DOLPHIN_SPAWN_EGG) && isPlayerWet(player)){
+            hurtPlayer(player, -6, Sound.ENTITY_PLAYER_HURT_DROWN);
 
+            player.setCooldown(Material.DOLPHIN_SPAWN_EGG, 20);
+        }
+    }
 
 
 

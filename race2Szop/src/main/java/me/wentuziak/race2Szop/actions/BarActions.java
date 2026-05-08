@@ -34,10 +34,14 @@ public class BarActions {
     }
 
     public static void hurtPlayer(Player player, int amount){
+        if (player.isInvisible()) return;
+
         modifyPlayerHealthBar(player, amount);
         player.playHurtAnimation(1);
     }
     public static void hurtPlayer(Player player, int amount, Sound sound ){
+        if (player.isInvisible()) return;
+
         modifyPlayerHealthBar(player, amount);
         player.playHurtAnimation(1);
         player.playSound(player.getLocation(), sound, 1.0f, 1.0f);

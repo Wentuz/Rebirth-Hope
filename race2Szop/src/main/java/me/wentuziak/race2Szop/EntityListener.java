@@ -242,10 +242,7 @@ public class EntityListener implements Listener {
         breakBlockManager(player, drop, raceKey, event.getBlockState().getType());
 
 
-        //todo:
-        // get this to work
-        if (raceKey.contains(GOAT_RACE)) goatBreakBlock(event.getBlock());
-
+        if (raceKey.contains(GOAT_RACE)) goatBreakBlock(event.getBlock().getLocation(), event.getBlockState().getType());
     }
 
     @EventHandler
@@ -339,8 +336,11 @@ public class EntityListener implements Listener {
             return;
         }
 
-        if ((!event.isAnchorSpawn() || !event.isBedSpawn()) && raceKey.contains(NETHER_RACE)){
-            netherFolkRespawn(player);
+        if (raceKey.contains(NETHER_RACE)){
+
+            if (event.isAnchorSpawn() ^ event.isBedSpawn()){
+                netherFolkRespawn(player);
+            }
         }
     }
 
@@ -365,8 +365,9 @@ public class EntityListener implements Listener {
     public void onPlayerConsumeItemEvent(PlayerItemConsumeEvent event){
 
         Player player = event.getPlayer();
+        raceKey = getPlayerRaceKeySet(player);
 
-        manageFoodConsumption(player, event.getItem());
+        manageFoodConsumption(player, event.getItem(), raceKey);
 
     }
 }

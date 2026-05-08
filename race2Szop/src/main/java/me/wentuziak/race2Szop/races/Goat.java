@@ -20,8 +20,19 @@ public class Goat implements Race {
     NamespacedKey raceKey = Race.currentRaceKey("GOAT_RACE");
     static Double cooldownModifier = 0.05;
 
-    public static void goatBreakBlock(Block brokenBlock){
-        brokenBlock.getWorld().dropItemNaturally(brokenBlock.getLocation(), new ItemStack(getHoeLootMaterial(brokenBlock.getType())));
+    public static void goatBreakBlock(Location location ,Material brokenBlock){
+        //check if valid item
+        if (brokenBlock.equals(Material.SHORT_GRASS) || brokenBlock.equals(Material.TALL_GRASS)
+                || brokenBlock.equals(Material.FERN) || brokenBlock.equals(Material.TALL_DRY_GRASS)
+                || brokenBlock.equals(Material.SHORT_DRY_GRASS) || brokenBlock.equals(Material.LARGE_FERN)
+                || brokenBlock.equals(Material.BUSH)) {
+
+            ItemStack itemStack = new ItemStack(getHoeLootMaterial(brokenBlock), 1);
+            Item item = location.getWorld().dropItemNaturally(location, itemStack);
+
+        }
+
+
     }
 
     public static void goatJump(Player player){
@@ -48,7 +59,7 @@ public class Goat implements Race {
     }
 
     public static void goatRam(Player player){
-
+        particleEmitterOnEntity(player, Particle.SNOWFLAKE, 2, 20 * 2, 0.01, 0.5, 0.01, 0.01);
         givePotionEffect(player, PotionEffectType.SPEED, 2, 0);
     }
 

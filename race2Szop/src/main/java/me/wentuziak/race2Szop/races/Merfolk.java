@@ -65,7 +65,7 @@ public class Merfolk implements Race {
     }
 
     private static void merfolkNoAir(Player player){
-        if (isPlayerWet(player) && !player.hasCooldown(Material.DOLPHIN_SPAWN_EGG)){
+        if (!player.hasCooldown(Material.DOLPHIN_SPAWN_EGG)){
             hurtPlayer(player, -1, Sound.ENTITY_PLAYER_HURT_DROWN);
 
             player.setCooldown(Material.DOLPHIN_SPAWN_EGG, 20);
@@ -95,6 +95,13 @@ public class Merfolk implements Race {
         player.playSound(player.getLocation(), Sound.ITEM_TRIDENT_RIPTIDE_1, 1.0f, 1.0f);
         particleEmitterOnEntity(player, Particle.BUBBLE, 1, 3, 0.1, 0.1, 0.1, 0.1);
 
+    }
+
+    public static void merfolkDrinkPotion(Player player){
+        if (!player.hasPotionEffect(PotionEffectType.WATER_BREATHING)){
+            givePotionEffect(player, PotionEffectType.WATER_BREATHING, 10, 0);
+            particleEmitterOnEntity(player, Particle.BUBBLE, 2, 2, 0.01, 0.5, 0.01, 0.01);
+        }
     }
 
 }

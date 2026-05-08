@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Biome;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -41,6 +42,7 @@ public class PlayerFishingManager {
         if (getLuckLevel(player) > randomInteger(500)){ //100
             // summon a mob
             player.sendMessage("MOB");
+            player.getWorld().spawnEntity(fishingBobber.getLocation(), EntityType.SALMON);
             return new ItemStack(Material.AIR, 1);
         }
 
