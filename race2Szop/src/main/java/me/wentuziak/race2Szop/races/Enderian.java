@@ -62,7 +62,7 @@ public class Enderian implements Race{
 
             onPlayerHurt(player);
 
-            player.setCooldown(Material.DOLPHIN_SPAWN_EGG, 10);
+            player.setCooldown(Material.DOLPHIN_SPAWN_EGG, 20 * 2);
         }
     }
 
@@ -70,8 +70,14 @@ public class Enderian implements Race{
 
         int x = (randomInteger(20) > 10) ? randomInteger(15) : randomInteger(15) * -1;
         int z =  (randomInteger(20) > 10) ? randomInteger(15) : randomInteger(15) * -1;
-        player.teleport(player.getLocation().add( x, 5.0, z));
+        Location y = player.getLocation().add( x, 0, z);
+        Block blockBelow = y.getBlock();
+        while(blockBelow.getType().isSolid()) {
+            blockBelow = y.add(0, 1, 0).getBlock();
+            y = y.add(0, 1, 0);
+        }
 
+        player.teleport(y);
         player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
         player.getWorld().spawnParticle(Particle.PORTAL, player.getLocation(), 100);
     }

@@ -14,6 +14,7 @@ import static me.wentuziak.race2Szop.Logic.Checkers.isPlayerAboveGround;
 import static me.wentuziak.race2Szop.Logic.Effects.givePotionEffect;
 import static me.wentuziak.race2Szop.Logic.Effects.particleEmitterOnEntity;
 import static me.wentuziak.race2Szop.actions.MovementActions.addVelocityAtCursour;
+import static me.wentuziak.race2Szop.actions.MovementActions.multiplyUpwardVelocity;
 import static me.wentuziak.race2Szop.lootTables.LootManager.getHoeLootMaterial;
 
 public class Goat implements Race {
@@ -36,8 +37,8 @@ public class Goat implements Race {
     }
 
     public static void goatJump(Player player){
-        if(!Cooldowns.checkPlayerCooldown(player) && isPlayerAboveGround(player, 0.5)){
-            addVelocityAtCursour(player, 1.5);
+        if(!Cooldowns.checkPlayerCooldown(player) && isPlayerAboveGround(player, 0.5) && player.isSprinting()){
+            multiplyUpwardVelocity(player, 1.5);
             player.playSound(player.getLocation(), Sound.ENTITY_GOAT_LONG_JUMP, 1.0f, 1.0f);
             particleEmitterOnEntity(player, Particle.SNOWFLAKE, 1, 3, 0.1, 0.1, 0.1, 0.1);
 
@@ -59,7 +60,7 @@ public class Goat implements Race {
     }
 
     public static void goatRam(Player player){
-        particleEmitterOnEntity(player, Particle.SNOWFLAKE, 2, 20 * 2, 0.01, 0.5, 0.01, 0.01);
+        particleEmitterOnEntity(player, Particle.SNOWFLAKE, 2, 20, 0.01, 0.5, 0.01, 0.01);
         givePotionEffect(player, PotionEffectType.SPEED, 2, 0);
     }
 

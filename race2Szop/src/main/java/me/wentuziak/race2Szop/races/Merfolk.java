@@ -16,6 +16,7 @@ import static me.wentuziak.race2Szop.actions.MovementActions.addVelocityAtCursou
 
 public class Merfolk implements Race {
     NamespacedKey raceKey = Race.currentRaceKey("MERFOLK_RACE");
+    static Double cooldownModifier = 0.05;
 
     public static void onChangeRaceToMerfolk(Player player){
         player.setRemainingAir(250);
@@ -85,9 +86,14 @@ public class Merfolk implements Race {
 
     public static void onMerfolkStartSwim(Player player){
         if (!isPlayerWet(player)) return;
-        givePotionEffect(player, PotionEffectType.DOLPHINS_GRACE, 4, 0);
+        givePotionEffect(player, PotionEffectType.DOLPHINS_GRACE, 45, 0);
+    }
+
+    public static void onMerfolkClap(Player player){
+        if (!isPlayerWet(player) || Cooldowns.checkPlayerCooldown(player)) return;
 
         merfolkRiptide(player);
+        Race.giveRaceCooldown(player, cooldownModifier);
     }
 
     public static void merfolkRiptide(Player player){

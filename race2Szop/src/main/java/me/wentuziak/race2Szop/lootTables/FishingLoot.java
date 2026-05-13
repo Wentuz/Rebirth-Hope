@@ -19,12 +19,15 @@ public class FishingLoot {
         fishingColdOcean.put(1, Material.ICE);
         fishingColdOcean.put(2, Material.PRISMARINE_SHARD);
         fishingColdOcean.put(3, Material.PRISMARINE_CRYSTALS);
+        fishingColdOcean.put(4, Material.INK_SAC);
+
     }
     public static final HashMap<Integer, Material> fishingFroznOcean = new HashMap<>();
     static {
         fishingFroznOcean.put(1, Material.ICE);
         fishingFroznOcean.put(2, Material.BLUE_ICE);
         fishingFroznOcean.put(3, Material.PACKED_ICE);
+        fishingColdOcean.put(4, Material.INK_SAC);
     }
 
     public static final HashMap<Integer, Material> fishingWarmOcean = new HashMap<>();
@@ -52,11 +55,13 @@ public class FishingLoot {
     static {
         fishingDripstoneCave.put(1, Material.POINTED_DRIPSTONE);
         fishingDripstoneCave.put(2, Material.DRIPSTONE_BLOCK);
+        fishingDripstoneCave.put(3, Material.GLOW_INK_SAC);
     }
     public static final HashMap<Integer, Material> fishingDeepDark = new HashMap<>();
     static {
         fishingDeepDark.put(1, Material.SCULK);
         fishingDeepDark.put(2, Material.SCULK_VEIN);
+        fishingDeepDark.put(3, Material.GLOW_INK_SAC);
         fishingDeepDark.put(4, Material.DEEPSLATE);
     }
     public static final HashMap<Integer, Material> fishingLushCave = new HashMap<>();
@@ -69,6 +74,7 @@ public class FishingLoot {
         fishingLushCave.put(6, Material.SMALL_DRIPLEAF);
         fishingLushCave.put(7, Material.AZALEA);
         fishingLushCave.put(8, Material.FLOWERING_AZALEA);
+        fishingLushCave.put(9, Material.GLOW_INK_SAC);
     }
 
 }

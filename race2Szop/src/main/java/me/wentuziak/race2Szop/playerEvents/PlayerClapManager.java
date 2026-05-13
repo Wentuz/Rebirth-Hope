@@ -7,6 +7,7 @@ import java.util.Set;
 
 import static me.wentuziak.race2Szop.RaceKeys.*;
 import static me.wentuziak.race2Szop.races.Enderian.throwPearlOrTeleport;
+import static me.wentuziak.race2Szop.races.Merfolk.onMerfolkClap;
 import static me.wentuziak.race2Szop.races.NetherFolk.netherFolkLevitation;
 import static me.wentuziak.race2Szop.races.Parrot.parrotJump;
 
@@ -19,6 +20,8 @@ public class PlayerClapManager {
             parrotJump(player);
         } else if (key.contains(NETHER_RACE)) {
             netherFolkLevitation(player);
+        } else if (key.contains(MERFOLK_RACE)) {
+            onMerfolkClap(player);
         }
     }
 

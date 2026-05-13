@@ -41,12 +41,11 @@ public class PlayerFishingManager {
 
         if (getLuckLevel(player) > randomInteger(500)){ //100
             // summon a mob
-            player.sendMessage("MOB");
             player.getWorld().spawnEntity(fishingBobber.getLocation(), EntityType.SALMON);
             return new ItemStack(Material.AIR, 1);
         }
 
-        if (getLuckLevel(player) > randomInteger(5) && fishMaterials.containsValue(material)){ //30
+        if (getLuckLevel(player) + 1 > randomInteger(8) && fishMaterials.containsValue(material)){ //30
             material = getLootMaterial(biome);
             //get treasure loot
         }

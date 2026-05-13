@@ -26,7 +26,8 @@ public class Checkers {
     public static boolean isPlayerWet(LivingEntity player){
 
         if (player.isInWater()) return true;
-        if (!player.getWorld().hasStorm() && !player.getWorld().isThundering() && isHotBiome(player.getWorld().getBiome(player.getLocation()))) return false;
+        if (isHotBiome(player.getWorld().getBiome(player.getLocation()))) return false;
+        if (!player.getWorld().hasStorm() && !player.getWorld().isThundering()) return false;
         return !isPlayerHiddenFromSun((Player) player);
     }
 
