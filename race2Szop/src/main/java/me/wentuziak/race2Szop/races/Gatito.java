@@ -72,7 +72,6 @@ public class Gatito implements Race{
     public static ItemStack gatitoAdditionalFishManager(){
         ItemStack item = new ItemStack(Material.GOLD_INGOT);
         Material material = switch (randomInteger(10)) {
-            case 0 -> Material.CAKE;
             case 1 -> Material.PRISMARINE_CRYSTALS;
             case 2 -> Material.PRISMARINE_SHARD;
             case 3 -> Material.AMETHYST_SHARD;
@@ -81,9 +80,10 @@ public class Gatito implements Race{
             case 6 -> Material.QUARTZ;
             case 7 -> Material.RAW_COPPER;
             case 8 -> Material.RAW_GOLD;
-            case 9 -> Material.RAW_IRON;
+            case 0 -> Material.RAW_IRON;
             default -> Material.SPECTRAL_ARROW;
         };
+        if (randomInteger(100) == 1) material = Material.CAKE;
         item.setType(material);
         return item;
     }

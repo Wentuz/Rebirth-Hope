@@ -18,9 +18,8 @@ public class Skelly implements Race {
     public static void burnSkellyOnSun(Player player){
         if (isDaytime(player.getWorld()) && !isPlayerHiddenFromSun(player) && !isPlayerWet(player)){
 
-            if (!Objects.requireNonNull(player.getInventory().getHelmet()).getType().equals(Material.AIR)){
-                player.setFireTicks(20 * 5);
-            }
+            player.setFireTicks(20 * 5);
+
         }else{
             player.setVisualFire(false);
         }

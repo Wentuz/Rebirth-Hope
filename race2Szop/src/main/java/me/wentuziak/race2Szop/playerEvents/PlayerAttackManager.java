@@ -29,7 +29,7 @@ public class PlayerAttackManager {
 
     public static void playerGetHurt(Player player, Set<NamespacedKey> raceKey){
         if (raceKey.contains(ENDERIAN_RACE)){
-            if (randomInteger(5) == 1) Enderian.onPlayerHurt(player);
+            if (randomInteger(10) == 1) Enderian.onPlayerHurt(player);
         }
     }
 
